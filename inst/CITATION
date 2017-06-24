@@ -1,0 +1,19 @@
+citHeader("To cite the 'immer' package in publications use:")
+
+year <- sub(".*(2[[:digit:]]{3})-.*", "\\1", meta$Date, perl = TRUE)
+vers <- paste("R package version", meta$Version)
+
+citEntry(entry="Manual",
+         title = "immer: Item response models for multiple ratings",
+         author = personList(as.person("Alexander Robitzsch"),
+			      as.person("Jan Steinfeld")	),
+         year = year,
+         note = vers,
+	 url = "https://CRAN.R-project.org/package=immer" ,
+         textVersion =
+         paste0("Robitzsch, A., & Steinfeld, J. (",  year,"). 
+               immer: Item response models for multiple ratings. ",
+               vers, 
+               ". https://CRAN.R-project.org/package=immer")
+               )
+
