@@ -1,3 +1,7 @@
+%% File Name: immer_agree2.Rd
+%% File Version: 0.12
+%% File Last Change: 2017-01-17 12:36:38
+
 \name{immer_agree2}
 \alias{immer_agree2}
 \alias{summary.immer_agree2}

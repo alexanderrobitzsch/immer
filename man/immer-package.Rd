@@ -1,3 +1,7 @@
+%% File Name: immer-package.Rd
+%% File Version: 0.38
+%% File Last Change: 2017-02-08 11:14:17
+
 \name{immer-package}
 \alias{immer-package}
 \alias{immer}

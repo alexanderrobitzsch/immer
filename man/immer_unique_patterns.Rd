@@ -1,3 +1,7 @@
+%% File Name: immer_unique_patterns.Rd
+%% File Version: 0.05
+%% File Last Change: 2017-01-17 12:36:39
+
 \name{immer_unique_patterns}
 \alias{immer_unique_patterns}
 %- Also NEED an '\alias' for EACH other topic documented here.

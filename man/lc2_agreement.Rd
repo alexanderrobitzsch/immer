@@ -1,3 +1,7 @@
+%% File Name: lc2_agreement.Rd
+%% File Version: 0.14
+%% File Last Change: 2017-01-17 12:36:39
+
 \name{lc2_agreement}
 \alias{lc2_agreement}
 \alias{summary.lc2_agreement}

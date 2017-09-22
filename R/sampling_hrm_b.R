@@ -1,3 +1,6 @@
+## File Name: sampling_hrm_b.R
+## File Version: 0.14
+## File Last Change: 2017-04-27 14:50:03
 
 #####################################################################
 # sampling of item parameters

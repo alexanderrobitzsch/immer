@@ -1,3 +1,7 @@
+%% File Name: immer_HRM.Rd
+%% File Version: 0.49
+%% File Last Change: 2017-01-19 10:30:51
+
 \name{immer_HRM}
 \alias{immer_HRM}
 \alias{summary.immer_HRM}

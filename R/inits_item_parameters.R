@@ -1,3 +1,6 @@
+## File Name: inits_item_parameters.R
+## File Version: 0.06
+## File Last Change: 2017-01-16 19:59:28
 
 ################################################
 # inits item parameters

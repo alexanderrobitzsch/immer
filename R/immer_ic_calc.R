@@ -1,3 +1,6 @@
+## File Name: immer_ic_calc.R
+## File Version: 0.04
+## File Last Change: 2017-01-16 19:59:27
 
 immer_IC_calc <- function(ic){
     	# AIC

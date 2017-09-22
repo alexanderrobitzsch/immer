@@ -1,3 +1,6 @@
+## File Name: lpcm_data_prep.R
+## File Version: 0.16
+## File Last Change: 2017-01-16 19:59:28
 
 ###################################################
 # data preparation function

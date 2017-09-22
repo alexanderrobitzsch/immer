@@ -1,3 +1,6 @@
+## File Name: immer_identifiers_relabel.R
+## File Version: 0.08
+## File Last Change: 2017-01-16 19:59:28
 
 ####################################################################
 immer_identifiers_relabel <- function( dat , pid , rater ){

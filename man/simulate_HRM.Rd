@@ -1,3 +1,7 @@
+%% File Name: simulate_HRM.Rd
+%% File Version: 0.08
+%% File Last Change: 2017-01-17 12:36:39
+
 \name{simulate_HRM}
 \alias{simulate_HRM}
 %- Also NEED an '\alias' for EACH other topic documented here.

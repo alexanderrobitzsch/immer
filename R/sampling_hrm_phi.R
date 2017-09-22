@@ -1,3 +1,6 @@
+## File Name: sampling_hrm_phi.R
+## File Version: 0.16
+## File Last Change: 2017-04-27 14:51:49
 
 ###########################################################
 # sampling phi parameters

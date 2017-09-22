@@ -1,3 +1,7 @@
+%% File Name: immer_FACETS.Rd
+%% File Version: 0.21
+%% File Last Change: 2017-01-17 12:40:44
+
 \name{immer_FACETS}
 \alias{immer_FACETS}
 \alias{summary.immer_FACETS}

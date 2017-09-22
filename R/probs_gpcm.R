@@ -1,3 +1,6 @@
+## File Name: probs_gpcm.R
+## File Version: 2.23
+## File Last Change: 2017-04-27 14:49:47
 
 ###****************
 # probs GPCM

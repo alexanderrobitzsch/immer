@@ -1,3 +1,7 @@
+%% File Name: immer_opcat.Rd
+%% File Version: 0.12
+%% File Last Change: 2017-01-17 12:36:39
+
 \name{immer_opcat}
 \alias{immer_opcat}
 %- Also NEED an '\alias' for EACH other topic documented here.

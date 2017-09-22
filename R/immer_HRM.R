@@ -1,3 +1,6 @@
+## File Name: immer_HRM.R
+## File Version: 0.901
+## File Last Change: 2017-01-18 18:41:45
 
 #####################################################
 # Hierarchical rater model Patz et al. (2002)

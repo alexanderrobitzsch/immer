@@ -1,3 +1,6 @@
+## File Name: immer_unique_patterns.R
+## File Version: 0.04
+## File Last Change: 2017-01-16 19:59:28
 ################################################################
 # extract unique item response patterns from dataset
 immer_unique_patterns <- function( dat , w = rep(1,nrow(dat) ) ){

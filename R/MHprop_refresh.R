@@ -1,3 +1,6 @@
+## File Name: MHprop_refresh.R
+## File Version: 0.10
+## File Last Change: 2017-01-16 19:59:28
 
 MHprop_refresh <- function( MHprop ){
 		vars <- MHprop$VARS_refreshing

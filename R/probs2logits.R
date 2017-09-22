@@ -1,3 +1,6 @@
+## File Name: probs2logits.R
+## File Version: 0.04
+## File Last Change: 2017-01-16 19:59:28
 ###########################################
 # converts probabilities to logits
 probs2logits <- function(probs){

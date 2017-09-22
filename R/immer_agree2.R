@@ -1,3 +1,6 @@
+## File Name: immer_agree2.R
+## File Version: 0.06
+## File Last Change: 2017-01-16 19:59:27
 
 ###########################################
 # agreement statistics for two raters

@@ -1,3 +1,6 @@
+## File Name: sampling_hrm_psi.R
+## File Version: 0.22
+## File Last Change: 2017-01-18 19:06:55
 
 ###########################################################
 # sampling psi parameters

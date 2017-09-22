@@ -1,3 +1,6 @@
+## File Name: agree_aicken.R
+## File Version: 0.04
+## File Last Change: 2017-01-16 19:59:27
 
 #################################
 # algorithm for Aicken's statistic
