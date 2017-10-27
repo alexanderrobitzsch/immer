@@ -1,6 +1,5 @@
 %% File Name: probs2logits.Rd
 %% File Version: 0.06
-%% File Last Change: 2017-01-17 12:41:48
 
 \name{probs2logits}
 \alias{probs2logits}

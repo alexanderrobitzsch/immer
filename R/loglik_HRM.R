@@ -1,6 +1,5 @@
 ## File Name: loglik_HRM.R
 ## File Version: 0.08
-## File Last Change: 2017-01-16 19:59:28
 
 ##############################################################
 # log likelihood in the HRM

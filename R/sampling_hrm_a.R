@@ -1,11 +1,11 @@
 ## File Name: sampling_hrm_a.R
-## File Version: 0.13
-## File Last Change: 2017-04-27 14:50:38
+## File Version: 0.14
 
 #####################################################################
 # sampling of item parameters
 sampling_hrm_a <- function( xi , xi_ind  , b , a , maxK , prior , MHprop , I , 
-		theta , eps=1E-20 ){
+		theta , eps=1E-20, useRcpp=TRUE )
+{
 	# refresh count
 	MHprop$refresh_count$a <- MHprop$refresh_count$a + 1	
 	for (ii in 1:I ){

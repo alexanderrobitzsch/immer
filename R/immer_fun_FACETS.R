@@ -1,6 +1,5 @@
 ## File Name: immer_fun_FACETS.R
 ## File Version: 0.02
-## File Last Change: 2017-01-16 19:59:27
 # Functions for immer_FACETS
 
 # 1. Check if no name is longer than 8 bits (and 3 bits for its extension)

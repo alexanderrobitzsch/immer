@@ -1,6 +1,5 @@
 //// File Name: HRM_fcts.cpp
 //// File Version: 0.24
-//// File Last Change: 2017-02-08 15:57:03
 
 
 // [[Rcpp::depends(RcppArmadillo)]]

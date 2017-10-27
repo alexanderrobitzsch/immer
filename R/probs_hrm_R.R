@@ -1,6 +1,5 @@
 ## File Name: probs_hrm_R.R
 ## File Version: 0.11
-## File Last Change: 2017-01-18 18:46:02
 
 ######################################################################
 probs_hrm_R <- function( x , xi , phi , psi , K , x_ind = NULL ){

@@ -1,6 +1,5 @@
 ## File Name: lc2_agreement.R
 ## File Version: 0.22
-## File Last Change: 2017-01-16 19:59:28
 
 ######################################################
 # latent class agreement

@@ -1,11 +1,11 @@
 ## File Name: immer_agree2.R
-## File Version: 0.06
-## File Last Change: 2017-01-16 19:59:27
+## File Version: 0.07
 
 ###########################################
 # agreement statistics for two raters
 immer_agree2 <- function( y , w = rep(1,nrow(y) ) ,
-		symmetrize = FALSE , tol= c(0,1) ){		
+		symmetrize = FALSE , tol= c(0,1) )
+{		
 	CALL <- match.call()
 	res <- immer_unique_patterns( dat = y , w=w )
 	y <- res$y
@@ -42,9 +42,8 @@ immer_agree2 <- function( y , w = rep(1,nrow(y) ) ,
 	agree_raw <- rep(NA,TT)
 	names(agree_raw) <- paste0("tol" , tol)
 	for (tt in 1:TT){
-		# tt <- 1
 		agree_raw[tt] <- sum( w0[ abs( y[,1] - y[,2] ) <= tol[tt] ]  )
-					}
+	}
 
 	#*** marginal probabilities
 	marg <- matrix( 0 , nrow=3 , ncol=CC)
@@ -85,7 +84,7 @@ immer_agree2 <- function( y , w = rep(1,nrow(y) ) ,
 
 	#*****
 	agree_stats <- ( Pa - Pe ) / ( 1 - Pe )
-		
+
 	#-----
 	# output
 	res <- list( "agree_raw" = agree_raw ,

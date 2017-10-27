@@ -1,6 +1,5 @@
 ## File Name: sampling_hrm_xi_item.R
 ## File Version: 0.11
-## File Last Change: 2017-01-18 20:14:33
 
 
 ##############################################################

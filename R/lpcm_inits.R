@@ -1,6 +1,5 @@
 ## File Name: lpcm_inits.R
 ## File Version: 0.06
-## File Last Change: 2017-01-16 19:59:28
 
 ########################################################
 # lpcm initial parameters

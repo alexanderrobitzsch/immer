@@ -1,6 +1,5 @@
 %% File Name: immer_reshape_wideformat.Rd
 %% File Version: 0.13
-%% File Last Change: 2017-01-17 12:37:19
 
 \name{immer_reshape_wideformat}
 \alias{immer_reshape_wideformat}

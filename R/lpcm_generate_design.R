@@ -1,6 +1,5 @@
 ## File Name: lpcm_generate_design.R
 ## File Version: 0.12
-## File Last Change: 2017-01-16 19:59:28
 
 ################################################
 # design matrix LPCM

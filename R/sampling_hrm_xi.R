@@ -1,6 +1,5 @@
 ## File Name: sampling_hrm_xi.R
 ## File Version: 3.39
-## File Last Change: 2017-01-18 20:15:02
 
 ######################################################
 # sample complete xi data frame

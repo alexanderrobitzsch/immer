@@ -1,6 +1,5 @@
 ## File Name: summary.immer_HRM.R
 ## File Version: 0.10
-## File Last Change: 2017-01-16 19:59:28
 
 
 #*******************************************************

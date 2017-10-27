@@ -1,6 +1,5 @@
 ## File Name: IRT.likelihood.immer_HRM.R
 ## File Version: 0.04
-## File Last Change: 2017-01-16 19:59:28
 
 
 

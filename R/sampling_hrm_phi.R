@@ -1,6 +1,5 @@
 ## File Name: sampling_hrm_phi.R
 ## File Version: 0.16
-## File Last Change: 2017-04-27 14:51:49
 
 ###########################################################
 # sampling phi parameters
@@ -17,8 +16,7 @@ sampling_hrm_phi <- function( dat , dat_ind , maxK , R , rater , pid , phi , psi
 	if ( est.phi != "n" )
 	{
 		for (ii in 1:I)
-		{
-			# ii <- 1				
+		{			
 			if ( est.phi=="a")
 			{
 				phi_new <- phi_old <- phi

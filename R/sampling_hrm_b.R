@@ -1,17 +1,15 @@
 ## File Name: sampling_hrm_b.R
-## File Version: 0.14
-## File Last Change: 2017-04-27 14:50:03
+## File Version: 0.15
 
 #####################################################################
 # sampling of item parameters
 sampling_hrm_b <- function( xi , xi_ind  , b , a , maxK , prior , MHprop , I , 
-		theta , useRcpp , eps=1E-20 ){
+		theta , useRcpp , eps=1E-20 )
+{
 	# refresh count
 	MHprop$refresh_count$b <- MHprop$refresh_count$b + 1	
 	for (ii in 1:I ){
 	   for (kk in seq(1,maxK[ii]) ){
-#			ii <- 1
-#			kk <- 1
 			b_new <- b_old <- b
 			b_new[ii,kk] <- stats::rnorm( 1 , mean= b_old[ii,kk] , sd = MHprop$SD$b[ii,kk] )
 			p_new <- stats::dnorm( b_new[ii,kk] , mean = prior$b$M[ii,kk] , sd = prior$b$SD[ii,kk] ) 

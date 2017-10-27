@@ -1,6 +1,5 @@
 ## File Name: immer_mcmc_draw_variance.R
 ## File Version: 0.06
-## File Last Change: 2017-06-23 15:12:00
 
 
 ###################################################################

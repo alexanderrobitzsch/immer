@@ -1,6 +1,5 @@
 ## File Name: probs_gpcm_R.R
 ## File Version: 0.11
-## File Last Change: 2017-01-18 18:50:09
 
 
 #*****************

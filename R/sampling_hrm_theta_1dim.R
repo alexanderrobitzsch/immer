@@ -1,6 +1,5 @@
 ## File Name: sampling_hrm_theta_1dim.R
 ## File Version: 0.07
-## File Last Change: 2017-01-16 19:59:28
 
 ################################################
 # simulation theta values
