@@ -58,13 +58,14 @@ https://sites.google.com/site/alexanderrobitzsch/software
 
 
 ------------------------------------------------------------
-VERSIONS immer 1.0  |  2017-10-27  |  Last: immer 1.0-12
+VERSIONS immer 1.0  |  2017-11-20  |  Last: immer 1.0-31
 ------------------------------------------------------------
 
-ADDED * ---
+ADDED * include joint maximum likelihood estimation function
+        'immer_jml' with epsilon-adjustment for bias correction
 
 DATA  * included/modified datasets: ---
-EXAMP * included/modified examples: ---
+EXAMP * included/modified examples: immer_jml (1)
 
 
 

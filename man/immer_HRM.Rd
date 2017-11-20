@@ -1,5 +1,5 @@
 %% File Name: immer_HRM.Rd
-%% File Version: 0.49
+%% File Version: 0.51
 
 \name{immer_HRM}
 \alias{immer_HRM}
@@ -24,7 +24,7 @@ Markov Chain Monte Carlo using a Metropolis-Hastings algorithm.
 \usage{
 immer_HRM(dat, pid, rater, iter, burnin, N.save=3000, prior=NULL,  est.a = FALSE , 
            est.sigma = TRUE ,  est.mu = FALSE , est.phi = "a" , est.psi = "a" , 
-           MHprop=NULL, theta_like = seq(-10,10,len=30) )
+           MHprop=NULL, theta_like = seq(-10,10,len=30), print_iter=20 )
 
 \method{summary}{immer_HRM}(object,digits=3,...)
 
@@ -82,6 +82,8 @@ proposal distribution is adaptively computed (Browne & Draper, 2000).
 }
 \item{theta_like}{Grid of \eqn{\theta} values to be used for likelihood
 approximation}
+\item{print_iter}{Integer indicating that after each \code{print_iter}th
+iteration output on the console should be displayed.}
 \item{object}{Object of class \code{immer_HRM}}
 \item{digits}{Number of digits after decimal to print}
 \item{x}{Object of class \code{immer_HRM}}

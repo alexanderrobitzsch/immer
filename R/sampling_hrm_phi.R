@@ -1,5 +1,5 @@
 ## File Name: sampling_hrm_phi.R
-## File Version: 0.16
+## File Version: 0.17
 
 ###########################################################
 # sampling phi parameters
@@ -68,7 +68,6 @@ sampling_hrm_phi <- function( dat , dat_ind , maxK , R , rater , pid , phi , psi
 			}  # end est.phi == "a"										
 		}  # end ii
 		####****
-		# if est.phi == "r"
 		if ( est.phi == "r" ){	
 			for (rr in 1:R){
 				ratio[rr] <- exp(ratio1[rr]) 

@@ -1,19 +1,20 @@
 ## File Name: inits_theta_1dim.R
-## File Version: 0.06
+## File Version: 0.07
 
 #####################################################################
-inits_theta_1dim <- function( dat.resp , pid , eps=.05 ){
-	N <- length( unique( pid ) )
+inits_theta_1dim <- function( dat , pid , eps=.05 )
+{
+	N <- length(unique(pid))
 	# initial values
-	maxK <- apply( dat.resp ,2 , max , na.rm=TRUE )
-	I <- ncol(dat.resp)
+	maxK <- apply( dat, 2, max, na.rm=TRUE )
+	I <- ncol(dat)
 	K <- max(maxK)
 	# ability inits
-	theta <- stats::aggregate( dat.resp , list(pid) , mean , na.rm=TRUE )[,-1] 
-	theta <- theta / matrix( maxK , nrow=N , ncol=I , byrow=TRUE )
-	theta <- rowMeans(theta , na.rm=TRUE)
+	theta <- stats::aggregate( dat, list(pid), mean, na.rm=TRUE )[,-1] 
+	theta <- theta / matrix( maxK, nrow=N, ncol=I, byrow=TRUE )
+	theta <- rowMeans(theta, na.rm=TRUE)
 	theta <- ( theta + eps ) / ( 1 + 2*eps )
-	theta <- stats::qlogis( theta )
+	theta <- stats::qlogis(theta)
 	return(theta)
 }
 #####################################################################		

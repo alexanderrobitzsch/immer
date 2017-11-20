@@ -1,14 +1,12 @@
 ## File Name: immer_HRM.R
-## File Version: 0.905
+## File Version: 0.926
 
 #####################################################
 # Hierarchical rater model Patz et al. (2002)
 immer_HRM <- function( dat , pid , rater , 
-			      iter ,  burnin , N.save = 3000 , prior=NULL , 
-				  est.a = FALSE , est.sigma = TRUE , 
-				  est.mu = FALSE , est.phi = "a" , est.psi = "a" ,  
-				  MHprop=NULL  ,
-				  theta_like = seq( -10 , 10 , len=30) )
+					iter ,  burnin , N.save = 3000 , prior=NULL , 
+					est.a = FALSE , est.sigma = TRUE , est.mu = FALSE , est.phi = "a" , est.psi = "a",
+					MHprop=NULL, theta_like = seq( -10 , 10 , len=30), print_iter=20 )
 {
 
 	time <- list( "start" = Sys.time() )	
@@ -17,7 +15,7 @@ immer_HRM <- function( dat , pid , rater ,
 
 	#************************************
 	# rater and person identifiers
-	res0 <- immer_identifiers_relabel( dat , pid , rater )		
+	res0 <- immer_identifiers_relabel( dat=dat, pid=pid, rater=rater ) 
 	rater <- res0$rater
 	pid <- res0$pid		
 	dat <- res0$dat		
@@ -27,9 +25,9 @@ immer_HRM <- function( dat , pid , rater ,
 	rater_pars0 <- res0$rater_pars0
 
 	#************************************
-	# inits						
+	# inits	
 	# inits theta parameters
-	theta <- inits_theta_1dim( dat , pid , eps=.05 )
+	theta <- inits_theta_1dim( dat=dat, pid=pid, eps=.05 ) 
 	N <- length(theta)
 
 	# parameters settings
@@ -40,16 +38,15 @@ immer_HRM <- function( dat , pid , rater ,
 						est.phi = est.phi , est.psi = est.psi )
 
 	# inits item parameters
-	res0 <- inits_itempars( dat , prior)
+	res0 <- inits_itempars( dat=dat, prior=prior ) 
 	b <- res0$b
 	a <- res0$a
 	K <- res0$K
 	I <- res0$I
 	maxK <- res0$maxK
 
-
 	# inits rater parameters HRM
-	res0 <- inits_raterpars_hrm( rater , I , est_settings )
+	res0 <- inits_raterpars_hrm( rater=rater, I=I, est_settings=est_settings ) 
 	phi <- res0$phi
 	psi <- res0$psi
 	R <- res0$R
@@ -60,7 +57,7 @@ immer_HRM <- function( dat , pid , rater ,
 
 	#*********************************************
 	# prior parameters			
-	prior <- prior_hrm( prior , b , a , phi , est_settings )	
+	prior <- prior_hrm( prior=prior, b=b, a=a, phi=phi, est_settings=est_settings ) 
 	sigma <- sqrt( prior$sigma2$sig02 )
 	mu <- prior$mu$M
 
@@ -88,8 +85,7 @@ immer_HRM <- function( dat , pid , rater ,
 
 	#**********************************************
 	# Metropolis-Hastings tuning		
-	MHprop <- MHprop_hrm( MHprop , b , a , phi , theta , iter , burnin )
-		
+	MHprop <- MHprop_hrm( MHprop=MHprop, b=b, a=a, phi=phi, theta=theta, iter=iter, burnin=burnin ) 
 
 	#********************************************
 	#  ITERATIONS
@@ -99,66 +95,61 @@ immer_HRM <- function( dat , pid , rater ,
 	eps <- 1E-20
 	eps11 <- 1E-7
 	dat <- as.matrix(dat)
-	dat_ind <- as.matrix( dat_ind )
-	maxcat <- max( maxK )
+	dat_ind <- as.matrix(dat_ind)
+	maxcat <- max(maxK)
 	b <- as.matrix(b)
 	phi <- as.matrix(phi)
 	psi <- as.matrix(psi)
-	xi_ind <- as.matrix( xi_ind )
-
+	xi_ind <- as.matrix(xi_ind)
+	
 	for ( it in seq(1,iter) ){
 		#**** sample xsi
-		xi <- sampling_hrm_xi( dat , theta , b , a , phi , psi , K  , pid , rater ,  ND ,
-					 dat_ind , N , I , maxK , useRcpp , xi_ind )
-
-# cat("samp xsi") ; a1 <- Sys.time(); print(a1-a0) ; a0 <- a1
+		xi <- sampling_hrm_xi( dat=dat, theta=theta, b=b, a=a, phi=phi, psi=psi, K=K, pid=pid, 
+					rater=rater, ND=ND, dat_ind=dat_ind, N=N, I=I, maxK=maxK, useRcpp=useRcpp, xi_ind=xi_ind ) 
 
 		#**** sample b
-		res0 <- sampling_hrm_b( xi , xi_ind  , b , a , maxK ,  prior , MHprop , I  , theta , useRcpp )
+		res0 <- sampling_hrm_b( xi=xi, xi_ind=xi_ind, b=b, a=a, maxK=maxK, prior=prior, MHprop=MHprop, I=I, 
+						theta=theta, useRcpp=useRcpp ) 
 		b <- res0$b
 		MHprop <- res0$MHprop
-# cat("samp b") ; a1 <- Sys.time(); print(a1-a0) ; a0 <- a1
 		
 		#**** sample a
-		res0 <- sampling_hrm_a( xi , xi_ind  , b , a , maxK ,  prior , MHprop , I , theta, useRcpp )
+        res0 <- sampling_hrm_a( xi=xi, xi_ind=xi_ind, b=b, a=a, maxK=maxK, prior=prior, MHprop=MHprop, 
+						I=I, theta=theta, useRcpp=useRcpp ) 
 		a <- res0$a
 		MHprop <- res0$MHprop
 
-# cat("samp a") ; a1 <- Sys.time(); print(a1-a0) ; a0 <- a1			
-
 		#**** sample phi
-		res0 <- sampling_hrm_phi( dat , dat_ind , maxK , R , rater , pid , phi , psi ,
-					      prior , MHprop , I , xi , useRcpp , est_settings )
+		res0 <- sampling_hrm_phi( dat=dat, dat_ind=dat_ind, maxK=maxK, R=R, rater=rater, pid=pid, 
+						phi=phi, psi=psi, prior=prior, MHprop=MHprop, I=I, xi=xi, useRcpp=useRcpp, 
+						est_settings=est_settings ) 
 		phi <- res0$phi
 		MHprop <- res0$MHprop
 
-# cat("samp phi") ; a1 <- Sys.time(); print(a1-a0) ; a0 <- a1
-
 		#**** sample psi
-		res0 <- sampling_hrm_psi( dat , dat_ind , maxK , R , rater , pid , phi , psi ,
-				prior , MHprop , I , xi , useRcpp , est_settings )
+		res0 <- sampling_hrm_psi( dat=dat, dat_ind=dat_ind, maxK=maxK, R=R, rater=rater, pid=pid, 
+						phi=phi, psi=psi, prior=prior, MHprop=MHprop, I=I, xi=xi, useRcpp=useRcpp, 
+						est_settings=est_settings ) 
 		psi <- res0$psi
 		MHprop <- res0$MHprop
-
-# cat("samp psi") ; a1 <- Sys.time(); print(a1-a0) ; a0 <- a1
 
 		#**** sample theta
 		mu_theta <- rep( mu ,N)
 		SD_theta <- rep( sigma ,N)	
-		res0 <- sampling_hrm_theta_1dim( theta , N , I , maxK , a , b , xi , xi_ind , 
-							dat , dat_ind , pid , MHprop , mu_theta , SD_theta , useRcpp , eps=1E-20 )
+		res0 <- sampling_hrm_theta_1dim( theta=theta, N=N, I=I, maxK=maxK, a=a, b=b, xi=xi, xi_ind=xi_ind, 
+						dat=dat, dat_ind=dat_ind, pid=pid, MHprop=MHprop, mu_theta=mu_theta, 
+						SD_theta=SD_theta, useRcpp=useRcpp, eps=1E-20 ) 
 		theta <- res0$theta
 		MHprop <- res0$MHprop
-# cat("samp theta") ; a1 <- Sys.time(); print(a1-a0) ; a0 <- a1
 
 		# sampling of mu
-		mu <- sampling_hrm_mu_1dim( theta , prior , N )
+		mu <- sampling_hrm_mu_1dim( theta=theta, prior=prior, N=N ) 
+
 		# sampling of sigma
 		sigma <-  sqrt( immer_mcmc_draw_variance( 1 , w0 =prior$sigma2$w0 , 
 						sig02=prior$sigma2$sig02 , n=N , sig2= stats::var(theta) ) )
 
-
-		#-------------- OUTPUT
+						#-------------- OUTPUT
 		if ( it %in% save_list ){
 			bM[ ,, bb ] <- b
 			aM[,bb] <- a
@@ -172,21 +163,18 @@ immer_HRM <- function( dat , pid , rater ,
 			ND <- nrow(dat)
 			#***
 			# calculate deviance
-			if (FALSE){				
-				dev <- 1			
-				theta0 <- theta[ pid ]				
+			if (FALSE){
+				dev <- 1
+				theta0 <- theta[ pid ]
 				for (ii in 1:I){
-					# ii <- 1
-					K_ii <- maxK[ii]					
+					K_ii <- maxK[ii]
 					pr_tot <- 0
 					for (hh in seq(0,K_ii) ){
-						# hh <- 1     # category hh for item ii and theta tt
 						x0 <- rep(hh,ND)		
 						pr1_hh <- probs_gpcm( x=x0 , theta= theta0 , b = as.numeric(b[ii,]) , a = a[ii] , 
 									K = K_ii , useRcpp=FALSE)		
-						pr2_x <- probs_hrm( x = dat[,ii] , xi = x0 , 
-									phi= phi[ ii,rater ]  , psi = psi[ ii , rater ] ,
-										K = K_ii , useRcpp=FALSE )
+						pr2_x <- probs_hrm( x = dat[,ii], xi = x0, phi= phi[ ii,rater ], 
+									psi = psi[ ii , rater ], K = K_ii , useRcpp=FALSE )
 						pr_tot <- pr_tot + pr1_hh * pr2_x
 					}
 					dev <- ifelse( dat_ind[,ii] == 1 , dev*pr_tot , dev )
@@ -200,15 +188,17 @@ immer_HRM <- function( dat , pid , rater ,
 				
 
 		#------- update MH parameters
-		if ( sum( MHprop$ITER_refreshing %in% it ) > 0  ){			
+		if ( sum( MHprop$ITER_refreshing %in% it ) > 0  ){	
 			MHprop <- MHprop_refresh( MHprop )
-		}			
+		}
 
-		if ( it %% 20 == 0 ){
+		if ( it %% print_iter == 0 ){
 			cat("Iteration " , it , "\n")
 			utils::flush.console()
 		}
 	}
+	#------------- end iterations
+	
 	#**********************************************
 	# arrange output		
 
@@ -223,7 +213,7 @@ immer_HRM <- function( dat , pid , rater ,
 	for (ii in 1:I){
 		dfr <- data.frame( 
 				"phi" = apply( phiM[ii,,] , 1 , mean , na.rm=TRUE ) ,
-				"psi" = apply( psiM[ii,,] , 1 , mean  , na.rm=TRUE ) 						
+				"psi" = apply( psiM[ii,,] , 1 , mean  , na.rm=TRUE ) 
 					)
 		rater_pars <- rbind( rater_pars , dfr )			
 	}
@@ -238,8 +228,7 @@ immer_HRM <- function( dat , pid , rater ,
 	EAP.rel <- stats::var( person$EAP ) / 
 		                ( stats::var( person$EAP ) + mean( person$SD.EAP^2 ) )
 	# information criteria
-	ic <- list( N=N , I=I , R=R , ND = nrow(dat) , maxK=maxK , K = K )		
-	time$end <- Sys.time()		
+	ic <- list( N=N , I=I , R=R , ND = nrow(dat) , maxK=maxK , K = K )				
 
 	# list with all traces
 	traces <- list( b = bM , a = aM , phi=phiM , psi=psiM , mu=muM , 
@@ -250,7 +239,7 @@ immer_HRM <- function( dat , pid , rater ,
     iter -> attr( traces , "iter" )
 
 	# collect traces and produce MCMC summary
-	res11 <- immer_collect_traces( traces , est_settings  )
+	res11 <- immer_collect_traces( traces=traces, est_settings=est_settings ) 
 	summary.mcmcobj <- sirt::mcmc.list.descriptives( res11$mcmcobj )
 
 	#******
@@ -271,17 +260,17 @@ immer_HRM <- function( dat , pid , rater ,
 	est_pars$sigma <- mean(sigmaM)		
 
 	#****
-# compute likelihood and posterior
-	res_ll <- loglik_HRM( dat , dat_ind , est_pars , theta_like ,
-							rater , pid , maxK  )						
+	# compute likelihood and posterior
+	res_ll <- loglik_HRM( dat=dat, dat_ind=dat_ind, est_pars=est_pars, theta_like=theta_like, 
+							rater=rater, pid=pid, maxK=maxK )
 
-	#*****
 	# add information criteria
 	ic$dev <- -2*res_ll$ll
-	ic <- immer_ic_hrm( ic , summary.mcmcobj )
-
+	ic <- immer_ic_hrm( ic=ic, summary.mcmcobj=summary.mcmcobj ) 
+			
 	#*****
 	# output list
+	time$end <- Sys.time()
 	res <- list( person = person , item = item , rater_pars = rater_pars , 
 						est_pars = est_pars , 
 						sigma = est_pars$sigma , mu = est_pars$mu , 
@@ -290,13 +279,13 @@ immer_HRM <- function( dat , pid , rater ,
 						EAP.rel = EAP.rel , ic = ic ,  
 						f.yi.qk = res_ll$f.yi.qk , f.qk.yi = res_ll$f.qk.yi ,
 						theta_like = theta_like , pi.k = res_ll$pi.k , 
-						like = res_ll$ll , 						
+						like = res_ll$ll, 
 						traces = traces ,
    					    MHprop = MHprop , prior = prior , est_settings = est_settings , 
 						N.save = BB , 
 						iter = iter , burnin=burnin , time=time , CALL = CALL)
-	res$description <- "Function 'immer_HRM' | Hierarchical Rater Model (Patz et al., 2002)" 					
+	res$description <- "Function 'immer_HRM' | Hierarchical Rater Model (Patz et al., 2002)" 
 	class(res) <- "immer_HRM"
 	return(res)
 }
-#############################################################################			
+#############################################################################
