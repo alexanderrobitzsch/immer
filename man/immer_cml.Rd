@@ -1,11 +1,13 @@
 %% File Name: immer_cml.Rd
-%% File Version: 0.32
+%% File Version: 0.34
 
 \name{immer_cml}
 \alias{immer_cml}
 \alias{summary.immer_cml}
 \alias{logLik.immer_cml}
 \alias{anova.immer_cml}
+\alias{coef.immer_cml}
+\alias{vcov.immer_cml}
 
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
@@ -26,11 +28,15 @@ immer_cml(dat, weights = NULL, W = NULL, b_const = NULL, par_init = NULL,
     a = NULL, irtmodel = NULL, normalization = "first", nullcats = "zeroprob", 
     diff = FALSE, ...)
 
-\method{summary}{immer_cml}(object,digits=3,...)
+\method{summary}{immer_cml}(object, digits=3, file=NULL, ...)
 
 \method{logLik}{immer_cml}(object,...)
 
 \method{anova}{immer_cml}(object,...)
+
+\method{coef}{immer_cml}(object,...)
+
+\method{vcov}{immer_cml}(object,...)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -77,6 +83,7 @@ Further arguments to be passed to \code{\link[stats:optim]{stats::optim}}.
 }
 \item{object}{Object of class \code{immer_cml}}
 \item{digits}{Number of digits after decimal to be rounded.}
+\item{file}{Name of a file in which the output should be sunk}
 }
 
 \details{
@@ -319,8 +326,8 @@ res <- immer:::lpcm_data_prep( dat , weights=NULL , a=NULL )
 pi2 <- res$pars_info
 
 # create design matrix with some restrictions on item parameters
-W <- matrix( 0 , nrow=nrow(pi2) , ncol=2 )
-colnames(W) <- c( "P2" , "P3" )
+W <- matrix( 0, nrow=nrow(pi2) , ncol=2 )
+colnames(W) <- c( "P2", "P3" )
 rownames(W) <- res$parnames
 
 # joint item parameter for items I19 and I20 fixed at zero
@@ -355,9 +362,9 @@ colnames(W) <- c( "Cat1" , "Cat2" , "Cat3" , "R1" , "R2" )
 # define item parameters
 W[ cbind( pars_info$index , pars_info$cat ) ] <- 1
 # define rater parameters
-W[ paste(pars_info$item) == "R1" , "R1" ] <- 1
-W[ paste(pars_info$item) == "R2" , "R2" ] <- 1
-W[ paste(pars_info$item) == "R3" , c("R1","R2") ] <- -1
+W[ paste(pars_info$item) == "R1", "R1" ] <- 1
+W[ paste(pars_info$item) == "R2", "R2" ] <- 1
+W[ paste(pars_info$item) == "R3", c("R1","R2") ] <- -1
 # set parameter of first category to zero for identification constraints
 W <- W[,-1]
 

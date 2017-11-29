@@ -1,5 +1,5 @@
 ## File Name: anova_immer.R
-## File Version: 0.14
+## File Version: 0.16
 
 ##############################################################
 # anova method immer_cml
@@ -14,12 +14,12 @@ anova_immer <- function( object , ... )
 	model2 <- objects[[2]]
 
 	# define some necessary parameters
-    model1$loglike <- model1$loglike
+	model1$loglike <- model1$loglike
 	model1$Npars <- model1$npars
-    model2$loglike <- model2$loglike
+	model2$loglike <- model2$loglike
 	model2$Npars <- model2$npars
 	# test
-    dfr1 <- data.frame( "Model" = cl2[1] , 
+	dfr1 <- data.frame( "Model" = cl2[1] , 
 				"loglike" = model1$loglike , 
 				"Deviance" = -2*model1$loglike )
 	dfr1$Npars <- sum(model1$Npars)

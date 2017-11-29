@@ -58,11 +58,13 @@ https://sites.google.com/site/alexanderrobitzsch/software
 
 
 ------------------------------------------------------------
-VERSIONS immer 1.0  |  2017-11-20  |  Last: immer 1.0-31
+VERSIONS immer 1.0  |  2017-11-29  |  Last: immer 1.0-59
 ------------------------------------------------------------
 
 ADDED * include joint maximum likelihood estimation function
-        'immer_jml' with epsilon-adjustment for bias correction
+        immer_jml() with epsilon-adjustment for bias correction
+NOTE  * included argument 'file' in summary() method of
+        immer_HRM() and immer_cml()
 
 DATA  * included/modified datasets: ---
 EXAMP * included/modified examples: immer_jml (1)
@@ -76,7 +78,8 @@ VERSIONS immer 0.8  |  2017-04-27  |  Last: immer 0.8-5
 ADDED * included registration of native routines and disabling
         symbol search according to CRAN policies
 
-DATA  * included/modified datasets: ---
+DATA  * included/modified datasets: data.ptam1, data.ptam2, 
+        data.ptam3
 EXAMP * included/modified examples: ---
 
 ----------------------------------------------------------

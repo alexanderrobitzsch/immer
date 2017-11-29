@@ -1,5 +1,5 @@
 ## File Name: immer_cml.R
-## File Version: 0.25
+## File Version: 0.26
 
 ########################################################
 # CML function in immer package
@@ -87,7 +87,7 @@ immer_cml <- function( dat , weights=NULL , W=NULL , b_const=NULL ,
 	#-----------------
 	# optim	
 	opt <- stats::optim(par = par_init , fn = cloglik, gr = agrad, method = "BFGS",
-					   hessian = TRUE , ... )
+						hessian = TRUE , ... )
 
 	#-----------------
 	# summaries

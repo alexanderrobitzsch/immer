@@ -1,5 +1,5 @@
 ## File Name: sampling_hrm_phi.R
-## File Version: 0.17
+## File Version: 0.18
 
 ###########################################################
 # sampling phi parameters
@@ -65,7 +65,7 @@ sampling_hrm_phi <- function( dat , dat_ind , maxK , R , rater , pid , phi , psi
 									phi[ii,rr] <- phi_new[ii,rr]
 					}
 				}  # end rr
-			}  # end est.phi == "a"										
+			}  # end est.phi == "a"
 		}  # end ii
 		####****
 		if ( est.phi == "r" ){	
@@ -79,8 +79,8 @@ sampling_hrm_phi <- function( dat , dat_ind , maxK , R , rater , pid , phi , psi
 					phi[1:I,rr] <- phi_new[1:I,rr]
 				}
 			}  # end rr
-		}  # end est.phi == "r"																		
+		}  # end est.phi == "r"	
 	}  
 	res <- list( phi = phi , MHprop = MHprop )
-    return(res)				
+	return(res)	
 }

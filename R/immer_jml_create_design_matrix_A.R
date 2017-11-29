@@ -1,5 +1,5 @@
 ## File Name: immer_jml_create_design_matrix_A.R
-## File Version: 0.04
+## File Version: 0.11
 
 immer_jml_create_design_matrix_A <- function( maxK, A, b_fixed, irtmodel, NA_val=99)
 {

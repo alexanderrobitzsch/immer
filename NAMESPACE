@@ -45,23 +45,32 @@ importFrom(utils, unzip)
 #***************************************************
 #************** Depends ****************************
 
+#---
 
 
 #***************************************************
-#************** Imports ****************************
+#************** Imports (own) **********************
 
+importFrom(CDM, csink)
 importFrom(CDM, IRT.anova)
 importFrom(CDM, IRT.likelihood)
 importFrom(CDM, IRT.posterior)
-importFrom(coda, as.mcmc.list)
-importFrom(psychotools, elementary_symmetric_functions)
+importFrom(CDM, osink)
 importFrom(sirt, mcmc.list.descriptives)
 importFrom(sirt, md.pattern.sirt)
 importFrom(sirt, rowCumsums.sirt)
 importFrom(sirt, rowIntervalIndex.sirt)
+importFrom(sirt, sirt_summary_print_package_rsession)
+importFrom(sirt, sirt_summary_print_objects)
 importFrom(TAM, tam_matrix2)
 
 
+
+#***************************************************
+#************** Imports (foreign) ******************
+
+importFrom(coda, as.mcmc.list)
+importFrom(psychotools, elementary_symmetric_functions)
 
 
 
@@ -92,6 +101,7 @@ export(simulate_HRM)
 S3method(anova, immer_cml)
 S3method(anova, immer_HRM)
 S3method(anova, lc2_agreement)
+S3method(coef, immer_cml)
 S3method(IRT.likelihood, immer_HRM)
 S3method(IRT.posterior, immer_HRM)
 S3method(logLik, immer_cml)
@@ -103,3 +113,4 @@ S3method(summary, immer_cml)
 S3method(summary, immer_jml)
 S3method(summary, immer_HRM)
 S3method(summary, lc2_agreement)
+S3method(vcov, immer_cml)

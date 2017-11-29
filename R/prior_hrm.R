@@ -1,10 +1,11 @@
 ## File Name: prior_hrm.R
-## File Version: 0.12
+## File Version: 0.14
 
 ##########################################################
 # prior distributions for HRM
-prior_hrm <- function( prior , b , a , phi ,est_settings ){
-    prior0 <- prior
+prior_hrm <- function( prior , b , a , phi ,est_settings )
+{
+	prior0 <- prior
 	est.a <- est_settings$est.a
 	est.sigma <- est_settings$est.sigma
 	est.mu <- est_settings$est.mu
@@ -23,8 +24,7 @@ prior_hrm <- function( prior , b , a , phi ,est_settings ){
 	} else {
 		prior$a$SD <- 5 + 0*a
 	}
-	
-	
+
 	# phi and psi parameters
 	prior$phi$M <- 0 + 0*phi
 	prior$psi$M <- .4 + 0*psi
@@ -41,7 +41,7 @@ prior_hrm <- function( prior , b , a , phi ,est_settings ){
 		prior$mu$SD <- 1E-10
 	} else {
 		prior$mu$SD <- 1E5
-	}		
+	}
 	if ( est.sigma ){
 		prior$sigma2$w0 <- .001
 	} else {
@@ -55,16 +55,15 @@ prior_hrm <- function( prior , b , a , phi ,est_settings ){
 		L1 <- length(prior0)
 		for (vv in 1:L1){  
 			# vv <- 1
-			vv_label <- names(prior0)[vv]		  
-			prior0.vv <- prior0[[vv]]		  
+			vv_label <- names(prior0)[vv]
+			prior0.vv <- prior0[[vv]]
 			L2 <- length( prior0[[vv]])
 			for (zz in 1:L2){
-				# zz <- 1
-				zz_label <- names(prior0.vv)[[zz]]		  
+				zz_label <- names(prior0.vv)[[zz]]
 				prior[[ vv_label ]][[ zz_label ]] <- prior0.vv[[zz]] 
 			}
 		}
 	}
-	return(prior)	
+	return(prior)
 }
 ##########################################################	

@@ -1,17 +1,16 @@
 ## File Name: probs_hrm.R
-## File Version: 0.12
+## File Version: 0.13
 
 
 #######################################################
 # Probabilities in hierarchical rater model
-probs_hrm <- function( x , xi , phi , psi , K , x_ind = NULL , useRcpp=FALSE){
+probs_hrm <- function( x , xi , phi , psi , K , x_ind = NULL , useRcpp=FALSE)
+{
 	if ( ! useRcpp ){
 		probs <- probs_hrm_R( x , xi , phi , psi , K , x_ind )
 	} else {
-		# probs <- .Call("probs_hrm_rcpp" , x , xi , phi , psi , K , x_ind ,
-		#				PACKAGE="immer")
-		probs <- probs_hrm_rcpp( x , xi , phi , psi , K , x_ind )						
+		probs <- probs_hrm_rcpp( x , xi , phi , psi , K , x_ind )
 	}
-    return(probs)
+	return(probs)
 }
 ####################################################		

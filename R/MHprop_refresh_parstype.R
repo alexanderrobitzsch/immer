@@ -1,5 +1,5 @@
 ## File Name: MHprop_refresh_parstype.R
-## File Version: 0.03
+## File Version: 0.04
 
 MHprop_refresh_parstype <- function( accept , SD , MHprop , SDchange )
 {
@@ -11,10 +11,11 @@ MHprop_refresh_parstype <- function( accept , SD , MHprop , SDchange )
 	if ( is.matrix(accept) ){
 		NP <- ncol(accept)
 		for (pp in 1:NP){
-			SD[,pp] <- MHprop_refresh_pars( acc =accept[,pp], SD.pp=SD[,pp], MHprop=MHprop,	SDchange=SDchange)
+			SD[,pp] <- MHprop_refresh_pars( acc =accept[,pp], SD.pp=SD[,pp], 
+							MHprop=MHprop,	SDchange=SDchange)
 		}
 	}
-    #--- output
+	#--- output
 	return(SD)	
-}			
+}
 

@@ -1,11 +1,12 @@
 ## File Name: loglik_HRM.R
-## File Version: 0.08
+## File Version: 0.09
 
 ##############################################################
 # log likelihood in the HRM
 loglik_HRM <- function( dat , dat_ind , est_pars , theta_like ,
-			rater , pid , maxK ){	
-    useRcpp <- FALSE 			
+			rater , pid , maxK )
+{
+	useRcpp <- FALSE
 	TP <- length(theta_like)
 	b <- est_pars$b
 	a <- est_pars$a

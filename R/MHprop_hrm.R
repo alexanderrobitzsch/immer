@@ -1,9 +1,10 @@
 ## File Name: MHprop_hrm.R
-## File Version: 0.07
+## File Version: 0.08
 
 
 ######################################################################
-MHprop_hrm <- function( MHprop , b , a , phi , theta , iter , burnin ){
+MHprop_hrm <- function( MHprop , b , a , phi , theta , iter , burnin )
+{
 
 	psi <- phi
 	MHprop <- list()
@@ -45,9 +46,9 @@ MHprop_hrm <- function( MHprop , b , a , phi , theta , iter , burnin ){
 	RI <- length(refresh_iters)
 	v1 <- NULL
 	for (rr in 1:RI){
-		 l1 <- ( 1:iter %% refresh_iters[rr] ) == 0 
-		 l1 <- (1:iter)[l1]
-	     v1 <- c( v1 , l1 ) 
+		l1 <- ( 1:iter %% refresh_iters[rr] ) == 0 
+		l1 <- (1:iter)[l1]
+		v1 <- c( v1 , l1 ) 
 	}
 	v2 <- sort( unique(v1) )
 	v2 <- v2[ v2 <= burnin ]

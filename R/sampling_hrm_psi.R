@@ -1,5 +1,5 @@
 ## File Name: sampling_hrm_psi.R
-## File Version: 0.22
+## File Version: 0.23
 
 ###########################################################
 # sampling psi parameters
@@ -48,12 +48,12 @@ sampling_hrm_psi <- function( dat , dat_ind , maxK , R , rater , pid , phi , psi
 			}
 									
 			ll_new <- probs_hrm( x= dat[,ii] , xi=xi[ pid , ii ] , phi = phi[ ii , rater ] , 
-								   psi = psi_new[ii,rater ] , K=maxK[ii] , x_ind = dat_ind[,ii] , useRcpp)
+									psi = psi_new[ii,rater ] , K=maxK[ii] , x_ind = dat_ind[,ii] , useRcpp)
 			ll_new <- rowsum( log( ll_new + eps ) , rater )[,1]
 			ll_old <- probs_hrm( x= dat[,ii] , xi=xi[ pid , ii ] , phi = phi[ ii , rater ] , 
-							   psi = psi_old[ii,rater ] , K=maxK[ii] , x_ind = dat_ind[,ii] , useRcpp)
+								psi = psi_old[ii,rater ] , K=maxK[ii] , x_ind = dat_ind[,ii] , useRcpp)
 			ll_old <- rowsum( log( ll_old + eps ) , rater )[,1]
-			ratio <- p_new * exp( ll_new - ll_old ) / ( p_old  )				
+			ratio <- p_new * exp( ll_new - ll_old ) / ( p_old  )
 		
 			if ( est.psi %in% c("r") ){ 
 				ratio1 <- ratio1 + log(ratio) 
@@ -81,7 +81,7 @@ sampling_hrm_psi <- function( dat , dat_ind , maxK , R , rater , pid , phi , psi
 					MHprop$accept$psi[ii,1:R] <- MHprop$accept$psi[ii,1:R] + 1 
 					psi[ii,1:R] <- psi_new[ii,1:R]
 				}
-			}															
+			}
 		}  # end ii
 		#------------		
 		if ( est.psi == "r"){
@@ -101,9 +101,9 @@ sampling_hrm_psi <- function( dat , dat_ind , maxK , R , rater , pid , phi , psi
 				MHprop$accept$psi[1:I,1:R] <- MHprop$accept$psi[1:I,1:R] + 1 
 				psi[1:I,1:R] <- psi_new[1:I,1:R]
 			}
-		}							
+		}
 	} # end est.psi != "n"
 	#--- output
 	res <- list( psi = psi , MHprop = MHprop )
-    return(res)				
+	return(res)	
 }

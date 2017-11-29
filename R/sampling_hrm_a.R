@@ -1,5 +1,5 @@
 ## File Name: sampling_hrm_a.R
-## File Version: 0.16
+## File Version: 0.17
 
 #####################################################################
 # sampling of item parameters
@@ -7,7 +7,7 @@ sampling_hrm_a <- function( xi , xi_ind  , b , a , maxK , prior , MHprop , I ,
 		theta , eps=1E-20, useRcpp=TRUE )
 {
 	# refresh count
-	MHprop$refresh_count$a <- MHprop$refresh_count$a + 1	
+	MHprop$refresh_count$a <- MHprop$refresh_count$a + 1
 	for (ii in 1:I ){
 		a_new <- a_old <- a
 		a_new[ii] <- stats::rlnorm( 1 , meanlog= log(a_old[ii]) , sdlog = MHprop$SD$a[ii] )
@@ -23,7 +23,7 @@ sampling_hrm_a <- function( xi , xi_ind  , b , a , maxK , prior , MHprop , I ,
 			a <- a_new
 		}
 	}  # end item ii
-    res <- list( a = a , MHprop = MHprop )
-    return(res)
+	res <- list( a = a , MHprop = MHprop )
+	return(res)
 }
 #####################################################################

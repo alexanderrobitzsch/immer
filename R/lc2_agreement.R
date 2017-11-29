@@ -1,12 +1,11 @@
 ## File Name: lc2_agreement.R
-## File Version: 0.22
+## File Version: 0.23
 
 ######################################################
 # latent class agreement
 # Schuster & Smith (2006)
-lc2_agreement <- function( y , w = rep(1,nrow(y)) , type="homo" , 
-   method = "BFGS" , ...  ){
-
+lc2_agreement <- function( y , w = rep(1,nrow(y)) , type="homo", method = "BFGS" , ...  )
+{
 	CALL <- match.call()
 	s0 <- Sys.time()	
 	#*** preprocessing for dataset		
@@ -39,9 +38,8 @@ lc2_agreement <- function( y , w = rep(1,nrow(y)) , type="homo" ,
 	relFreq <- rep(0,V)
 	names(relFreq) <- vals
 	for (vv in 1:V){
-		# vv <- vals[1]
 		relFreq[vv] <- ( sum( w[  y[,1] == vv ] ) / W + 
-		                       sum( w[  y[,2] == vv ] ) / W ) / 2
+							sum( w[  y[,2] == vv ] ) / W ) / 2
 	}
 	#--------------------------------------				
 	# define parameter table
@@ -49,9 +47,9 @@ lc2_agreement <- function( y , w = rep(1,nrow(y)) , type="homo" ,
 	tau_i <- relFreq
 	tau_i_logits <- probs2logits( tau_i )
 	dfr1 <- data.frame( "pargroup" = "tau" , "parnum" = NA , 
-		        "parname" = paste0( "tau_Cat" , values ) ,
-			    "est" = TRUE , "est_parindex" = 0 , 
-			    "rater" = 0  , "value" = NA , "value_logits" = NA , "start_logits" = NA)
+				"parname" = paste0( "tau_Cat" , values ) ,
+				"est" = TRUE , "est_parindex" = 0 , 
+				"rater" = 0  , "value" = NA , "value_logits" = NA , "start_logits" = NA)
 	dfr1[1,"est"] <- FALSE
 	dfr1$est_parindex <- cumsum(dfr1$est)
 	dfr1$start_logits <- tau_i_logits
@@ -63,7 +61,7 @@ lc2_agreement <- function( y , w = rep(1,nrow(y)) , type="homo" ,
 				"est" = TRUE , "est_parindex" = 0 , 
 				"rater" = 0  , "value" = NA , "value_logits" = NA , "start_logits" = NA)
 	#--- homogeneous
-    if (type=="homo"){
+	if (type=="homo"){
 		dfr1[1,"est"] <- FALSE	
 		dfr1$est_parindex <- cumsum(dfr1$est) + max(dfr0$est_parindex)
 		dfr1$start_logits <- tau_i_logits
@@ -76,7 +74,7 @@ lc2_agreement <- function( y , w = rep(1,nrow(y)) , type="homo" ,
 	}
 	#--- set tau and phi parameters equal to each other
 	if ( type == "equal"){
-	    dfr1$est[1] <- FALSE
+		dfr1$est[1] <- FALSE
 		dfr1$est_parindex <- dfr0$est_parindex		
 		dfr1$start_logits <- dfr0$start_logits
 	}
@@ -101,7 +99,7 @@ lc2_agreement <- function( y , w = rep(1,nrow(y)) , type="homo" ,
 	
 	#**** gamma parameters
 	dfr1 <- data.frame( "pargroup" = "gamma" , "parnum" = NA , 
-	            "parname" = paste0( "gamma_" , c(0,1) ) ,
+				"parname" = paste0( "gamma_" , c(0,1) ) ,
 				"est" = c(TRUE,FALSE) , "est_parindex" = 0 , 
 				"rater" = 0  , "value" = NA , "value_logits" = NA , "start_logits" = NA)
 	dfr1$est_parindex <- cumsum(dfr1$est) + max(dfr0$est_parindex)
@@ -115,70 +113,70 @@ lc2_agreement <- function( y , w = rep(1,nrow(y)) , type="homo" ,
 	x0 <- x0[ ! duplicated( x0$est_parindex) , ]
 	x <- x0[ x0$est , "start_logits" ] 
 
-		#***********************************************************
-		# optimization function
-		l2rater_fct <- function(x){
-			# reconstruct phi parameters
-			ind <- dfr0[ ( dfr0$pargroup == "tau" )  & 
-			             ( dfr0$est_parindex > 0 ) , "est_parindex" ]
-			tau00 <- c( 0 , x[ind] )
-			tau_probs <- logits2probs( tau00 )			
-			# reconstruct phi parameters
-			if ( type=="unif"){
-				ind <- dfr0[ dfr0$pargroup == "phi" ,] 
-				phi00 <- dfr0$start_logits
-			}
-			if ( type %in% c("homo") ){
-  			    ind <- dfr0[ ( dfr0$pargroup == "phi" )  & 
-			               ( dfr0$est_parindex > 0 ) , "est_parindex" ]			
-				phi00 <- c(0,x[ind])
-			}
-			if ( type %in% c("equal") ){
-  			    ind <- dfr0[ ( dfr0$pargroup == "phi" ) & ( dfr0$est ) , "est_parindex" ]
-				phi00 <- c(0,x[ind])		
-			}	
-			if (type == "hete"){
-  			    ind <- dfr0[ ( dfr0$pargroup == "phi" ) , "est_parindex" ]	
-				L <- length(ind)
-				L1 <- L / 2
-				ind[ ind == 0] <- NA
-				phi00 <- x[ ind ]
-				phi00[ is.na(phi00) ] <- 0				
-				phi_probs1 <- logits2probs( phi00[ seq(1,L1) ] )
-				phi_probs2 <- logits2probs( phi00[ L1 + seq(1,L1) ] )
-			}				
-			if (type != "hete"){
-			    phi_probs <- logits2probs( phi00 )
-				phi_probs1 <- phi_probs
-				phi_probs2 <- phi_probs
-			}			
-			# reconstruct gamma parameters
-			ind <- dfr0[ ( dfr0$pargroup == "gamma" )  & 
-			               ( dfr0$est_parindex > 0 ) , "est_parindex" ]
-			gamma_probs <- logits2probs( c(x[ind] , 0 ) )
-			# estimated probability
-			est_prob <- ( y[,1] == y[,2]  ) * tau_probs[ y[,1] ] * gamma_probs[1] +
-							phi_probs1[ y[,1] ] * phi_probs2[ y[,2] ] * ( 1 - gamma_probs[1] )
-			ll <- - sum( w * log( est_prob + eps ) )
-			return(ll)
+	#***********************************************************
+	# optimization function
+	l2rater_fct <- function(x){
+		# reconstruct phi parameters
+		ind <- dfr0[ ( dfr0$pargroup == "tau" )  & 
+				( dfr0$est_parindex > 0 ) , "est_parindex" ]
+		tau00 <- c( 0 , x[ind] )
+		tau_probs <- logits2probs( tau00 )
+		# reconstruct phi parameters
+		if ( type=="unif"){
+			ind <- dfr0[ dfr0$pargroup == "phi" ,] 
+			phi00 <- dfr0$start_logits
 		}
-		#************************************************************	
+		if ( type %in% c("homo") ){
+			ind <- dfr0[ ( dfr0$pargroup == "phi" )  & 
+							( dfr0$est_parindex > 0 ) , "est_parindex" ]
+			phi00 <- c(0,x[ind])
+		}
+		if ( type %in% c("equal") ){
+			ind <- dfr0[ ( dfr0$pargroup == "phi" ) & ( dfr0$est ) , "est_parindex" ]
+			phi00 <- c(0,x[ind])
+		}	
+		if (type == "hete"){
+			ind <- dfr0[ ( dfr0$pargroup == "phi" ) , "est_parindex" ]	
+			L <- length(ind)
+			L1 <- L / 2
+			ind[ ind == 0] <- NA
+			phi00 <- x[ ind ]
+			phi00[ is.na(phi00) ] <- 0				
+			phi_probs1 <- logits2probs( phi00[ seq(1,L1) ] )
+			phi_probs2 <- logits2probs( phi00[ L1 + seq(1,L1) ] )
+		}				
+		if (type != "hete"){
+			phi_probs <- logits2probs( phi00 )
+			phi_probs1 <- phi_probs
+			phi_probs2 <- phi_probs
+		}			
+		# reconstruct gamma parameters
+		ind <- dfr0[ ( dfr0$pargroup == "gamma" )  & 
+					( dfr0$est_parindex > 0 ) , "est_parindex" ]
+		gamma_probs <- logits2probs( c(x[ind] , 0 ) )
+		# estimated probability
+		est_prob <- ( y[,1] == y[,2]  ) * tau_probs[ y[,1] ] * gamma_probs[1] +
+						phi_probs1[ y[,1] ] * phi_probs2[ y[,2] ] * ( 1 - gamma_probs[1] )
+		ll <- - sum( w * log( est_prob + eps ) )
+		return(ll)
+	}
+	#************************************************************	
 	
 	#***************
 	# conduct optimization fitted model
 	h1 <- stats::optim( x , l2rater_fct , method=method , hessian = TRUE , ... )
 		
 	#------ optimization independence model
-		#***********************************************************
-		# optimization function
-		l2_indep <- function(x){
-			phi_probs <- logits2probs( c(0, x ) )
-			phi_probs1 <- phi_probs2 <- phi_probs
-			est_prob <- phi_probs1[ y[,1] ] * phi_probs2[ y[,2] ]
-			ll <- - sum( w * log( est_prob + eps ) )
-			return(ll)
-		}
-		#************************************************************	
+	#***********************************************************
+	# optimization function
+	l2_indep <- function(x){
+		phi_probs <- logits2probs( c(0, x ) )
+		phi_probs1 <- phi_probs2 <- phi_probs
+		est_prob <- phi_probs1[ y[,1] ] * phi_probs2[ y[,2] ]
+		ll <- - sum( w * log( est_prob + eps ) )
+		return(ll)
+	}
+	#************************************************************	
 	h2 <- stats::optim( x[1:(V-1)] , l2_indep , method=method , hessian = FALSE , ... )
 	
 	#***************
@@ -201,9 +199,9 @@ lc2_agreement <- function( y , w = rep(1,nrow(y)) , type="homo" ,
 		y1 <- y[1:V]
 		y2 <- y[V + 1:V]
 		dfr0[ ind[1:V] , "value"] <- logits2probs(y1)
-		dfr0[ ind[V + 1:V] , "value"] <- logits2probs(y2)														
+		dfr0[ ind[V + 1:V] , "value"] <- logits2probs(y2)
 	}
-		
+
 	ind <- which(dfr0$pargroup == "gamma")
 	y <- dfr0[ ind , "value_logits" ]
 	dfr0[ ind , "value"] <- logits2probs(y)
@@ -212,11 +210,10 @@ lc2_agreement <- function( y , w = rep(1,nrow(y)) , type="homo" ,
 	phi_probs <- dfr0[ dfr0$pargroup == "phi" , "value"]
 	phi_probs1 <- phi_probs2 <- phi_probs
 	if ( type == "hete"){
-	   phi_probs1 <- phi_probs[1:V]
-	   phi_probs2 <- phi_probs[V + 1:V]	   
+		phi_probs1 <- phi_probs[1:V]
+		phi_probs2 <- phi_probs[V + 1:V]	   
 	}
 	
-	# jj <- phi_probs1[ y0[,1] ] * phi_probs2[ y0[,2] ]
 	agree_chance <- sum( phi_probs1 * phi_probs2 ) * 
 				( 1 - dfr0[ dfr0$parname == "gamma_0" , "value" ] )
 
@@ -237,7 +234,7 @@ lc2_agreement <- function( y , w = rep(1,nrow(y)) , type="homo" ,
 	LRT_output <- data.frame("chisquare" = -2*(ll0 - h1$value) )
 	LRT_output$df <- saturated_output$npars - model_output$npars
 	LRT_output$p <- 1 - stats::pchisq( LRT_output$chisquare , 
-							     df = LRT_output$df )
+								df = LRT_output$df )
 	#*** normed fit index (Clogg, xxxx)
 	# see Uebersax (1990, Statistics in Medicine)
 	L1 <- LRT_output$chisquare
@@ -254,25 +251,24 @@ lc2_agreement <- function( y , w = rep(1,nrow(y)) , type="homo" ,
 	ic <- data.frame( "dev" = dev)	
 	ic$n <- W
 	ic$Npars <- ic$np <- model_output$npars
-    # AIC
-    ic$AIC <- dev + 2*ic$np
+	# AIC
+	ic$AIC <- dev + 2*ic$np
 	# AIC3
 	ic$AIC3 <- dev + 3*ic$np
-    # BIC
-    ic$BIC <- dev + ( log(ic$n) )*ic$np
+	# BIC
+	ic$BIC <- dev + ( log(ic$n) )*ic$np
 	# adjusted BIC 
 	ic$aBIC <- dev + ( log( ( ic$n -2 ) / 24 ) )*ic$np
-    # CAIC (consistent AIC)
-    ic$CAIC <- dev + ( log(ic$n) + 1 )*ic$np
+	# CAIC (consistent AIC)
+	ic$CAIC <- dev + ( log(ic$n) + 1 )*ic$np
 	# corrected AIC
-    ic$AICc <- ic$AIC + 2*ic$np * ( ic$np + 1 ) / ( ic$n - ic$np - 1 )		
+	ic$AICc <- ic$AIC + 2*ic$np * ( ic$np + 1 ) / ( ic$n - ic$np - 1 )		
 	#---------------
 	# parameter output
-	
 	if ( type == "hete"){ NR <- 3} else { NR <- 2}
 	dfr11 <- as.data.frame( matrix( 0 , nrow=2 , ncol=V+1 ) )
 	colnames(dfr11) <- c( "parm" , paste0("Cat",values) )
-	
+
 	dfr11[1,-1] <- dfr0[ dfr0$pargroup == "tau" , "value"]
 	dfr11[1,1] <- "tau"
 	if ( type != "hete"){
@@ -280,7 +276,7 @@ lc2_agreement <- function( y , w = rep(1,nrow(y)) , type="homo" ,
 		dfr11[2,1] <- "phi"		
 	} else {
 		dfr11[2,-1] <- dfr0[ dfr0$pargroup == "phi" , "value"][ seq(1,V)]
-		dfr11[2,1] <- paste0( "phi_" , colnames(y0)[1] )								 
+		dfr11[2,1] <- paste0( "phi_" , colnames(y0)[1] )
 		dfr11[3,-1] <- dfr0[ dfr0$pargroup == "phi" , "value"][ V + seq(1,V)]
 		dfr11[3,1] <- paste0( "phi_" , colnames(y0)[2] )
 	}
@@ -291,12 +287,12 @@ lc2_agreement <- function( y , w = rep(1,nrow(y)) , type="homo" ,
 	
 	# output
 	res <- list( 
-	    "model_output" = model_output ,
+		"model_output" = model_output ,
 		"saturated_output" = saturated_output , 
 		"independence_output" = independence_output , 
 		"LRT_output" = LRT_output , 
 		"NFI" = NFI , 
-	    "partable" = dfr0 ,
+		"partable" = dfr0 ,
 		"parmsummary" = dfr11 , 
 		"agree_true" = gamma0 ,
 		"agree_chance" = agree_chance ,

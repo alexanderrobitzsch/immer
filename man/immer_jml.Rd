@@ -1,5 +1,5 @@
 %% File Name: immer_jml.Rd
-%% File Version: 0.19
+%% File Version: 0.29
 
 \name{immer_jml}
 \alias{immer_jml}
@@ -23,11 +23,11 @@ JML estimation method (Bertoli-Barsotti, Lando & Punzo, 2014).
 
 \usage{
 immer_jml(dat, A = NULL, center_theta = TRUE, b_fixed = NULL, irtmodel="PCM", eps = 0.3, 
-     eps_adjust_pers = TRUE, eps_adjust_item = TRUE, maxiter = 1000, conv = 1e-06, 
+     est_method = "eps_adj", maxiter = 1000, conv = 1e-05, 
      max_incr = 0.5, maxiter_update = 10, conv_update = 1e-05, verbose = TRUE, 
      use_Rcpp = TRUE)
           
-\method{summary}{immer_jml}(object, digits=3,...)     
+\method{summary}{immer_jml}(object, digits=3, file=NULL, ...)     
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -50,13 +50,10 @@ partial credit model parametrizations \code{PCM} and \code{PCM2}.
   \item{eps}{
 Adjustment parameter \eqn{\varepsilon}
 }
-  \item{eps_adjust_pers}{
-Logical indicating whether \eqn{\varepsilon}-adjustment should be
-performed for persons
-}
-  \item{eps_adjust_item}{
-Logical indicating whether \eqn{\varepsilon}-adjustment should be
-performed for items
+  \item{est_method}{
+Estimation method. Can be \code{'eps_adj'} for the \eqn{\varepsilon}-adjustment,
+\code{'jml'} for the JML without bias correction and
+\code{'jml_bc'} for JML with bias correction.
 }
   \item{maxiter}{
 Maximum number of iterations
@@ -82,6 +79,7 @@ for computation.
 }
 \item{object}{Object of class \code{immer_jml}}
 \item{digits}{Number of digits after decimal to print}
+\item{file}{Name of a file in which the output should be sunk}
 \item{\dots}{Further arguments to be passed.}
 }
 
@@ -153,11 +151,22 @@ is also implemented in \code{\link[sirt:mle.pcm.group]{sirt::mle.pcm.group}}.
 data(data.read, package="sirt")
 dat <- data.read
 
-#- estimate Rasch model with JML
-mod1 <- immer::immer_jml(dat)
-summary(mod1)
+#- estimate Rasch model with JML and epsilon-adjustment
+mod1a <- immer::immer_jml(dat)
+summary(mod1a)
 
-\dontrun{	
+\dontrun{
+#- JML estimation, only handling extreme scores
+mod1b <- immer::immer_jml( dat, est_method="jml")
+summary(mod1b)
+
+#- JML estimation with (I-1)/I bias correction
+mod1c <- immer::immer_jml( dat, est_method="jml_bc" )
+summary(mod1c)
+
+# compare different estimators
+round( cbind( eps=mod1a$xsi, JML=mod1b$xsi, BC=mod1c$xsi ) , 2 )
+
 #- estimate LLTM by defining a design matrix for item difficulties
 A <- array(0 , dim=c(12,1,3) )
 A[1:4,1,1] <- 1
@@ -183,12 +192,12 @@ summary(mod0)
 A <- mod0$A
 A <- A[,-1,]
 
-#-- JML estimation without bias correction
-mod1 <- immer::immer_jml(dat, A=A, eps_adjust_pers=FALSE)
+#-- JML estimation
+mod1 <- immer::immer_jml(dat, A=A, est_method="jml")
 summary(mod1)
 
-#-- JML estimation with bias correction
-mod2 <- immer::immer_jml(dat, A=A, eps_adjust_pers=TRUE)
+#-- JML estimation with epsilon-adjusted bias correction
+mod2 <- immer::immer_jml(dat, A=A, est_method="eps_adj")
 summary(mod2)
 }
 }

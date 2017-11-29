@@ -1,5 +1,5 @@
 %% File Name: immer_HRM.Rd
-%% File Version: 0.51
+%% File Version: 0.53
 
 \name{immer_HRM}
 \alias{immer_HRM}
@@ -26,7 +26,7 @@ immer_HRM(dat, pid, rater, iter, burnin, N.save=3000, prior=NULL,  est.a = FALSE
            est.sigma = TRUE ,  est.mu = FALSE , est.phi = "a" , est.psi = "a" , 
            MHprop=NULL, theta_like = seq(-10,10,len=30), print_iter=20 )
 
-\method{summary}{immer_HRM}(object,digits=3,...)
+\method{summary}{immer_HRM}(object, digits=3, file=NULL, ...)
 
 \method{plot}{immer_HRM}(x,...)
 
@@ -86,6 +86,7 @@ approximation}
 iteration output on the console should be displayed.}
 \item{object}{Object of class \code{immer_HRM}}
 \item{digits}{Number of digits after decimal to print}
+\item{file}{Name of a file in which the output should be sunk}
 \item{x}{Object of class \code{immer_HRM}}
 \item{\dots}{Further arguments to be passed. See
 \code{\link[sirt:plot.mcmc.sirt]{sirt::plot.mcmc.sirt}} for options in \code{plot}.
@@ -95,8 +96,7 @@ iteration output on the console should be displayed.}
 \details{
 The hierarchical rater model is defined at the level of persons
 \deqn{P( \xi _{pi} = \xi  | \theta_p ) \propto \exp ( \xi 
-	\cdot a_i \cdot \theta_p - 
-b_{ik}  ) } where \eqn{\theta_p} is normally distributed with mean
+	\cdot a_i \cdot \theta_p - b_{ik}  ) } where \eqn{\theta_p} is normally distributed with mean
 \eqn{\mu} and standard deviation \eqn{\sigma}.
 
 At the level of ratings, the model is defined as
@@ -258,14 +258,14 @@ mod4b <- TAM::tam.mml.mfr( dat , pid = pid , facets=facets , formulaA = form)
 summary(mod4b)
 	
 #----------------------------------------------------------------
-#*** Model 5: Faceted Rasch models in sirt package
+#*** Model 5: Faceted Rasch models with sirt::rm.facets
 
 #--- Model 5a: Faceted Rasch model with only main rater effects
-mod5a <- sirt::rm.facets( dat , pid = pid , rater = rater )
+mod5a <- sirt::rm.facets( dat, pid = pid, rater = rater )
 summary(mod5a)
 
 #--- Model 5b: allow rater slopes for different rater discriminations
-mod5b <- sirt::rm.facets( dat , pid = pid , rater = rater , est.a.rater = TRUE )
+mod5b <- sirt::rm.facets( dat, pid = pid, rater = rater, est.a.rater = TRUE )
 summary(mod5b)
 
 #############################################################################
@@ -280,11 +280,11 @@ set.seed(87)
 iter <- 1000
 burnin <- 500
 # estimate model
-res <- immer::immer_HRM( dat[ ,  paste0("k",1:5) ] , pid=dat$idstud , rater=dat$rater , 
-             iter=iter ,  burnin=burnin  )
-summary(res)
-plot(res , layout=1 , ask=TRUE)
-plot(res , layout=2 , ask=TRUE)
+mod <- immer::immer_HRM( dat[ ,  paste0("k",1:5) ], pid=dat$idstud, rater=dat$rater, 
+             iter=iter, burnin=burnin )
+summary(mod)
+plot(mod, layout=1, ask=TRUE)
+plot(mod, layout=2, ask=TRUE)
 }
 }
 

@@ -1,10 +1,11 @@
 ## File Name: summary.lc2_agreement.R
-## File Version: 0.04
+## File Version: 0.05
 
 
 #*******************************************************
 # Summary for immer object
-summary.lc2_agreement <- function( object , digits=3 ,... ){
+summary.lc2_agreement <- function( object , digits=3 ,... )
+{
 	cat("-----------------------------------------------------------------\n")
 	d1 <- utils::packageDescription("immer")
 	cat( paste( d1$Package , " " , d1$Version , " (" , d1$Date , ")" , sep="") , "\n\n" )	
@@ -24,10 +25,10 @@ summary.lc2_agreement <- function( object , digits=3 ,... ){
 	cat("-----------------------------------------------------------------\n")
 
 	cat( "Deviance = " , round( -2*object$loglike , 2 ) , " | " )
-    cat( "Log Likelihood = " , round( object$loglike , 2 ) , "\n" )	
+	cat( "Log Likelihood = " , round( object$loglike , 2 ) , "\n" )	
 
 	cat( "Number of persons (sum of weights) =" , object$nobs , "\n" )
-    cat( "Number of estimated parameters = " , object$ic$np , "\n\n" )    
+	cat( "Number of estimated parameters = " , object$ic$np , "\n\n" )    
 
 		cat( "AIC  = " , round( object$ic$AIC , 2 ) , " | penalty =" , 
 				round( object$ic$AIC - object$ic$dev ,2 ) , 
@@ -53,11 +54,11 @@ summary.lc2_agreement <- function( object , digits=3 ,... ){
 
 	
 	cat( "Chi Square = " , round( object$LRT_output$chisquare , 2 ) , " \n" )
-    cat( "Degrees of Freedom = " , round( object$LRT_output$df , 2 ) , "\n" )	
+	cat( "Degrees of Freedom = " , round( object$LRT_output$df , 2 ) , "\n" )	
 	cat( "p-Value = " , round( object$LRT_output$p , 5 ) , "\n\n" )	
 	
 	cat( "Clogg's NFI = " , round( object$NFI , 3 ) , 
-	  "           |  NFI = (L0-L1)/L0 \n\n" )	
+		"           |  NFI = (L0-L1)/L0 \n\n" )	
 	
 	cat("-----------------------------------------------------------------\n")
 	cat("Model Parameters \n\n")
@@ -80,5 +81,5 @@ summary.lc2_agreement <- function( object , digits=3 ,... ){
 	for (vv in 2:V ){ obji[,vv] <- round( obji[,vv] , digits ) }
 	rownames(obji) <- NULL
 	print(obji)
-                }
+}
 #*******************************************************

@@ -1,8 +1,8 @@
 ## File Name: immer_jml_update_theta_R.R
-## File Version: 0.13
+## File Version: 0.26
 
 immer_jml_update_theta_R <- function(score_pers, I, K, N, theta, b, dat_resp, maxiter_update,
-	conv_update, center_theta, max_incr )
+	conv_update, center_theta, max_incr, shortcut_index )
 {
 	KM <- matrix( 0:K , nrow=N , ncol=K+1, byrow=TRUE )
 	iterate <- TRUE
@@ -24,14 +24,14 @@ immer_jml_update_theta_R <- function(score_pers, I, K, N, theta, b, dat_resp, ma
 		}
 		#-- update theta
 		incr <- der1 / ( abs(der2) + eps )
-		incr <- immer_trim_increment(incr=incr, max_incr=max_incr)		
+		incr <- immer_trim_increment(incr=incr, max_incr=3)		
 		theta <- theta + incr
-		theta <- immer_jml_center_theta( theta=theta, center_theta=center_theta )
 		iter <- iter + 1
 		theta_change <- max( abs(theta - theta0) )
 		if (iter > maxiter_update){ iterate <- FALSE }
 		if (theta_change < conv_update){ iterate <- FALSE }			
-	}	
+	}		
+	theta <- immer_jml_center_theta( theta=theta, center_theta=center_theta )	
 	#--- output
 	res <- list(theta=theta, theta_der2=der2, probs=probs)	
 	return(res)

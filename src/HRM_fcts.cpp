@@ -1,5 +1,5 @@
 //// File Name: HRM_fcts.cpp
-//// File Version: 0.33
+//// File Version: 0.37
 
 
 // [[Rcpp::depends(RcppArmadillo)]]
@@ -34,7 +34,7 @@ Rcpp::NumericVector subimmer_sample_prob_index( Rcpp::NumericMatrix probs, Rcpp:
 			}
 		}
 	}         
-	return( xi );
+	return xi;
 }
 
 
@@ -77,7 +77,7 @@ Rcpp::NumericVector subimmer_probs_gpcm_rcpp( Rcpp::NumericVector x ,
 		}
 	}
 	// OUTPUT 
-	return( probs );
+	return probs;
 }
 
 
@@ -91,7 +91,6 @@ Rcpp::NumericVector subimmer_probs_hrm_rcpp( Rcpp::NumericVector x ,
 	Rcpp::NumericVector xi, Rcpp::NumericVector phi ,
 	Rcpp::NumericVector psi, int K, Rcpp::NumericVector x_ind ) 
 {
-
 	int N = x.size();
 	Rcpp::NumericVector l1(K+1);
 	Rcpp::NumericVector probs(N);
@@ -110,8 +109,8 @@ Rcpp::NumericVector subimmer_probs_hrm_rcpp( Rcpp::NumericVector x ,
 		} else {
 			probs[nn] = 1 ;
 		}
-	 }
-	return( probs );
+	}
+	return probs;
 }
 
 
@@ -126,7 +125,6 @@ Rcpp::NumericVector subimmer_probs_gpcm_testlet_rcpp( Rcpp::NumericVector x ,
 	Rcpp::NumericVector theta ,  Rcpp::NumericVector u , Rcpp::NumericVector b ,
 	Rcpp::NumericVector a , int K , Rcpp::NumericVector x_ind )
 {
-
 	int N = x.size();
 	Rcpp::NumericVector l1(K+1);
 	
@@ -158,7 +156,7 @@ Rcpp::NumericVector subimmer_probs_gpcm_testlet_rcpp( Rcpp::NumericVector x ,
 		}  
 	} 
 	// OUTPUT 
-	return( probs );
+	return probs;
 }    
 
 
@@ -188,7 +186,7 @@ Rcpp::NumericVector immer_sampling_xi( Rcpp::NumericVector x,
 			x_kk[nn] = kk ;  
 		}  
 		// probabilities GPCM  
-		 Rcpp::NumericVector p1 = subimmer_probs_gpcm_rcpp( x_kk, theta, b, a, K, x_ind );  
+		Rcpp::NumericVector p1 = subimmer_probs_gpcm_rcpp( x_kk, theta, b, a, K, x_ind );  
 		// probabilities HRM  
 		for (int nn=0;nn<ND;nn++){  
 			phi_rater[nn] = phi[ rater[nn] - 1 ] ;  
@@ -196,7 +194,7 @@ Rcpp::NumericVector immer_sampling_xi( Rcpp::NumericVector x,
 			xi_kk[nn] = kk ;  
 		} 
 		Rcpp::NumericVector p2 = subimmer_probs_hrm_rcpp( x, xi_kk, phi_rater, psi_rater, K, x_ind );
-		 for (int nn=0;nn<N;nn++){  
+		for (int nn=0;nn<N;nn++){  
 			p3[nn] = 0 ;  
 		} 
 		for (int nn=0;nn<ND;nn++){  
@@ -230,7 +228,7 @@ Rcpp::NumericVector immer_sampling_xi( Rcpp::NumericVector x,
 	Rcpp::NumericVector xi_samp = subimmer_sample_prob_index( probs, rn);
 
 	// OUTPUT 
-	return( xi_samp );
+	return xi_samp;
 }
 
 
@@ -263,7 +261,7 @@ Rcpp::NumericVector probs_gpcm_rcpp( Rcpp::NumericVector x,
 				probs[nn] = 1 ;  
 		}  
 	}
-	return(probs);
+	return probs;
 }
 
 
@@ -290,7 +288,7 @@ Rcpp::NumericVector probs_hrm_rcpp( Rcpp::NumericVector x, Rcpp::NumericVector x
 		}  
 	} 
 	// OUTPUT 
-	return( probs );  
+	return probs;  
 }
 
 
@@ -299,23 +297,22 @@ Rcpp::NumericVector probs_hrm_rcpp( Rcpp::NumericVector x, Rcpp::NumericVector x
 // [[Rcpp::export]]
 Rcpp::NumericVector sample_prob_index( Rcpp::NumericMatrix probs, Rcpp::NumericVector rn)
 { 
-     int N = rn.size();  
-     int K = probs.ncol();         
-     Rcpp::NumericVector xi(N);  
-     double t1=0;  
-     for (int nn=0;nn<N;nn++){  
-     	t1=0;  
-     	for (int kk=0;kk<K;kk++){  
-     		t1 = t1 + probs(nn,kk);
-     		if ( rn[nn] < t1 ){  
-     			xi[nn] = kk ;  
-     			break ;  
-     		}  
-     	}  
-     }  
-           
-     // OUTPUT                     
-     return( xi );
+	int N = rn.size();  
+	int K = probs.ncol();         
+	Rcpp::NumericVector xi(N);  
+	double t1=0;  
+	for (int nn=0;nn<N;nn++){  
+		t1=0;  
+		for (int kk=0;kk<K;kk++){  
+			t1 = t1 + probs(nn,kk);
+			if ( rn[nn] < t1 ){  
+				xi[nn] = kk ;  
+				break ;  
+			}  
+		}  
+	}
+	// OUTPUT                     
+	return xi;
 }
 
 
@@ -345,14 +342,11 @@ Rcpp::NumericVector probs_gpcm_testlet_rcpp( Rcpp::NumericVector x,
 				t1 = t1 + l1[kk] ;  
 			} 
 			probs[nn] = l1[ x[nn]  ] / t1 ;  
-			} else {  
+		} else {  
 			probs[nn] = 1 ;  
 		}  
 	} 
 	// OUTPUT              
-	return( probs ); 
+	return probs; 
 }
 ///***************************************************
-
-
- 

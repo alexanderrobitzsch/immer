@@ -1,35 +1,35 @@
 ## File Name: summary.immer_cml.R
-## File Version: 0.04
+## File Version: 0.11
 
 
 #*******************************************************
 # Summary for immer object
-summary.immer_cml <- function( object , digits=3 ,... ){
+summary.immer_cml <- function( object , digits=3, file=NULL, ... )
+{
+	#-- open sink
+	immer_osink( file=file )
+
+	#-- package description
 	cat("-----------------------------------------------------------------\n")
-	d1 <- utils::packageDescription("immer")
-	cat( paste( d1$Package , " " , d1$Version , " (" , d1$Date , ")" , sep="") , "\n\n" )	
+	immer_summary_print_package_rsession(pack="immer")	
 	
 	cat( object$description , "\n\n")
+		
+	#-- call	
+	immer_summary_print_call(CALL=object$CALL)	
 	
-	cat("Call:\n", paste(deparse(object$CALL), sep = "\n", collapse = "\n"), 
-				"\n\n", sep = "")			
-	
-	cat( "Date of Analysis:" , "\n" )
-	cat( "   Start:" , paste( object$time$start ) , "\n" )	
-	cat( "   End  :" , paste( object$time$end ) , "\n" )		
-	cat("Computation time:" , print(object$time$end - object$time$start), "\n\n")    
-
-	# cat("\n")
+	#-- computation time
+	immer_summary_print_computation_time( object=object ) 
 	
 	cat("-----------------------------------------------------------------\n")
 
 	cat( "Deviance = " , round( object$dev , 2 ) , " | " )
-    cat( "Log Likelihood = " , round( object$loglike , 2 ) , "\n" )	
+	cat( "Log Likelihood = " , round( object$loglike , 2 ) , "\n" )	
 
 	cat( "Number of persons =" , object$N , "\n" )
 	cat( "Number of missing data patterns =" , object$NP , "\n" )			
 	cat( "Number of items =" , object$I , "\n" )				
-    cat( "Number of estimated parameters = " , object$npars , "\n" )    
+	cat( "Number of estimated parameters = " , object$npars , "\n" )    
 
 	if (FALSE){
 		cat( "AIC  = " , round( object$ic$AIC , 2 ) , " | penalty =" , 
@@ -50,23 +50,17 @@ summary.immer_cml <- function( object , digits=3 ,... ){
 		cat( "CAIC = " , round( object$ic$CAIC , 2 ) ," | penalty =" , 
 						round( object$ic$CAIC - object$ic$dev ,2 ) )
 			cat("   | CAIC = -2*LL + [log(n)+1]*p  (consistent AIC)\n\n" )  
-			}
-	
-
+	}
 	
 	cat("-----------------------------------------------------------------\n")
 	cat("Item-Category Parameters \n")
-	obji <- object$item
-	V <- ncol(obji)
-	for (vv in 2:V ){ obji[,vv] <- round( obji[,vv] , digits ) }
-	rownames(obji) <- NULL
-	print(obji)
+	immer_summary_print_objects(obji=object$item, from=2, digits=digits, rownames_null=TRUE)	
+	
 	cat("-----------------------------------------------------------------\n")
 	cat("Estimated Basis Parameters \n")
-	obji <- object$par_summary
-	V <- ncol(obji)
-	for (vv in 2:V ){ obji[,vv] <- round( obji[,vv] , digits ) }
-	rownames(obji) <- NULL
-	print(obji)
-                }
+	immer_summary_print_objects(obji=object$par_summary, from=2, digits=digits, rownames_null=TRUE)	
+
+	#-- close sink
+    immer_csink( file = file )		
+}
 #*******************************************************

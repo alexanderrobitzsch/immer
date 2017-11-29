@@ -1,17 +1,18 @@
 ## File Name: logLik.lc2_agreement.R
-## File Version: 0.04
+## File Version: 0.05
 
 
 ###############################################################
 # log-likelihood lc2_agreement
-logLik.lc2_agreement <- function (object, ...) {
+logLik.lc2_agreement <- function (object, ...)
+{
 	# extract log-likelihood
 	out <- object$loglike
-    # number of parameters
-    attr(out, "df") <- object$model_output$npars
+	# number of parameters
+	attr(out, "df") <- object$model_output$npars
 	# extract number of observations
-    attr(out, "nobs") <- object$nobs
-    class(out) <- "logLik"
-    return(out)
+	attr(out, "nobs") <- object$nobs
+	class(out) <- "logLik"
+	return(out)
 }
 #################################################################

@@ -1,5 +1,5 @@
 ## File Name: immer_HRM.R
-## File Version: 0.926
+## File Version: 0.931
 
 #####################################################
 # Hierarchical rater model Patz et al. (2002)
@@ -31,9 +31,9 @@ immer_HRM <- function( dat , pid , rater ,
 	N <- length(theta)
 
 	# parameters settings
-	 # Options are 'n' (no estimation), 'e' (set all parameters equal to each other), 
-	 # 'i' (item wise estmation), 'r' (rater wise estimation) and 
-	 # 'a' (all parameters are estimated independently from each other).
+	# Options are 'n' (no estimation), 'e' (set all parameters equal to each other), 
+	# 'i' (item wise estmation), 'r' (rater wise estimation) and 
+	# 'a' (all parameters are estimated independently from each other).
 	est_settings <- list( est.a = est.a , est.sigma = est.sigma , est.mu = est.mu ,
 						est.phi = est.phi , est.psi = est.psi )
 
@@ -68,9 +68,8 @@ immer_HRM <- function( dat , pid , rater ,
 	save_list <- seq( burnin+1 , iter )
 
 	if ( N.save > BB1 ){ BB <- BB1 }
-	if ( N.save < BB1 ){
+	if ( N.save <= BB1 ){
 		h1 <- ceiling( BB1 / N.save )
-		# BB <- BB1 / h1
 		save_list <- seq( burnin+1 , iter , h1)
 		BB <- length(save_list)
 	}
@@ -80,8 +79,7 @@ immer_HRM <- function( dat , pid , rater ,
 	sigmaM <- rep( NA , BB )
 	muM <- rep( NA , BB )
 	devM <- rep(NA, BB)
-	person <- data.frame( "pid" = pid_unique , "NSamp"=0 , "EAP" = 0 , 
-						"SD.EAP" = 0 )
+	person <- data.frame( "pid" = pid_unique , "NSamp"=0 , "EAP" = 0, "SD.EAP" = 0 )
 
 	#**********************************************
 	# Metropolis-Hastings tuning		
@@ -103,6 +101,7 @@ immer_HRM <- function( dat , pid , rater ,
 	xi_ind <- as.matrix(xi_ind)
 	
 	for ( it in seq(1,iter) ){
+		
 		#**** sample xsi
 		xi <- sampling_hrm_xi( dat=dat, theta=theta, b=b, a=a, phi=phi, psi=psi, K=K, pid=pid, 
 					rater=rater, ND=ND, dat_ind=dat_ind, N=N, I=I, maxK=maxK, useRcpp=useRcpp, xi_ind=xi_ind ) 
@@ -114,7 +113,7 @@ immer_HRM <- function( dat , pid , rater ,
 		MHprop <- res0$MHprop
 		
 		#**** sample a
-        res0 <- sampling_hrm_a( xi=xi, xi_ind=xi_ind, b=b, a=a, maxK=maxK, prior=prior, MHprop=MHprop, 
+		res0 <- sampling_hrm_a( xi=xi, xi_ind=xi_ind, b=b, a=a, maxK=maxK, prior=prior, MHprop=MHprop, 
 						I=I, theta=theta, useRcpp=useRcpp ) 
 		a <- res0$a
 		MHprop <- res0$MHprop
@@ -149,7 +148,7 @@ immer_HRM <- function( dat , pid , rater ,
 		sigma <-  sqrt( immer_mcmc_draw_variance( 1 , w0 =prior$sigma2$w0 , 
 						sig02=prior$sigma2$sig02 , n=N , sig2= stats::var(theta) ) )
 
-						#-------------- OUTPUT
+		#-------------- OUTPUT
 		if ( it %in% save_list ){
 			bM[ ,, bb ] <- b
 			aM[,bb] <- a
@@ -222,11 +221,11 @@ immer_HRM <- function( dat , pid , rater ,
 	# person parameters
 	person$EAP <- person$EAP / person$NSamp
 	person$SD.EAP <- sqrt( ( person$SD.EAP - person$NSamp * person$EAP^2  ) / 
-		                        person$NSamp  )
+								person$NSamp  )
 		
 	# EAP reliability
 	EAP.rel <- stats::var( person$EAP ) / 
-		                ( stats::var( person$EAP ) + mean( person$SD.EAP^2 ) )
+						( stats::var( person$EAP ) + mean( person$SD.EAP^2 ) )
 	# information criteria
 	ic <- list( N=N , I=I , R=R , ND = nrow(dat) , maxK=maxK , K = K )				
 
@@ -236,7 +235,7 @@ immer_HRM <- function( dat , pid , rater ,
 
 	attr( traces , "NSamples" ) <- BB
 	burnin -> attr(traces , "burnin")
-    iter -> attr( traces , "iter" )
+	iter -> attr( traces , "iter" )
 
 	# collect traces and produce MCMC summary
 	res11 <- immer_collect_traces( traces=traces, est_settings=est_settings ) 
@@ -257,7 +256,7 @@ immer_HRM <- function( dat , pid , rater ,
 	est_pars$phi <- phi
 	est_pars$psi <- psi
 	est_pars$mu <- mean(muM)
-	est_pars$sigma <- mean(sigmaM)		
+	est_pars$sigma <- mean(sigmaM)
 
 	#****
 	# compute likelihood and posterior
@@ -279,10 +278,8 @@ immer_HRM <- function( dat , pid , rater ,
 						EAP.rel = EAP.rel , ic = ic ,  
 						f.yi.qk = res_ll$f.yi.qk , f.qk.yi = res_ll$f.qk.yi ,
 						theta_like = theta_like , pi.k = res_ll$pi.k , 
-						like = res_ll$ll, 
-						traces = traces ,
-   					    MHprop = MHprop , prior = prior , est_settings = est_settings , 
-						N.save = BB , 
+						like = res_ll$ll, traces = traces , MHprop = MHprop , prior = prior , 
+						est_settings = est_settings, N.save = BB , 
 						iter = iter , burnin=burnin , time=time , CALL = CALL)
 	res$description <- "Function 'immer_HRM' | Hierarchical Rater Model (Patz et al., 2002)" 
 	class(res) <- "immer_HRM"

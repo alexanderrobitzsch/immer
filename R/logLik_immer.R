@@ -1,17 +1,15 @@
 ## File Name: logLik_immer.R
-## File Version: 0.06
+## File Version: 0.07
 
 ###############################################################
 # log-likelihood immer_HRM
-logLik.immer_HRM <- function (object, ...) {
-	# extract log-likelihood
+logLik.immer_HRM <- function (object, ...)
+{
 	out <- object$like
-    # number of parameters
-    attr(out, "df") <- sum(object$ic$Npars)
-	# extract number of observations
-    attr(out, "nobs") <- object$ic$N
-    class(out) <- "logLik"
-    return(out)
+	attr(out, "df") <- sum(object$ic$Npars)
+	attr(out, "nobs") <- object$ic$N
+	class(out) <- "logLik"
+	return(out)
 }
 #################################################################
 
@@ -19,14 +17,12 @@ logLik.immer_HRM <- function (object, ...) {
 
 ###############################################################
 # log-likelihood immer_cml
-logLik.immer_cml <- function (object, ...) {
-	# extract log-likelihood
+logLik.immer_cml <- function (object, ...)
+{
 	out <- object$loglike
-    # number of parameters
-    attr(out, "df") <- sum(object$npars)
-	# extract number of observations
-    attr(out, "nobs") <- object$N
-    class(out) <- "logLik"
-    return(out)
+	attr(out, "df") <- sum(object$npars)
+	attr(out, "nobs") <- object$N
+	class(out) <- "logLik"
+	return(out)
 }
 #################################################################
