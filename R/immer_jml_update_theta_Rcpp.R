@@ -1,5 +1,5 @@
 ## File Name: immer_jml_update_theta_Rcpp.R
-## File Version: 0.14
+## File Version: 0.15
 
 immer_jml_update_theta_Rcpp <- function(score_pers, I, K, N, theta, b, dat_resp, maxiter_update,
 	conv_update, center_theta, max_incr, shortcut_index )
@@ -23,7 +23,7 @@ immer_jml_update_theta_Rcpp <- function(score_pers, I, K, N, theta, b, dat_resp,
 	}	
 	#--- probs
 	probs <- array( probs, dim=c(N,I,K+1))	
-	theta <- immer_jml_center_theta( theta=theta, center_theta=center_theta )
+	theta <- immer_jml_center_theta( theta=theta, center_theta=center_theta)
 	#--- output
 	res <- list(theta=theta, theta_der2=der2, probs=probs)	
 	return(res)

@@ -1,9 +1,8 @@
 ## File Name: immer_jml_proc_shortcut.R
-## File Version: 0.04
+## File Version: 0.09
 
-immer_jml_proc_shortcut <- function(dat, pid, shortcut)
+immer_jml_proc_shortcut <- function(dat, pid, shortcut, weights)
 {
-	weights <- NULL
 	N <- nrow(dat)
 	if (is.null(pid)){
 		pid <- 1:N
@@ -11,7 +10,8 @@ immer_jml_proc_shortcut <- function(dat, pid, shortcut)
 	if (is.null(weights)){
 		weights <- rep(1,N)
 	}	
-	dfr <- data.frame( orig = 1:N, pid = pid)
+	dfr <- data.frame( orig = 1:N, pid = pid, weights=weights)
+
 	#-- shortcut
 	if (shortcut){
 		res <- TAM::tam_NA_pattern(x=dat)
@@ -25,6 +25,7 @@ immer_jml_proc_shortcut <- function(dat, pid, shortcut)
 		dfr$update_weights <- a1[ match( dfr$index , rownames(a1) ) ,1] * dfr$update
 		dat <- dat[ dfr$orig, ]
 		pid <- pid[ dfr$orig ]
+		weights <- weights[ dfr$orig ]
 		rownames(dat) <- NULL
 	}
 	#-- no shortcut
@@ -33,6 +34,6 @@ immer_jml_proc_shortcut <- function(dat, pid, shortcut)
 		dfr$update_weights <- 1		
 	}		
 	#--- output
-	res <- list( dat=dat, pid=pid, shortcut=shortcut, N=N, shortcut_index = dfr)
+	res <- list( dat=dat, pid=pid, shortcut=shortcut, N=N, shortcut_index = dfr, weights=weights)
 	return(res)	
 }

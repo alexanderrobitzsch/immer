@@ -1,8 +1,8 @@
 Package: immer
 Type: Package
 Title: Item Response Models for Multiple Ratings
-Version: 1.0-59
-Date: 2017-11-29 19:26:06
+Version: 1.0-80
+Date: 2017-12-07 16:13:06
 Author: 
     Alexander Robitzsch [aut, cre], Jan Steinfeld [aut]
 Maintainer: Alexander Robitzsch <robitzsch@ipn.uni-kiel.de>
@@ -15,8 +15,8 @@ Description:
 Depends: 
     R (>= 3.0-0)
 Imports: 
-    CDM, coda, graphics, methods, psychotools, 
-    Rcpp, sirt, stats, TAM         
+    CDM (>= 6.0-101), coda, graphics, MASS, methods, 
+    psychotools, Rcpp, sirt (>= 2.4-9), stats, TAM         
 Suggests:     
     eRm, irr
 LinkingTo: 

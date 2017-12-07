@@ -1,9 +1,9 @@
-## File Name: loglik_HRM.R
-## File Version: 0.09
+## File Name: loglik_hrm.R
+## File Version: 0.13
 
 ##############################################################
 # log likelihood in the HRM
-loglik_HRM <- function( dat , dat_ind , est_pars , theta_like ,
+loglik_hrm <- function( dat , dat_ind , est_pars , theta_like ,
 			rater , pid , maxK )
 {
 	useRcpp <- FALSE
@@ -21,17 +21,14 @@ loglik_HRM <- function( dat , dat_ind , est_pars , theta_like ,
 	# log likelihood (based on dyads)
 	ll1 <- matrix( 1 , nrow=ND , ncol= TP )	
 	for (tt in 1:TP){
-		# tt <- 24 # theta	
 		theta_tt <- theta_like[tt]
 		theta0 <- rep(theta_tt,ND)		
 		for (ii in 1:I){	
-			# ii <- 1     # item ii
 			phi_ii <- as.numeric( phi[ii,] )
 			psi_ii <- as.numeric( psi[ii,] )
 			K_ii <- maxK[ii]
 			pr_tot <- rep(0,ND)			
 			for (hh in seq(0,K_ii) ){
-				# hh <- 1     # category hh for item ii and theta tt
 				x0 <- rep(hh,ND)		
 				pr1_hh <- probs_gpcm( x=x0 , theta= theta0 , b = as.numeric(b[ii,]) , a = a[ii] , 
 							K = K_ii , useRcpp=useRcpp)		

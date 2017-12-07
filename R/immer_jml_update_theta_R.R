@@ -1,8 +1,8 @@
 ## File Name: immer_jml_update_theta_R.R
-## File Version: 0.26
+## File Version: 0.28
 
 immer_jml_update_theta_R <- function(score_pers, I, K, N, theta, b, dat_resp, maxiter_update,
-	conv_update, center_theta, max_incr, shortcut_index )
+	conv_update, center_theta, max_incr, shortcut_index, weights )
 {
 	KM <- matrix( 0:K , nrow=N , ncol=K+1, byrow=TRUE )
 	iterate <- TRUE

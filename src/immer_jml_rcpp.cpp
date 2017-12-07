@@ -1,5 +1,5 @@
-//// File Name: immer_jml_rcpp_functions.cpp
-//// File Version: 0.908
+//// File Name: immer_jml_rcpp.cpp
+//// File Version: 0.911
 
 
 // [[Rcpp::depends(RcppArmadillo)]]

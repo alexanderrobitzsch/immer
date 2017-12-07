@@ -1,11 +1,11 @@
-## File Name: IRT.likelihood.immer_HRM.R
-## File Version: 0.05
+## File Name: IRT.likelihood.immer_hrm.R
+## File Version: 0.06
 
 
 
 ###########################################################
 # likelihood
-IRT.likelihood.immer_HRM <- function( object , ... )
+IRT.likelihood.immer_hrm <- function( object , ... )
 {
 	ll <- object$f.yi.qk
 	attr(ll,"theta") <- object$theta_like
@@ -18,7 +18,7 @@ IRT.likelihood.immer_HRM <- function( object , ... )
 
 ###########################################################
 # posterior
-IRT.posterior.immer_HRM <- function( object , ... )
+IRT.posterior.immer_hrm <- function( object , ... )
 {
 	ll <- object$f.qk.yi
 	attr(ll,"theta") <- object$theta_like

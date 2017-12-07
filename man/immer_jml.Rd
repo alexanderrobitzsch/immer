@@ -1,9 +1,10 @@
 %% File Name: immer_jml.Rd
-%% File Version: 0.29
+%% File Version: 0.37
 
 \name{immer_jml}
 \alias{immer_jml}
 \alias{summary.immer_jml}
+\alias{IRT.likelihood.immer_jml}
 
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
@@ -22,12 +23,14 @@ JML estimation method (Bertoli-Barsotti, Lando & Punzo, 2014).
 
 
 \usage{
-immer_jml(dat, A = NULL, center_theta = TRUE, b_fixed = NULL, irtmodel="PCM", eps = 0.3, 
-     est_method = "eps_adj", maxiter = 1000, conv = 1e-05, 
+immer_jml(dat, A = NULL, center_theta = TRUE, b_fixed = NULL, irtmodel="PCM", pid=NULL,  
+     eps = 0.3, est_method = "eps_adj", maxiter = 1000, conv = 1e-05, 
      max_incr = 0.5, maxiter_update = 10, conv_update = 1e-05, verbose = TRUE, 
-     use_Rcpp = TRUE)
+     use_Rcpp = TRUE, shortcut = TRUE)
           
-\method{summary}{immer_jml}(object, digits=3, file=NULL, ...)     
+\method{summary}{immer_jml}(object, digits=3, file=NULL, ...) 
+
+\method{IRT.likelihood}{immer_jml}(object, theta=seq(-9,9,len=41), ...)    
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -47,6 +50,7 @@ Matrix with fixed \eqn{b} parameters
 \item{irtmodel}{Specified item response model. Can be one of the two
 partial credit model parametrizations \code{PCM} and \code{PCM2}.
 }
+\item{pid}{Person identifier}
   \item{eps}{
 Adjustment parameter \eqn{\varepsilon}
 }
@@ -77,9 +81,12 @@ Logical indicating whether convergence progress should be displayed
 Logical indicating whether \pkg{Rcpp} package should be used
 for computation.
 }
+\item{shortcut}{Logical indicating whether a computational shortcut should be used
+for efficiency reasons}
 \item{object}{Object of class \code{immer_jml}}
 \item{digits}{Number of digits after decimal to print}
 \item{file}{Name of a file in which the output should be sunk}
+\item{theta}{Grid of \eqn{\theta} values}
 \item{\dots}{Further arguments to be passed.}
 }
 

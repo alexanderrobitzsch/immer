@@ -1,10 +1,10 @@
-## File Name: summary.immer_HRM.R
-## File Version: 0.24
+## File Name: summary.immer_hrm.R
+## File Version: 0.25
 
 
 #*******************************************************
 # Summary for immer object
-summary.immer_HRM <- function( object, digits=3, file=NULL, ... )
+summary.immer_hrm <- function( object, digits=3, file=NULL, ... )
 {
 	#-- open sink
 	immer_osink( file=file )

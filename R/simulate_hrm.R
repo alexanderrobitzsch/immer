@@ -1,9 +1,9 @@
 ## File Name: simulate_hrm.R
-## File Version: 0.11
+## File Version: 0.12
 
 #############################################################
 # simulating hierarchical rater model
-simulate_HRM <- function( theta , a , b , phi , psi )
+simulate_hrm <- function( theta , a , b , phi , psi )
 {
 	RR <- ncol(phi)
 	I <- nrow(b)

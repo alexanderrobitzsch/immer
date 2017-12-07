@@ -1,8 +1,8 @@
-%% File Name: simulate_HRM.Rd
-%% File Version: 0.08
+%% File Name: simulate_hrm.Rd
+%% File Version: 0.09
 
-\name{simulate_HRM}
-\alias{simulate_HRM}
+\name{simulate_hrm}
+\alias{simulate_hrm}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
 Simulating the Hierarchical Rater Model (Patz et al., 2002)
@@ -11,7 +11,7 @@ Simulating the Hierarchical Rater Model (Patz et al., 2002)
 Simulates the hierarchical rater model (Patz et al., 2002).
 }
 \usage{
-simulate_HRM(theta, a, b, phi, psi)
+simulate_hrm(theta, a, b, phi, psi)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -33,7 +33,7 @@ Matrix of \eqn{\psi} parameters
 }
 
 \details{
-See \code{\link{immer_HRM}} for more details of the hierarchical rater model.
+See \code{\link{immer_hrm}} for more details of the hierarchical rater model.
 }
 
 \value{
@@ -60,7 +60,7 @@ Alexander Robitzsch <robitzsch@ipn.uni-kiel.de>
 %% ~Make other sections like Warning with \section{Warning }{....} ~
 
 \seealso{
-For examples see Example 1 in \code{\link{immer_HRM}}.
+For examples see Example 1 in \code{\link{immer_hrm}}.
 }
 
 %\examples{

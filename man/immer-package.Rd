@@ -1,5 +1,5 @@
 %% File Name: immer-package.Rd
-%% File Version: 0.38
+%% File Version: 0.39
 
 \name{immer-package}
 \alias{immer-package}
@@ -25,7 +25,7 @@ The \pkg{immer} package has following features:
 
 %% Hierarchical rater model
 \item Estimation of the hierarchical rater model (Patz et al., 2002) with 
-\code{\link{immer_HRM}} and simulation of it with \code{\link{simulate_HRM}}.
+\code{\link{immer_hrm}} and simulation of it with \code{\link{simulate_hrm}}.
 
 %% conditional maximum likelihood estimation
 \item The linear logistic partial credit model as an extension to the 

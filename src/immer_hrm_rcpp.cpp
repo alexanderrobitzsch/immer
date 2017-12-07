@@ -1,5 +1,5 @@
-//// File Name: HRM_fcts.cpp
-//// File Version: 0.37
+//// File Name: immer_hrm_rcpp.cpp
+//// File Version: 0.38
 
 
 // [[Rcpp::depends(RcppArmadillo)]]

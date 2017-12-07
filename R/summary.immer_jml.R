@@ -1,5 +1,5 @@
 ## File Name: summary.immer_jml.R
-## File Version: 0.11
+## File Version: 0.12
 
 
 #*******************************************************
@@ -49,8 +49,10 @@ summary.immer_jml <- function( object , digits=3, file=NULL, ... )
 
 	cat("-----------------------------------------------------------------\n")
 	cat( "Trait Distribution\n" )
-	cat( "" , " M =" , round( object$person_desc$mean , 3) , "\n" , 
-		" SD =" , round( object$person_desc$sd , 3) , "\n",
+	cat("  M =" , round( object$person_desc$mean , 3) , "\n" , 
+		" SD manifest =" , round( object$person_desc$sd_obs , 3) , "\n",
+		" SD latent =" , round( object$person_desc$sd_lat , 3) , "\n",
+		" MLE reliability =" , round( object$person_desc$mle_rel , 3) , "\n",
 		" Min =" , round( object$person_desc$min , 3) , "\n",
 		" Max =" , round( object$person_desc$max , 3) , "\n"
 		) 

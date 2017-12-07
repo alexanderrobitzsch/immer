@@ -1,5 +1,5 @@
 ## File Name: immer_jml_ic.R
-## File Version: 0.01
+## File Version: 0.02
 
 #######################################################
 # information criteria immer_jml
@@ -13,6 +13,8 @@ immer_jml_ic <- function( loglike, N, center_theta, xsi, I )
 	Npars <- ic$ntheta + ic$nxsi
 	ic$Npars <- Npars	
 	ic$np <- ic$Npars
+	ic$ND <- NA
+	ic$R <- NA
 	ic <- immer_IC_calc(ic=ic)
 	return(ic)
 }

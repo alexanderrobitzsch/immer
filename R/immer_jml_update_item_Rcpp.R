@@ -1,9 +1,9 @@
 ## File Name: immer_jml_update_item_Rcpp.R
-## File Version: 0.37
+## File Version: 0.38
 
 
 immer_jml_update_item_Rcpp <- function( score_items, ItemScore, I, K, b, A, xsi, theta, 
-	N, dat_resp, max_incr, maxiter_update, conv_update, b_fixed, shortcut_index )
+	N, dat_resp, max_incr, maxiter_update, conv_update, b_fixed, shortcut_index, weights )
 {
 	iterate <- TRUE
 	iter <- 0

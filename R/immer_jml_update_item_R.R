@@ -1,9 +1,10 @@
 ## File Name: immer_jml_update_item_R.R
-## File Version: 0.73
+## File Version: 0.75
 
 
 immer_jml_update_item_R <- function( score_items, ItemScore, I, K, b, A, xsi, theta, 
-		N, dat_resp, max_incr, 	maxiter_update, conv_update, b_fixed, shortcut_index  )
+		N, dat_resp, max_incr, 	maxiter_update, conv_update, b_fixed, shortcut_index,
+		weights )
 {
 	iterate <- TRUE
 	iter <- 0
@@ -22,10 +23,10 @@ immer_jml_update_item_R <- function( score_items, ItemScore, I, K, b, A, xsi, th
 			b_ii <- c(0, b[ii,] )
 			probs_ii <- probs_pcm_one_item(theta=theta, b_ii=b_ii)	
 			probs[,ii,] <- probs_ii
-			r[ii,] <- colSums(probs_ii * dat_resp[,ii] )[-1]
+			r[ii,] <- colSums( weights * probs_ii * dat_resp[,ii] )[-1]
 			for (kk1 in 1:K){
 				for (kk2 in kk1:K){
-					rr[ii,kk1,kk2] <- sum( probs_ii[,kk1+1] * probs_ii[,kk2+1] * dat_resp[,ii] )
+					rr[ii,kk1,kk2] <- sum( weights * probs_ii[,kk1+1] * probs_ii[,kk2+1] * dat_resp[,ii] )
 					if (kk1 < kk2){
 						rr[ii,kk2,kk1] <- rr[ii,kk1,kk2]
 					}

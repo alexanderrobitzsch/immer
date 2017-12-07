@@ -1,5 +1,5 @@
 ## File Name: anova_immer.R
-## File Version: 0.16
+## File Version: 0.18
 
 ##############################################################
 # anova method immer_cml
@@ -41,6 +41,6 @@ anova_immer <- function( object , ... )
 ##############################################################
 
 anova.immer_cml <- anova_immer
-# anova.immer_HRM <- IRT.anova.immer_HRM
-anova.immer_HRM <- anova_immer
+anova.immer_hrm <- anova_immer
 anova.lc2_agreement <- anova_immer
+anova.immer_latent_regression <- anova_immer

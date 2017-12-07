@@ -58,16 +58,28 @@ https://sites.google.com/site/alexanderrobitzsch/software
 
 
 ------------------------------------------------------------
-VERSIONS immer 1.0  |  2017-11-29  |  Last: immer 1.0-59
+VERSIONS immer 1.0  |  2017-12-07  |  Last: immer 1.0-80
 ------------------------------------------------------------
 
-ADDED * include joint maximum likelihood estimation function
+ADDED * included joint maximum likelihood estimation function
         immer_jml() with epsilon-adjustment for bias correction
 NOTE  * included argument 'file' in summary() method of
-        immer_HRM() and immer_cml()
+        immer_hrm() and immer_cml()
+ADDED * included composite conditional maximum likelihood
+        estimation function immer_ccml() for partial credit
+        model
+ADDED * included function immer_latent_regression() for
+        estimating unidimensional latent regression models
+NOTE  * added S3 method IRT.likelihood() for immer_jml()
+        function
+NOTE  * included data processing function immer_proc_data()
+NOTE  * renamed functions immer_HRM() and simulate_HRM()
+        to immer_hrm() and simulate_hrm()
 
 DATA  * included/modified datasets: ---
-EXAMP * included/modified examples: immer_jml (1)
+EXAMP * included/modified examples: immer_jml (1),
+        immer_ccml (1), immer_latent_regression (1),
+        immer_proc_data (1)
 
 
 

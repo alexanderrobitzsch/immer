@@ -1,14 +1,14 @@
-%% File Name: immer_HRM.Rd
-%% File Version: 0.53
+%% File Name: immer_hrm.Rd
+%% File Version: 0.55
 
-\name{immer_HRM}
-\alias{immer_HRM}
-\alias{summary.immer_HRM}
-\alias{plot.immer_HRM}
-\alias{logLik.immer_HRM}
-\alias{IRT.likelihood.immer_HRM}
-\alias{IRT.posterior.immer_HRM}
-\alias{anova.immer_HRM}
+\name{immer_hrm}
+\alias{immer_hrm}
+\alias{summary.immer_hrm}
+\alias{plot.immer_hrm}
+\alias{logLik.immer_hrm}
+\alias{IRT.likelihood.immer_hrm}
+\alias{IRT.posterior.immer_hrm}
+\alias{anova.immer_hrm}
 
 %- Also NEED an '\alias' for EACH other topic documented here.
 
@@ -22,21 +22,21 @@ Markov Chain Monte Carlo using a Metropolis-Hastings algorithm.
 }
 
 \usage{
-immer_HRM(dat, pid, rater, iter, burnin, N.save=3000, prior=NULL,  est.a = FALSE , 
+immer_hrm(dat, pid, rater, iter, burnin, N.save=3000, prior=NULL,  est.a = FALSE , 
            est.sigma = TRUE ,  est.mu = FALSE , est.phi = "a" , est.psi = "a" , 
            MHprop=NULL, theta_like = seq(-10,10,len=30), print_iter=20 )
 
-\method{summary}{immer_HRM}(object, digits=3, file=NULL, ...)
+\method{summary}{immer_hrm}(object, digits=3, file=NULL, ...)
 
-\method{plot}{immer_HRM}(x,...)
+\method{plot}{immer_hrm}(x,...)
 
-\method{logLik}{immer_HRM}(object,...)
+\method{logLik}{immer_hrm}(object,...)
 
-\method{anova}{immer_HRM}(object,...)
+\method{anova}{immer_hrm}(object,...)
 
-\method{IRT.likelihood}{immer_HRM}(object,...)
+\method{IRT.likelihood}{immer_hrm}(object,...)
 
-\method{IRT.posterior}{immer_HRM}(object,...)
+\method{IRT.posterior}{immer_hrm}(object,...)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -84,10 +84,10 @@ proposal distribution is adaptively computed (Browne & Draper, 2000).
 approximation}
 \item{print_iter}{Integer indicating that after each \code{print_iter}th
 iteration output on the console should be displayed.}
-\item{object}{Object of class \code{immer_HRM}}
+\item{object}{Object of class \code{immer_hrm}}
 \item{digits}{Number of digits after decimal to print}
 \item{file}{Name of a file in which the output should be sunk}
-\item{x}{Object of class \code{immer_HRM}}
+\item{x}{Object of class \code{immer_hrm}}
 \item{\dots}{Further arguments to be passed. See
 \code{\link[sirt:plot.mcmc.sirt]{sirt::plot.mcmc.sirt}} for options in \code{plot}.
 }
@@ -155,7 +155,7 @@ Alexander Robitzsch <robitzsch@ipn.uni-kiel.de>
 %% ~Make other sections like Warning with \section{Warning }{....} ~
 
 \seealso{
-Simulate the HRM with \code{\link{simulate_HRM}}.
+Simulate the HRM with \code{\link{simulate_hrm}}.
 }
 
 
@@ -165,7 +165,7 @@ library(sirt)
 library(TAM)
 	
 #############################################################################
-# EXAMPLE 1: Simulated data using the "simulate_HRM" function
+# EXAMPLE 1: Simulated data using the "simulate_hrm" function
 #############################################################################
 
 # define data generating parameters
@@ -187,7 +187,7 @@ phi <- phi - rowMeans(phi)
 # rater variability parameters
 psi <- matrix( c(.1 , .4 , .8) , nrow=I , ncol=R , byrow=TRUE )
 # simulate HRM data
-data <- immer::simulate_HRM( theta , a , b , phi  = phi, psi = psi )
+data <- immer::simulate_hrm( theta , a , b , phi  = phi, psi = psi )
 pid <- data$pid
 rater <- data$rater
 dat <- data[ , - c(1:2) ]
@@ -196,7 +196,7 @@ dat <- data[ , - c(1:2) ]
 #*** Model 1: estimate HRM with equal item slopes
 iter <- 3000
 burnin <- 500
-mod1 <- immer::immer_HRM( dat , pid , rater , iter=iter ,  burnin=burnin )
+mod1 <- immer::immer_hrm( dat , pid , rater , iter=iter ,  burnin=burnin )
 summary(mod1)
 plot(mod1,layout=2,ask=TRUE)
 
@@ -217,7 +217,7 @@ sirt::mcmclist2coda(mod1$mcmcobj , name = "hrm_mod1")
 
 #----------------------------------------------------------------
 #*** Model 2: estimate HRM with estimated item slopes
-mod2 <- immer::immer_HRM( dat , pid , rater , iter=iter ,  burnin=burnin ,
+mod2 <- immer::immer_hrm( dat , pid , rater , iter=iter ,  burnin=burnin ,
             est.a=TRUE , est.sigma = FALSE)
 summary(mod2)
 plot(mod2,layout=2,ask=TRUE)	
@@ -237,7 +237,7 @@ prior$b$M[1,] <- c(-2,0,2)
 prior$b$SD <-  matrix( 10 , nrow=4 , ncol= 3 )
 prior$b$SD[1,] <- 1E-4
 # estimate model
-mod3 <- immer::immer_HRM( dat, pid, rater, iter=iter,  burnin=burnin, prior=prior)
+mod3 <- immer::immer_hrm( dat, pid, rater, iter=iter,  burnin=burnin, prior=prior)
 summary(mod3)
 plot(mod3)
 
@@ -280,7 +280,7 @@ set.seed(87)
 iter <- 1000
 burnin <- 500
 # estimate model
-mod <- immer::immer_HRM( dat[ ,  paste0("k",1:5) ], pid=dat$idstud, rater=dat$rater, 
+mod <- immer::immer_hrm( dat[ ,  paste0("k",1:5) ], pid=dat$idstud, rater=dat$rater, 
              iter=iter, burnin=burnin )
 summary(mod)
 plot(mod, layout=1, ask=TRUE)

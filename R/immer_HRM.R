@@ -1,9 +1,9 @@
-## File Name: immer_HRM.R
-## File Version: 0.931
+## File Name: immer_hrm.R
+## File Version: 0.933
 
 #####################################################
 # Hierarchical rater model Patz et al. (2002)
-immer_HRM <- function( dat , pid , rater , 
+immer_hrm <- function( dat , pid , rater , 
 					iter ,  burnin , N.save = 3000 , prior=NULL , 
 					est.a = FALSE , est.sigma = TRUE , est.mu = FALSE , est.phi = "a" , est.psi = "a",
 					MHprop=NULL, theta_like = seq( -10 , 10 , len=30), print_iter=20 )
@@ -260,7 +260,7 @@ immer_HRM <- function( dat , pid , rater ,
 
 	#****
 	# compute likelihood and posterior
-	res_ll <- loglik_HRM( dat=dat, dat_ind=dat_ind, est_pars=est_pars, theta_like=theta_like, 
+	res_ll <- loglik_hrm( dat=dat, dat_ind=dat_ind, est_pars=est_pars, theta_like=theta_like, 
 							rater=rater, pid=pid, maxK=maxK )
 
 	# add information criteria
@@ -281,8 +281,8 @@ immer_HRM <- function( dat , pid , rater ,
 						like = res_ll$ll, traces = traces , MHprop = MHprop , prior = prior , 
 						est_settings = est_settings, N.save = BB , 
 						iter = iter , burnin=burnin , time=time , CALL = CALL)
-	res$description <- "Function 'immer_HRM' | Hierarchical Rater Model (Patz et al., 2002)" 
-	class(res) <- "immer_HRM"
+	res$description <- "Function immer_hrm() | Hierarchical Rater Model (Patz et al., 2002)" 
+	class(res) <- "immer_hrm"
 	return(res)
 }
 #############################################################################
