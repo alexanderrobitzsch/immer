@@ -58,7 +58,7 @@ https://sites.google.com/site/alexanderrobitzsch/software
 
 
 ------------------------------------------------------------
-VERSIONS immer 1.0  |  2017-12-07  |  Last: immer 1.0-80
+VERSIONS immer 1.0  |  2018-01-30  |  Last: immer 1.0-102
 ------------------------------------------------------------
 
 ADDED * included joint maximum likelihood estimation function
@@ -75,6 +75,9 @@ NOTE  * added S3 method IRT.likelihood() for immer_jml()
 NOTE  * included data processing function immer_proc_data()
 NOTE  * renamed functions immer_HRM() and simulate_HRM()
         to immer_hrm() and simulate_hrm()
+ADDED * included function immer_create_design_matrix_formula()
+        for creating design matrices with an R formula
+
 
 DATA  * included/modified datasets: ---
 EXAMP * included/modified examples: immer_jml (1),

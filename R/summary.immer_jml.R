@@ -1,5 +1,5 @@
 ## File Name: summary.immer_jml.R
-## File Version: 0.12
+## File Version: 0.13
 
 
 #*******************************************************
@@ -43,6 +43,10 @@ summary.immer_jml <- function( object , digits=3, file=NULL, ... )
 	cat( "                       # theta = " , object$ic$ntheta , "\n" )    
 	cat( "                       # xsi   = " , object$ic$nxsi , "\n" )    
 	cat("\n")
+	
+	cat( "irtmodel = " , object$irtmodel , "\n" )
+	cat("\n")
+	
 	
 	#-- print information criteria
 	immer_summary_print_ic(object=object) 

@@ -1,5 +1,5 @@
 %% File Name: immer_ccml.Rd
-%% File Version: 0.11
+%% File Version: 0.12
 
 \name{immer_ccml}
 \alias{immer_ccml}
@@ -19,7 +19,7 @@ Estimates the partial credit model with a design matrix for item
 parameters with composite conditional maximum likelihood estimation.
 The estimation uses pairs of items \eqn{X_i} and \eqn{X_j} and considers conditional
 likelihoods \eqn{P(X_i=k, X_j=h | \theta) / P( X_i + X_j = k+h| \theta )}. By using
-this strategy, teh trait \eqn{\theta} cancels out (like in conditional maximum
+this strategy, the trait \eqn{\theta} cancels out (like in conditional maximum
 likelihood estimation). The proposed strategy is a generalization of the Zwinderman (1995)
 composite conditional maximum likelihood approach of the Rasch model to the
 partial credit model. See Varin, Reid and Firth (2011) for a general introduction to

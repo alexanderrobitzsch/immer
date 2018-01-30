@@ -1,5 +1,5 @@
 //// File Name: immer_ccml_rcpp.cpp
-//// File Version: 0.63
+//// File Version: 0.64
 
 
 // [[Rcpp::depends(RcppArmadillo)]]
@@ -131,10 +131,10 @@ Rcpp::NumericVector immer_ccml_probs(Rcpp::NumericMatrix b, Rcpp::NumericVector 
 	Rcpp::NumericVector zaehl(NL);
 	Rcpp::NumericVector sz(max_ll_index);
 	Rcpp::NumericVector opt_fct(NL);	
-    // dfr$zaehl <- exp( - b[ cbind( dfr$item1 , dfr$cat1 + 1) ] - b[ cbind( dfr$item2 , dfr$cat2 + 1) ] )
-    // sz <- rowsum( dfr$zaehl , dfr$ll_index )
-    // dfr$nenn <- sz[dfr$ll_index]
-    // dfr$opt_fct <- dfr$zaehl / dfr$nenn	
+	// dfr$zaehl <- exp( - b[ cbind( dfr$item1 , dfr$cat1 + 1) ] - b[ cbind( dfr$item2 , dfr$cat2 + 1) ] )
+	// sz <- rowsum( dfr$zaehl , dfr$ll_index )
+	// dfr$nenn <- sz[dfr$ll_index]
+	// dfr$opt_fct <- dfr$zaehl / dfr$nenn	
 	// compute denominator
 	for (int ll=0; ll<NL; ll++){
 		zaehl[ll] = exp( - b( item10[ll] , cat1[ll] ) - b( item20[ll] , cat2[ll] ) ); 
@@ -190,8 +190,8 @@ double immer_ccml_opt_function(Rcpp::NumericMatrix b, Rcpp::NumericVector ll_ind
 	int NL = ll_index1.size();
 	double val=0;	
 	double eps = 1e-50;	
-    // dfr$log_opt_fct <- log( dfr$opt_fct )
-    // sum( dfr$log_opt_fct * dfr$n )	
+	// dfr$log_opt_fct <- log( dfr$opt_fct )
+	// sum( dfr$log_opt_fct * dfr$n )	
 
 	// compute conditional probabilities
 	Rcpp::NumericVector opt_fct = immer_ccml_probs(b, ll_index1, item10, item20, cat1, cat2, max_ll_index );

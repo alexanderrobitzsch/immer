@@ -1,10 +1,11 @@
 %% File Name: immer_jml.Rd
-%% File Version: 0.37
+%% File Version: 0.43
 
 \name{immer_jml}
 \alias{immer_jml}
 \alias{summary.immer_jml}
 \alias{IRT.likelihood.immer_jml}
+\alias{logLik.immer_jml}
 
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
@@ -21,14 +22,15 @@ bias correction is implemented with reduces bias of the
 JML estimation method (Bertoli-Barsotti, Lando & Punzo, 2014).
 }
 
-
 \usage{
-immer_jml(dat, A = NULL, center_theta = TRUE, b_fixed = NULL, irtmodel="PCM", pid=NULL,  
-     eps = 0.3, est_method = "eps_adj", maxiter = 1000, conv = 1e-05, 
-     max_incr = 0.5, maxiter_update = 10, conv_update = 1e-05, verbose = TRUE, 
-     use_Rcpp = TRUE, shortcut = TRUE)
+immer_jml(dat, A = NULL, maxK=NULL, center_theta = TRUE, b_fixed = NULL, irtmodel="PCM", 
+     pid=NULL, rater=NULL, eps = 0.3, est_method = "eps_adj", maxiter = 1000, conv = 1e-05, 
+     max_incr = 3, maxiter_update = 10, maxiter_line_search=6, conv_update = 1e-05, 
+     verbose = TRUE, use_Rcpp = TRUE, shortcut = TRUE)
           
 \method{summary}{immer_jml}(object, digits=3, file=NULL, ...) 
+
+\method{logLik}{immer_jml}(object, ...)
 
 \method{IRT.likelihood}{immer_jml}(object, theta=seq(-9,9,len=41), ...)    
 }
@@ -41,6 +43,7 @@ Data frame with polytomous item responses \eqn{0,1,\ldots, K}
 Design matrix (items \eqn{\times} categories \eqn{\times} basis parameters).
 Entries for categories are for \eqn{1,\ldots,K} 
 }
+\item{maxK}{Optional vector with maximum category per item}
   \item{center_theta}{
 Logical indicating whether the trait estimates should be centered
 }
@@ -51,6 +54,7 @@ Matrix with fixed \eqn{b} parameters
 partial credit model parametrizations \code{PCM} and \code{PCM2}.
 }
 \item{pid}{Person identifier}
+\item{rater}{Optional rater identifier}
   \item{eps}{
 Adjustment parameter \eqn{\varepsilon}
 }
@@ -71,6 +75,7 @@ Maximum increment
   \item{maxiter_update}{
 Maximum number of iterations for parameter updates
 }
+\item{maxiter_line_search}{Maximum number of iterations within line search}
   \item{conv_update}{
 Convergence criterion for updates
 }
@@ -158,7 +163,7 @@ is also implemented in \code{\link[sirt:mle.pcm.group]{sirt::mle.pcm.group}}.
 data(data.read, package="sirt")
 dat <- data.read
 
-#- estimate Rasch model with JML and epsilon-adjustment
+#---  Model 1: Rasch model with JML and epsilon-adjustment
 mod1a <- immer::immer_jml(dat)
 summary(mod1a)
 
@@ -174,7 +179,7 @@ summary(mod1c)
 # compare different estimators
 round( cbind( eps=mod1a$xsi, JML=mod1b$xsi, BC=mod1c$xsi ) , 2 )
 
-#- estimate LLTM by defining a design matrix for item difficulties
+#---  Model 2: LLTM by defining a design matrix for item difficulties
 A <- array(0 , dim=c(12,1,3) )
 A[1:4,1,1] <- 1
 A[5:8,1,2] <- 1

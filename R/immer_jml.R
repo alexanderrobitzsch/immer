@@ -1,39 +1,46 @@
 ## File Name: immer_jml.R
-## File Version: 0.9611
+## File Version: 0.9627
 
 
-immer_jml <- function(dat, A=NULL, center_theta=TRUE, b_fixed=NULL, irtmodel="PCM",
-				pid = NULL, eps = .3, est_method = "eps_adj", 
-				maxiter=1000, conv=1E-5, max_incr=.5, maxiter_update=10, conv_update=1E-5, 
+immer_jml <- function(dat, A=NULL, maxK=NULL, center_theta=TRUE, b_fixed=NULL, irtmodel="PCM",
+				pid = NULL, rater=NULL, eps = .3, est_method = "eps_adj", 
+				maxiter=1000, conv=1E-5, max_incr=3, maxiter_update=10, maxiter_line_search=6,
+				conv_update=1E-5, 
 				verbose = TRUE, use_Rcpp=TRUE, shortcut=TRUE )
 {
-
 	time <- list( start = Sys.time() )
 	CALL <- match.call()
 	
+	#-- process rating data
+	res <- immer_proc_data( dat=dat, pid=pid, rater=rater, weights=NULL, maxK=maxK)
+	dat <- res$dat2.NA
+	pid <- res$pid
+	maxK <- res$maxK
+	K <- res$K
+	pseudoitems_design <- res$pseudoitems_design
+	
 	#-- shortcut for analyzing the dataset		
-	res <- immer_jml_proc_shortcut( dat=dat, pid=pid, shortcut=shortcut, weights=NULL ) 
+	res <- immer_jml_proc_shortcut( dat=dat, pid=pid, shortcut=shortcut, weights=NULL) 
 	dat <- res$dat
 	pid <- res$pid
 	shortcut <- res$shortcut
 	N <- res$N
 	shortcut_index <- res$shortcut_index
 	weights <- res$weights
-
+	
 	#-- sufficient statistics
 	dat0 <- dat
 	dat_resp <- 1 - is.na(dat)	
 	dat[ is.na(dat) ] <- 0
-	I <- ncol(dat)
-	maxK <- apply( dat, 2, max, na.rm=TRUE)
-	K <- max( maxK )
+	I <- ncol(dat)	
 	I_adj <- mean( rowSums(dat_resp) )
 	bc_adj_fac <- ( I_adj - 1 ) / I_adj
 	
 	#-- create design matrix if not provided
-	res <- immer_jml_create_design_matrix_A( maxK=maxK, A=A, b_fixed=b_fixed, irtmodel=irtmodel )
+	res <- immer_create_design_matrix_A( maxK=maxK, A=A, b_fixed=b_fixed, irtmodel=irtmodel )
 	A <- res$A
 	b_fixed <- res$b_fixed
+	irtmodel <- res$irtmodel
 
 	#-- scoring
 	maxK_M <- immer_matrix2(maxK, nrow=N)
@@ -170,30 +177,34 @@ immer_jml <- function(dat, A=NULL, center_theta=TRUE, b_fixed=NULL, irtmodel="PC
 			immer_jml_print_progress_line_search( verbose=verbose, deviance=deviance, digits_deviance=6)
 			lambda <- 1
 			lambda_fac <- 2
+			# lambda_fac <- 1.4
 			xsi_old <- xsi0
 			xsi_new <- xsi
 			theta_old <- theta0
 			theta_new <- theta
 			iter_in <- 0			
-			maxiter_ls <- 8	
-			# maxiter_ls <- 6
+			maxiter_ls <- maxiter_line_search
 			while( ( deviance > deviance0 ) & ( iter_in < maxiter_ls ) ){
-				lambda <- lambda / lambda_fac
+				lambda <- lambda / lambda_fac		
 				xsi <- xsi_old + lambda * ( xsi_new - xsi_old) 
 				b <- immer_jml_calc_item_intercepts(A=A, xsi=xsi)
 				args_theta$b <- b
 				theta <- theta_old + lambda * ( theta_new - theta_old) 
 				args_theta$maxiter_update <- maxiter_update
-				args_theta$theta <- theta
+				# args_theta$maxiter_update <- 1
+				args_theta$theta <- theta		
+				# args_theta$theta <- theta_old
+				args_theta$center_theta <- FALSE
+				args_theta$max_incr <- 1	
 				res <- do.call( what=fct_theta, args=args_theta)
-				theta <- res$theta
+				theta <- res$theta	
 				theta_der2 <- res$theta_der2
-				probs <- res$probs
+				probs <- res$probs		
 				loglike <- immer_jml_calc_loglike( dat_score=dat_score, probs=probs, K=K, weights=weights)		
 				deviance <- -2*loglike
 				iter_in <- iter_in + 1
 				immer_jml_print_progress_line_search( verbose=verbose, deviance=deviance, digits_deviance=6)
-			}	
+			}
 		}
 		
 		deviance.history[iter+1] <- deviance
@@ -301,9 +312,9 @@ immer_jml <- function(dat, A=NULL, center_theta=TRUE, b_fixed=NULL, irtmodel="PC
 					pid = pid, 	dat=dat, dat_score=dat_score, dat_resp=dat_resp, score_pers=score_pers,
 					score_items=score_items, eps=eps, eps_adjust_pers=eps_adjust_pers, 
 					eps=eps, eps_adjust_item=eps_adjust_item,  est_method=est_method,
-					A=A, b_fixed=b_fixed, bc_adj_fac=bc_adj_fac, 
+					A=A, b_fixed=b_fixed, bc_adj_fac=bc_adj_fac, irtmodel=irtmodel, 
 					iter=iter, iter_opt=iter_opt, loglike=loglike, deviance=deviance, ic=ic, 
-					deviance.history=deviance.history, 
+					deviance.history=deviance.history, pseudoitems_design=pseudoitems_design, 
 					CALL=CALL,	time=time)
 	res$description <- "Function immer_jml() | Joint maximum likelihood estimation" 
 	class(res) <- "immer_jml"

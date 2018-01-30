@@ -1,5 +1,5 @@
 ## File Name: logLik_immer.R
-## File Version: 0.11
+## File Version: 0.14
 
 ###############################################################
 # log-likelihood immer_hrm
@@ -27,9 +27,8 @@ logLik.lc2_agreement <- function (object, ...)
 #################################################################
 
 
-
 ###############################################################
-# log-likelihood immer_cml
+#--- logLik immer_cml
 logLik.immer_cml <- function (object, ...)
 {
 	out <- object$loglike
@@ -41,12 +40,24 @@ logLik.immer_cml <- function (object, ...)
 #################################################################
 
 
-
+#--- logLik immer_latent_regression
 logLik.immer_latent_regression <- function (object, ...)
 {
-	out <-  - object$deviance / 2
+	out <- -object$deviance / 2
 	attr(out, "df") <- object$ic$np
 	attr(out, "nobs") <- object$N
+	class(out) <- "logLik"
+	return(out)
+}
+
+
+
+#--- logLik immer_jml
+logLik.immer_jml <- function (object, ...)
+{
+	out <- -object$ic$dev / 2
+	attr(out, "df") <- object$ic$np
+	attr(out, "nobs") <- object$n
 	class(out) <- "logLik"
 	return(out)
 }

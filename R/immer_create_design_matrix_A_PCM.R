@@ -1,7 +1,7 @@
-## File Name: immer_jml_create_design_matrix_A_PCM.R
-## File Version: 0.01
+## File Name: immer_create_design_matrix_A_PCM.R
+## File Version: 0.02
 
-immer_jml_create_design_matrix_A_PCM <- function(maxK, I, K)
+immer_create_design_matrix_A_PCM <- function(maxK, I, K)
 {
 	NX <- sum(maxK)
 	A <- array(0, dim=c(I,K,NX) )

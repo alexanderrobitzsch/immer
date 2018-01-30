@@ -1,18 +1,21 @@
-## File Name: immer_jml_create_design_matrix_A.R
-## File Version: 0.11
+## File Name: immer_create_design_matrix_A.R
+## File Version: 0.15
 
-immer_jml_create_design_matrix_A <- function( maxK, A, b_fixed, irtmodel, NA_val=99)
+immer_create_design_matrix_A <- function( maxK, A, b_fixed, irtmodel, NA_val=99)
 {
 	I <- length(maxK)
 	K <- max(maxK)
+	if ( ! is.null(A) ){
+		irtmodel <- "user"
+	}
 	
-	#--- design matrix A
+	#--- create design matrix A
 	if ( is.null(A) ){
 		if (irtmodel=="PCM"){
-			A <- immer_jml_create_design_matrix_A_PCM(maxK=maxK, I=I, K=K)
+			A <- immer_create_design_matrix_A_PCM(maxK=maxK, I=I, K=K)
 		}
 		if (irtmodel=="PCM2"){
-			A <- immer_jml_create_design_matrix_A_PCM2(maxK=maxK, I=I, K=K)
+			A <- immer_create_design_matrix_A_PCM2(maxK=maxK, I=I, K=K)
 		}		
 		
 	}
@@ -37,6 +40,6 @@ immer_jml_create_design_matrix_A <- function( maxK, A, b_fixed, irtmodel, NA_val
 	}
 	
 	#--- output
-	res <- list( A=A, b_fixed=b_fixed )
+	res <- list( A=A, b_fixed=b_fixed, irtmodel=irtmodel )
 	return(res)
 }
