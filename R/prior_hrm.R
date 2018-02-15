@@ -1,9 +1,9 @@
 ## File Name: prior_hrm.R
-## File Version: 0.14
+## File Version: 0.15
 
 ##########################################################
 # prior distributions for HRM
-prior_hrm <- function( prior , b , a , phi ,est_settings )
+prior_hrm <- function( prior , b , a , phi ,est_settings, sd_init=1 )
 {
 	prior0 <- prior
 	est.a <- est_settings$est.a
@@ -47,7 +47,7 @@ prior_hrm <- function( prior , b , a , phi ,est_settings )
 	} else {
 		prior$sigma2$w0 <- 1E10
 	}
-	prior$sigma2$sig02 <- 1
+	prior$sigma2$sig02 <- sd_init
 		
 	#****************
 	# defaults from prior

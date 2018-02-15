@@ -1,5 +1,5 @@
 ## File Name: sampling_hrm_b.R
-## File Version: 0.16
+## File Version: 0.21
 
 #####################################################################
 # sampling of item parameters
@@ -20,7 +20,8 @@ sampling_hrm_b <- function( xi , xi_ind  , b , a , maxK , prior , MHprop , I ,
 			ll_old  <- sum( probs_gpcm( x = xi[,ii] , theta , b=b_old[ii,] , 
 							a=a[ii] , K=maxK[ii] , x_ind = xi_ind[,ii] ,
 							useRcpp=useRcpp, use_log=TRUE ) )
-			ratio <- p_new * exp( ll_new - ll_old ) / ( p_old  + eps )
+			ratio <- immer_sampling_calc_ratio( ll_old=ll_old, ll_new=ll_new, 
+							p_old=p_old, p_new=p_new, eps=eps ) 
 			if ( ratio > stats::runif(1) ){
 				MHprop$accept$b[ii,kk] <- MHprop$accept$b[ii,kk] + 1 
 				b <- b_new

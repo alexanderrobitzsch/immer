@@ -1,5 +1,5 @@
 ## File Name: sampling_hrm_phi.R
-## File Version: 0.18
+## File Version: 0.19
 
 ###########################################################
 # sampling phi parameters
@@ -50,7 +50,10 @@ sampling_hrm_phi <- function( dat , dat_ind , maxK , R , rater , pid , phi , psi
 									psi = psi[ii,rater ] , K=maxK[ii] , 
 									x_ind = dat_ind[,ii] , useRcpp=useRcpp  )
 			ll_old <- rowsum( log( ll_old + eps ) , rater )[,1]
-			ratio <- p_new * exp( ll_new - ll_old ) / ( p_old  )
+			
+			ratio <- immer_sampling_calc_ratio( ll_old=ll_old, ll_new=ll_new, 
+							p_old=p_old, p_new=p_new, eps=eps ) 			
+							
 			if ( est.phi=="r")
 			{
 				ratio1 <- log( ratio ) + ratio1

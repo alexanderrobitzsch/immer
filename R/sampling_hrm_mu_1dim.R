@@ -1,5 +1,5 @@
-## File Name: sampling_hrm_mu_theta_1dim.R
-## File Version: 0.05
+## File Name: sampling_hrm_mu_1dim.R
+## File Version: 0.06
 
 ##########################################################
 # sampling theta one dimension

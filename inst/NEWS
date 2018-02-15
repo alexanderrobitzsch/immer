@@ -58,7 +58,7 @@ https://sites.google.com/site/alexanderrobitzsch/software
 
 
 ------------------------------------------------------------
-VERSIONS immer 1.0  |  2018-01-30  |  Last: immer 1.0-102
+VERSIONS immer 1.0  |  2018-02-15  |  Last: immer 1.0-107
 ------------------------------------------------------------
 
 ADDED * included joint maximum likelihood estimation function
@@ -77,6 +77,13 @@ NOTE  * renamed functions immer_HRM() and simulate_HRM()
         to immer_hrm() and simulate_hrm()
 ADDED * included function immer_create_design_matrix_formula()
         for creating design matrices with an R formula
+FIXED * corrected bug in immer_hrm() when est.psi="r" was
+        specified
+NOTE  * display iteration about remaining computation time
+        in immer_hrm()
+NOTE  * included argument 'sigma_init' for providing initial
+        values for sigma in immer_hrm()
+NOTE  * better handling of numerical overflow in immer_hrm()
 
 
 DATA  * included/modified datasets: ---

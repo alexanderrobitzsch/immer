@@ -1,8 +1,8 @@
 ## File Name: inits_theta_1dim.R
-## File Version: 0.07
+## File Version: 0.11
 
 #####################################################################
-inits_theta_1dim <- function( dat , pid , eps=.05 )
+inits_theta_1dim <- function( dat , pid , eps=.05, sd_init=1 )
 {
 	N <- length(unique(pid))
 	# initial values
@@ -15,6 +15,8 @@ inits_theta_1dim <- function( dat , pid , eps=.05 )
 	theta <- rowMeans(theta, na.rm=TRUE)
 	theta <- ( theta + eps ) / ( 1 + 2*eps )
 	theta <- stats::qlogis(theta)
+	theta <- theta - mean(theta)
+	theta <- sd_init / stats::sd(theta) * theta
 	return(theta)
 }
 #####################################################################		

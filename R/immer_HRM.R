@@ -1,17 +1,19 @@
 ## File Name: immer_hrm.R
-## File Version: 0.933
+## File Version: 0.955
 
 #####################################################
 # Hierarchical rater model Patz et al. (2002)
 immer_hrm <- function( dat , pid , rater , 
 					iter ,  burnin , N.save = 3000 , prior=NULL , 
 					est.a = FALSE , est.sigma = TRUE , est.mu = FALSE , est.phi = "a" , est.psi = "a",
-					MHprop=NULL, theta_like = seq( -10 , 10 , len=30), print_iter=20 )
+					MHprop=NULL, theta_like = seq( -10 , 10 , len=30), sigma_init=1, print_iter=20 )
 {
 
 	time <- list( "start" = Sys.time() )	
 	useRcpp <- TRUE	
 	CALL <- match.call()
+	
+	sd_init <- sigma_init
 
 	#************************************
 	# rater and person identifiers
@@ -27,7 +29,7 @@ immer_hrm <- function( dat , pid , rater ,
 	#************************************
 	# inits	
 	# inits theta parameters
-	theta <- inits_theta_1dim( dat=dat, pid=pid, eps=.05 ) 
+	theta <- inits_theta_1dim( dat=dat, pid=pid, eps=.05, sd_init=sd_init ) 
 	N <- length(theta)
 
 	# parameters settings
@@ -38,7 +40,7 @@ immer_hrm <- function( dat , pid , rater ,
 						est.phi = est.phi , est.psi = est.psi )
 
 	# inits item parameters
-	res0 <- inits_itempars( dat=dat, prior=prior ) 
+	res0 <- inits_itempars( dat=dat, prior=prior, sd_init=sd_init ) 
 	b <- res0$b
 	a <- res0$a
 	K <- res0$K
@@ -49,6 +51,7 @@ immer_hrm <- function( dat , pid , rater ,
 	res0 <- inits_raterpars_hrm( rater=rater, I=I, est_settings=est_settings ) 
 	phi <- res0$phi
 	psi <- res0$psi
+	
 	R <- res0$R
 	dat <- as.matrix(dat)
 	dat_ind <- 1 - is.na(dat)
@@ -57,7 +60,7 @@ immer_hrm <- function( dat , pid , rater ,
 
 	#*********************************************
 	# prior parameters			
-	prior <- prior_hrm( prior=prior, b=b, a=a, phi=phi, est_settings=est_settings ) 
+	prior <- prior_hrm( prior=prior, b=b, a=a, phi=phi, est_settings=est_settings, sd_init=sd_init ) 
 	sigma <- sqrt( prior$sigma2$sig02 )
 	mu <- prior$mu$M
 
@@ -84,7 +87,7 @@ immer_hrm <- function( dat , pid , rater ,
 	#**********************************************
 	# Metropolis-Hastings tuning		
 	MHprop <- MHprop_hrm( MHprop=MHprop, b=b, a=a, phi=phi, theta=theta, iter=iter, burnin=burnin ) 
-
+	
 	#********************************************
 	#  ITERATIONS
 	it <- 0
@@ -100,8 +103,10 @@ immer_hrm <- function( dat , pid , rater ,
 	psi <- as.matrix(psi)
 	xi_ind <- as.matrix(xi_ind)
 	
+	mcmc_start_time <- Sys.time()
+	
 	for ( it in seq(1,iter) ){
-		
+
 		#**** sample xsi
 		xi <- sampling_hrm_xi( dat=dat, theta=theta, b=b, a=a, phi=phi, psi=psi, K=K, pid=pid, 
 					rater=rater, ND=ND, dat_ind=dat_ind, N=N, I=I, maxK=maxK, useRcpp=useRcpp, xi_ind=xi_ind ) 
@@ -124,14 +129,14 @@ immer_hrm <- function( dat , pid , rater ,
 						est_settings=est_settings ) 
 		phi <- res0$phi
 		MHprop <- res0$MHprop
-
+		
 		#**** sample psi
 		res0 <- sampling_hrm_psi( dat=dat, dat_ind=dat_ind, maxK=maxK, R=R, rater=rater, pid=pid, 
 						phi=phi, psi=psi, prior=prior, MHprop=MHprop, I=I, xi=xi, useRcpp=useRcpp, 
 						est_settings=est_settings ) 
 		psi <- res0$psi
 		MHprop <- res0$MHprop
-
+		
 		#**** sample theta
 		mu_theta <- rep( mu ,N)
 		SD_theta <- rep( sigma ,N)	
@@ -140,12 +145,12 @@ immer_hrm <- function( dat , pid , rater ,
 						SD_theta=SD_theta, useRcpp=useRcpp, eps=1E-20 ) 
 		theta <- res0$theta
 		MHprop <- res0$MHprop
-
+		
 		# sampling of mu
 		mu <- sampling_hrm_mu_1dim( theta=theta, prior=prior, N=N ) 
-
+		
 		# sampling of sigma
-		sigma <-  sqrt( immer_mcmc_draw_variance( 1 , w0 =prior$sigma2$w0 , 
+		sigma <-  sqrt( immer_mcmc_draw_variance( N=1 , w0 =prior$sigma2$w0 , 
 						sig02=prior$sigma2$sig02 , n=N , sig2= stats::var(theta) ) )
 
 		#-------------- OUTPUT
@@ -188,13 +193,13 @@ immer_hrm <- function( dat , pid , rater ,
 
 		#------- update MH parameters
 		if ( sum( MHprop$ITER_refreshing %in% it ) > 0  ){	
-			MHprop <- MHprop_refresh( MHprop )
+			MHprop <- MHprop_refresh( MHprop=MHprop )
 		}
+		
+		#------ print iteration progress
+		res <- immer_hrm_verbose_iterations( iter=iter, it=it, print_iter=print_iter, 
+					mcmc_start_time=mcmc_start_time ) 
 
-		if ( it %% print_iter == 0 ){
-			cat("Iteration " , it , "\n")
-			utils::flush.console()
-		}
 	}
 	#------------- end iterations
 	
@@ -234,8 +239,8 @@ immer_hrm <- function( dat , pid , rater ,
 							sigma=sigmaM , deviance = devM )
 
 	attr( traces , "NSamples" ) <- BB
-	burnin -> attr(traces , "burnin")
-	iter -> attr( traces , "iter" )
+	attr(traces , "burnin") <- burnin
+	attr( traces , "iter" ) <- iter
 
 	# collect traces and produce MCMC summary
 	res11 <- immer_collect_traces( traces=traces, est_settings=est_settings ) 
