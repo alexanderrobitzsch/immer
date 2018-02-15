@@ -1,11 +1,12 @@
 %% File Name: data.ptam.Rd
-%% File Version: 0.05
+%% File Version: 0.12
 
 \name{data.ptam}
 
 \alias{data.ptam1}
 \alias{data.ptam2}
 \alias{data.ptam3}
+\alias{data.ptam4}
 
 
 \docType{data}
@@ -25,6 +26,7 @@ Example datasets for Robitzsch and Steinfeld (2018, PTAM).
 data(data.ptam1)
 data(data.ptam2)
 data(data.ptam3)
+data(data.ptam4)
 }
 
 
@@ -68,6 +70,17 @@ on 2 items (\code{OP} and \code{TF}). The format is
 \code{ $ A3     : int  1 1 1 1 0 0 0 0 0 0 ...} \cr
 \code{ [...]} \cr
 \code{ $ J0     : int  2 3 3 2 0 0 2 2 0 1 ...} \cr
+
+\item The dataset \code{data.ptam4} contains 592 ratings for 
+209 students and 10 raters on 3 items (\code{crit2}, \code{crit3} and
+\code{crit4}). The format is
+
+\code{'data.frame':   592 obs. of  5 variables:} \cr
+\code{ $ idstud: num  10005 10009 10010 10010 10014 ...} \cr
+\code{ $ rater : num  802 802 844 802 837 824 820 803 816 844 ...} \cr
+\code{ $ crit2 : int  3 2 0 2 1 0 2 1 1 0 ...} \cr
+\code{ $ crit3 : int  3 2 1 2 2 2 2 2 2 2 ...} \cr
+\code{ $ crit4 : int  2 1 2 1 2 2 2 2 2 2 ...} \cr
 
 }
 }
