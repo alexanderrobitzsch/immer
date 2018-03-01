@@ -58,7 +58,7 @@ https://sites.google.com/site/alexanderrobitzsch/software
 
 
 ------------------------------------------------------------
-VERSIONS immer 1.0  |  2018-02-15  |  Last: immer 1.0-110
+VERSIONS immer 1.0  |  2018-03-01  |  Last: immer 1.0-116
 ------------------------------------------------------------
 
 ADDED * included joint maximum likelihood estimation function
@@ -84,9 +84,11 @@ NOTE  * display iteration about remaining computation time
 NOTE  * included argument 'sigma_init' for providing initial
         values for sigma in immer_hrm()
 NOTE  * better handling of numerical overflow in immer_hrm()
+NOTE  * prevent alphanumeric order of rater labels in output
+        of immer_hrm()
 
-
-DATA  * included/modified datasets: data.ptam4
+DATA  * included/modified datasets: data.ptam4, data.ptam4long,
+        data.ptam4long
 EXAMP * included/modified examples: immer_jml (1),
         immer_ccml (1), immer_latent_regression (1),
         immer_proc_data (1)

@@ -1,5 +1,5 @@
 ## File Name: immer_identifiers_relabel.R
-## File Version: 0.11
+## File Version: 0.13
 
 ####################################################################
 immer_identifiers_relabel <- function( dat , pid , rater )
@@ -9,7 +9,7 @@ immer_identifiers_relabel <- function( dat , pid , rater )
 
 	dat0 <- data.frame( pid , rater , dat )
 	pid_unique <- unique( paste(pid) )
-	rater_unique <-  unique( paste( rater ) )			
+	rater_unique <-  sort(unique( paste( rater ) ))
 	dat0$pid <- match( pid , pid_unique )
 	dat0$rater <- match( rater , rater_unique )
 

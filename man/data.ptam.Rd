@@ -1,5 +1,5 @@
 %% File Name: data.ptam.Rd
-%% File Version: 0.12
+%% File Version: 0.16
 
 \name{data.ptam}
 
@@ -7,7 +7,8 @@
 \alias{data.ptam2}
 \alias{data.ptam3}
 \alias{data.ptam4}
-
+\alias{data.ptam4long}
+\alias{data.ptam4wide}
 
 \docType{data}
 
@@ -27,6 +28,8 @@ data(data.ptam1)
 data(data.ptam2)
 data(data.ptam3)
 data(data.ptam4)
+data(data.ptam4long)
+data(data.ptam4wide)
 }
 
 
@@ -81,6 +84,42 @@ on 2 items (\code{OP} and \code{TF}). The format is
 \code{ $ crit2 : int  3 2 0 2 1 0 2 1 1 0 ...} \cr
 \code{ $ crit3 : int  3 2 1 2 2 2 2 2 2 2 ...} \cr
 \code{ $ crit4 : int  2 1 2 1 2 2 2 2 2 2 ...} \cr
+
+
+\item The dataset \code{data.ptam4long} is the dataset \code{data.ptam4} which has been
+converted into a long format for analysis with mixed effects models in the
+\pkg{lme4} package. The format is
+
+\code{'data.frame':   1776 obs. of  17 variables:} \cr
+\code{ $ idstud : num  10005 10005 10005 10009 10009 ...} \cr
+\code{ $ rater  : num  802 802 802 802 802 802 844 802 844 802 ...} \cr
+\code{ $ item   : Factor w/ 3 levels "crit2","crit3",..: 1 2 3 1 2 3 1 1 2 2 ...} \cr
+\code{ $ value  : int  3 3 2 2 2 1 0 2 1 2 ...} \cr
+\code{ $ I_crit2: num  1 0 0 1 0 0 1 1 0 0 ...} \cr
+\code{ $ I_crit3: num  0 1 0 0 1 0 0 0 1 1 ...} \cr
+\code{ $ I_crit4: num  0 0 1 0 0 1 0 0 0 0 ...} \cr
+\code{ $ R_802  : num  1 1 1 1 1 1 0 1 0 1 ...} \cr
+\code{ $ R_803  : num  0 0 0 0 0 0 0 0 0 0 ...} \cr
+\code{ [...] } \cr
+\code{ $ R_844  : num  0 0 0 0 0 0 1 0 1 0 ...} \cr
+
+\item The dataset \code{data.ptam4wide} contains multiple ratings of 
+40 students from the dataset \code{data.ptam4} from the item \code{crit2}. 
+Each column corresponds to one rater. The format is
+
+\code{'data.frame':   40 obs. of  11 variables:} \cr
+\code{ $ pid : chr  "10014" "10085" "10097" "10186" ...} \cr
+\code{ $ R802: int  2 3 2 2 2 1 1 2 2 2 ...} \cr
+\code{ $ R803: int  1 1 3 1 2 0 0 0 1 0 ...} \cr
+\code{ $ R810: int  1 2 2 2 1 0 1 1 2 1 ...} \cr
+\code{ $ R816: int  1 2 3 2 2 0 1 1 2 1 ...} \cr
+\code{ $ R820: int  2 2 2 2 1 1 1 1 1 1 ...} \cr
+\code{ $ R824: int  0 3 2 3 2 0 0 1 2 1 ...} \cr
+\code{ $ R831: int  1 2 2 2 1 0 0 0 1 1 ...} \cr
+\code{ $ R835: int  0 1 2 2 1 1 0 0 2 1 ...} \cr
+\code{ $ R837: int  1 2 3 2 2 0 1 1 2 2 ...} \cr
+\code{ $ R844: int  0 2 3 2 2 0 0 0 1 3 ...} \cr
+
 
 }
 }

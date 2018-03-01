@@ -1,5 +1,5 @@
 %% File Name: immer-package.Rd
-%% File Version: 0.39
+%% File Version: 0.41
 
 \name{immer-package}
 \alias{immer-package}
@@ -9,11 +9,13 @@
 Item Response Models for Multiple Ratings
 }
 \description{
- Implements some item response models for multiple
- ratings, including the hierarchical rater model, 
- conditional maximum likelihood estimation of linear 
- logistic partial credit model and a wrapper function
- to the commercial FACETS program.
+    Implements some item response models for multiple
+    ratings, including the hierarchical rater model, 
+    conditional maximum likelihood estimation of linear 
+    logistic partial credit model and a wrapper function
+    to the commercial FACETS program. See Robitzsch and
+    Steinfeld (2018) for a description of the functionality
+    of the package.
 }
 \details{
 
