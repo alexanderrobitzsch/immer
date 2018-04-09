@@ -58,7 +58,7 @@ https://sites.google.com/site/alexanderrobitzsch/software
 
 
 ------------------------------------------------------------
-VERSIONS immer 1.0  |  2018-03-01  |  Last: immer 1.0-116
+VERSIONS immer 1.0  |  2018-04-09  |  Last: immer 1.0-120
 ------------------------------------------------------------
 
 ADDED * included joint maximum likelihood estimation function
@@ -86,6 +86,8 @@ NOTE  * included argument 'sigma_init' for providing initial
 NOTE  * better handling of numerical overflow in immer_hrm()
 NOTE  * prevent alphanumeric order of rater labels in output
         of immer_hrm()
+ADDED * included Rcpp functions for faster computations in
+        immer_cml()
 
 DATA  * included/modified datasets: data.ptam4, data.ptam4long,
         data.ptam4long

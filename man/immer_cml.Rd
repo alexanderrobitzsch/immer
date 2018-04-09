@@ -1,5 +1,5 @@
 %% File Name: immer_cml.Rd
-%% File Version: 0.34
+%% File Version: 0.36
 
 \name{immer_cml}
 \alias{immer_cml}
@@ -26,7 +26,7 @@ model (Verhelst & Glas, 1995).
 \usage{
 immer_cml(dat, weights = NULL, W = NULL, b_const = NULL, par_init = NULL, 
     a = NULL, irtmodel = NULL, normalization = "first", nullcats = "zeroprob", 
-    diff = FALSE, ...)
+    diff = FALSE, use_rcpp=FALSE, ...)
 
 \method{summary}{immer_cml}(object, digits=3, file=NULL, ...)
 
@@ -78,6 +78,8 @@ Logical indicating whether the difference algorithm should be used. See
 \code{\link[psychotools:elementary_symmetric_functions]{psychotools::elementary_symmetric_functions}}
 for details.
 }
+\item{use_rcpp}{Logical indicating whether \pkg{Rcpp} package should be
+used for computation.}
 \item{\dots}{
 Further arguments to be passed to \code{\link[stats:optim]{stats::optim}}.
 }
