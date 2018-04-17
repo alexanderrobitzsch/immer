@@ -1,5 +1,5 @@
 ## File Name: immer_cml.R
-## File Version: 0.825
+## File Version: 0.835
 
 ########################################################
 # CML function in immer package
@@ -46,6 +46,13 @@ immer_cml <- function( dat , weights=NULL , W=NULL , b_const=NULL ,
 							normalization=normalization ) 
 	}
 	
+	#*** compute sufficient statistics for missing data patterns
+	gr1_list <- list()
+	for (pp in 1:NP){
+		W1 <- W[ parm_index[[pp]] , , drop=FALSE ]
+		gr1_list[[pp]] <- suffstat[[pp]] %*% W1
+	}
+	
 	#---------------------------
 	# functions passed to optimization function
 	## objective function: conditional log-likelihood
@@ -56,7 +63,9 @@ immer_cml <- function( dat , weights=NULL , W=NULL , b_const=NULL ,
 		for (pp in 1:NP){
 			parm_index0[[pp]] <- parm_index0[[pp]] - 1
 			splitvec_len[[pp]] <- as.vector( table(splitvec[[pp]]) )
+			gr1_list[[pp]] <- as.vector( gr1_list[[pp]])
 		}	
+		W_logical <- W != 0
 		cloglik <- function(par){
 			esf_par0 <- W %*% par + b_const  
 			res <- immer_cml_cloglik_helper( esf_par0=esf_par0, 
@@ -86,7 +95,8 @@ immer_cml <- function( dat , weights=NULL , W=NULL , b_const=NULL ,
 			esf_par0 <- W %*% par + b_const
 			res <- immer_cml_agrad_helper( esf_par0=esf_par0, 
 							parm_index=parm_index0, splitvec_len=splitvec_len, suffstat=suffstat, 
-							score_freq=score_freq, diff=diff, NP=NP, W=W ) 					
+							score_freq=score_freq, diff=diff, NP=NP, W=W, W_logical=W_logical,
+							gr1_list=gr1_list ) 					
 			return(res)
 		}
 	} else {	
@@ -101,7 +111,7 @@ immer_cml <- function( dat , weights=NULL , W=NULL , b_const=NULL ,
 				gamma0 <- esf[[1]]
 				gamma1 <- esf[[2]]
 				W1 <- W[ parm_index[[pp]] , , drop=FALSE ]
-				gr1 <- suffstat[[pp]] %*% W1		
+				gr1 <- gr1_list[[pp]]
 				gr2 <- - colSums( ( score_freq[[pp]] * (gamma1 / gamma0))  %*% W1 )
 				gr <- gr1 + gr2
 				gr <- gr[1,]			

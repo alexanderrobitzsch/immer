@@ -1,5 +1,5 @@
 //// File Name: immer_cmml_pbivnorm_rcpp.cpp
-//// File Version: 0.878
+//// File Version: 0.882
 
 
 
@@ -14,8 +14,7 @@ using namespace Rcpp;
 
 
 ///********************************************************************
-///** immer_pnorm      
-// [[Rcpp::export]]    
+///** immer_pnorm       
 double immer_pnorm(double x)
 {
 	double val = Rf_pnorm5( x, 0.0, 1.0, 1, 0); 
@@ -25,8 +24,7 @@ double immer_pnorm(double x)
 
 
 ///********************************************************************
-///** immer_signum   
-// [[Rcpp::export]]       
+///** immer_signum      
 double immer_signum(double x)
 {
 	double val=-1.0;
@@ -36,8 +34,7 @@ double immer_signum(double x)
 ///********************************************************************
 
 ///********************************************************************
-///** immer_dnorm2      
-// [[Rcpp::export]]    
+///** immer_dnorm2       
 double immer_dnorm2(double a, double b, double rho)
 {
 	double val = ( a*a + b*b - 2*rho*a*b ) / ( 2.0 * ( 1 - rho*rho ) ) ;
@@ -50,7 +47,6 @@ double immer_dnorm2(double a, double b, double rho)
 
 ///********************************************************************
 ///** immer_dnorm      
-// [[Rcpp::export]]    
 double immer_dnorm(double a)
 {
 	double pi0 = 3.14159265359;
@@ -62,8 +58,7 @@ double immer_dnorm(double a)
 
 
 ///********************************************************************
-///** pbivnorm_drezner_fct_f_cpp
-// [[Rcpp::export]]    
+///** pbivnorm_drezner_fct_f_cpp 
 double pbivnorm_drezner_fct_f_cpp(double x, double y, double ap, double bp, double rho)
 {
 	double minval=-99;
@@ -80,7 +75,6 @@ double pbivnorm_drezner_fct_f_cpp(double x, double y, double ap, double bp, doub
 
 ///********************************************************************
 ///** pbivnorm_drezner_all_neg
-// [[Rcpp::export]]    
 double pbivnorm_drezner_all_negative_cpp(double a, double b, double rho)
 {
 	Rcpp::NumericVector A(4);
@@ -113,8 +107,7 @@ double pbivnorm_drezner_all_negative_cpp(double a, double b, double rho)
 
 
 ///********************************************************************
-///** pbivnorm_drezner_product_negative_cpp
-// [[Rcpp::export]]           
+///** pbivnorm_drezner_product_negative_cpp      
 double pbivnorm_drezner_product_negative_cpp(double a, double b, double rho)
 {
 	double val=0;
@@ -150,8 +143,7 @@ double pbivnorm_drezner_product_negative_cpp(double a, double b, double rho)
 
 
 ///********************************************************************
-///** pbivnorm_drezner_product_positive_cpp
-// [[Rcpp::export]]           
+///** pbivnorm_drezner_product_positive_cpp        
 double pbivnorm_drezner_product_positive_cpp(double a, double b, double rho)
 {
 	double t1 = sqrt( a*a - 2*a*b*rho + b*b);
@@ -170,8 +162,7 @@ double pbivnorm_drezner_product_positive_cpp(double a, double b, double rho)
 
 
 ///********************************************************************
-///** pbivnorm_drezner_numeric_arguments
-// [[Rcpp::export]]           
+///** pbivnorm_drezner_numeric_arguments        
 double pbivnorm_drezner_numeric_arguments(double a, double b, double rho) 
 {
 	double prod0 = a*b*rho;
@@ -204,8 +195,7 @@ Rcpp::NumericVector pbivnorm_drezner(Rcpp::NumericVector a, Rcpp::NumericVector 
 
 
 ///********************************************************************
-///** pbivnorm_drezner_derivative_rho_numeric
-// [[Rcpp::export]]           
+///** pbivnorm_drezner_derivative_rho_numeric          
 double pbivnorm_drezner_derivative_rho_numeric(double a, double b, double rho) 
 {
 	double val = immer_dnorm2(a,b,rho);
@@ -215,8 +205,7 @@ double pbivnorm_drezner_derivative_rho_numeric(double a, double b, double rho)
 
 
 ///********************************************************************
-///** pbivnorm_drezner_derivative_a_numeric
-// [[Rcpp::export]]           
+///** pbivnorm_drezner_derivative_a_numeric         
 double pbivnorm_drezner_derivative_a_numeric(double a, double b, double rho) 
 {
 	double t1 = ( b - rho*a ) / sqrt( 1 - rho*rho ) ;
@@ -228,7 +217,6 @@ double pbivnorm_drezner_derivative_a_numeric(double a, double b, double rho)
 
 ///********************************************************************
 ///** pbivnorm_drezner_derivative_b_numeric
-// [[Rcpp::export]]           
 double pbivnorm_drezner_derivative_b_numeric(double a, double b, double rho) 
 {
 	double t1 = ( a - rho*b ) / sqrt( 1 - rho*rho ) ;
@@ -405,8 +393,7 @@ Rcpp::List pml_probs_derivatives_tau_rho(Rcpp::NumericMatrix tau,
 
 ///********************************************************************
 ///** immer_bilinear_form
-///  t(x) %*% A %*% y
-// [[Rcpp::export]]           
+///  t(x) %*% A %*% y        
 double immer_bilinear_form(Rcpp::NumericVector x, Rcpp::NumericMatrix A, 
 	Rcpp::NumericVector y ) 
 {
@@ -798,8 +785,7 @@ Rcpp::List pml_trafo_irt_parameters_derivative(Rcpp::NumericMatrix LAM,
 
 ///********************************************************************
 ///** immer_sum_product
-// computes sum_v ( x[v] * y[v])
-// [[Rcpp::export]]  
+// computes sum_v ( x[v] * y[v]) 
 double immer_sum_product(Rcpp::NumericVector x, Rcpp::NumericVector y)
 {
 	int n=x.size();
@@ -816,7 +802,6 @@ double immer_sum_product(Rcpp::NumericVector x, Rcpp::NumericVector y)
 
 ///********************************************************************
 ///** immer_sum_matrix_product
-// [[Rcpp::export]] 
 Rcpp::NumericMatrix immer_sum_matrix_product(Rcpp::NumericMatrix x1, Rcpp::NumericMatrix x2,
 		Rcpp::NumericMatrix y1, Rcpp::NumericMatrix y2)
 {
@@ -985,8 +970,7 @@ Rcpp::List pml_derivative_fa_parameters(Rcpp::NumericMatrix LAM,
 
 
 ///********************************************************************
-///** immer_sparse_matrix_create_index
-// [[Rcpp::export]]           
+///** immer_sparse_matrix_create_index          
 Rcpp::NumericMatrix immer_sparse_matrix_create_index(Rcpp::NumericMatrix x)
 {
 	int N=x.nrow();
@@ -1009,11 +993,8 @@ Rcpp::NumericMatrix immer_sparse_matrix_create_index(Rcpp::NumericMatrix x)
 }
 ///********************************************************************
 
-
-
 ///********************************************************************
 ///** immer_sparse_matrix_mat_mult_vec
-// [[Rcpp::export]]           
 Rcpp::NumericVector immer_sparse_matrix_mat_mult_vec(Rcpp::NumericMatrix x_sparse, 
 		Rcpp::NumericVector vec, int NX)
 {
@@ -1031,8 +1012,7 @@ Rcpp::NumericVector immer_sparse_matrix_mat_mult_vec(Rcpp::NumericMatrix x_spars
 
 
 ///********************************************************************
-///** immer_matrix_mat_to_vec
-// [[Rcpp::export]]           
+///** immer_matrix_mat_to_vec       
 Rcpp::NumericVector immer_matrix_mat_to_vec(Rcpp::NumericMatrix x, Rcpp::IntegerMatrix x_index )
 {
 	int NR = x.nrow();
@@ -1058,11 +1038,8 @@ Rcpp::NumericVector immer_matrix_mat_to_vec(Rcpp::NumericMatrix x, Rcpp::Integer
 ///********************************************************************
 
 
-
-
 ///********************************************************************
 ///** immer_matrix_vec_to_mat
-// [[Rcpp::export]]           
 Rcpp::NumericMatrix immer_matrix_vec_to_mat(Rcpp::NumericVector par, 
 		Rcpp::IntegerMatrix x_index, Rcpp::NumericMatrix x_init )
 {
@@ -1137,8 +1114,7 @@ Rcpp::NumericVector pml_derivative_designmatrix(
 
 
 ///********************************************************************
-///** pml_basispar_types_to_full_pars
-// [[Rcpp::export]]           
+///** pml_basispar_types_to_full_pars           
 Rcpp::NumericMatrix pml_basispar_types_to_full_pars( Rcpp::NumericMatrix W_par,
 		Rcpp::NumericVector par_basispar, Rcpp::NumericMatrix par_init, Rcpp::IntegerMatrix par_index,
 		Rcpp::NumericVector do_log_par )
@@ -1161,8 +1137,7 @@ Rcpp::NumericMatrix pml_basispar_types_to_full_pars( Rcpp::NumericMatrix W_par,
 
 
 ///********************************************************************
-///** pml_basispar_to_pars_types_helper     
-// [[Rcpp::export]]    
+///** pml_basispar_to_pars_types_helper        
 Rcpp::NumericVector pml_basispar_to_pars_types_helper( Rcpp::NumericVector basispar, 
 	Rcpp::IntegerVector design_temp, int Nvv )
 {
@@ -1183,7 +1158,6 @@ Rcpp::NumericVector pml_basispar_to_pars_types_helper( Rcpp::NumericVector basis
 
 ///********************************************************************
 ///** pml_basispar_to_pars_types     
-// [[Rcpp::export]]    
 Rcpp::List pml_basispar_to_pars_types( Rcpp::NumericVector basispar, 
 	Rcpp::IntegerMatrix basispar_design, Rcpp::IntegerVector basispar_length )
 {
@@ -1222,8 +1196,7 @@ Rcpp::List pml_basispar_to_pars_types( Rcpp::NumericVector basispar,
 
 
 ///********************************************************************
-///** pml_basispar_to_parameters     
-// [[Rcpp::export]]    
+///** pml_basispar_to_parameters         
 Rcpp::List pml_basispar_to_parameters( Rcpp::NumericVector basispar, 
 	Rcpp::IntegerMatrix basispar_design, Rcpp::IntegerVector basispar_length,
 	Rcpp::NumericMatrix W_LAM, Rcpp::NumericMatrix LAM_init, Rcpp::IntegerMatrix LAM_index,
@@ -1269,11 +1242,8 @@ Rcpp::List pml_basispar_to_parameters( Rcpp::NumericVector basispar,
 }
 ///********************************************************************
 
-
-
 ///********************************************************************
 ///** pml_basispar_to_probs     
-// [[Rcpp::export]]    
 Rcpp::List pml_basispar_to_probs( Rcpp::NumericVector basispar, 
 	Rcpp::IntegerMatrix basispar_design, Rcpp::IntegerVector basispar_length,
 	Rcpp::NumericMatrix W_LAM, Rcpp::NumericMatrix LAM_init, Rcpp::IntegerMatrix LAM_index,
@@ -1316,11 +1286,8 @@ Rcpp::List pml_basispar_to_probs( Rcpp::NumericVector basispar,
 }
 ///********************************************************************
 
-
-
 ///********************************************************************
-///** pml_basispar_to_derivatives    
-// [[Rcpp::export]]    
+///** pml_basispar_to_derivatives        
 Rcpp::List pml_basispar_to_derivatives( Rcpp::NumericVector basispar, 
 	Rcpp::IntegerMatrix basispar_design, Rcpp::IntegerVector basispar_length,
 	Rcpp::NumericMatrix W_LAM, Rcpp::NumericMatrix LAM_init, Rcpp::IntegerMatrix LAM_index,
@@ -1651,13 +1618,8 @@ Rcpp::List immer_cpml_proc_generate_PHI(int D, bool use_diag)
 
 
 
-
-
-
-
 ///********************************************************************
 ///** immer_logdnorm2      
-// [[Rcpp::export]]    
 double immer_logdnorm2( double x, double y, double mu1, double mu2, double var1,
 		double var2, double cov12 )
 {

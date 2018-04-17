@@ -1,5 +1,5 @@
 //// File Name: immer_jml_rcpp.cpp
-//// File Version: 0.911
+//// File Version: 0.915
 
 
 // [[Rcpp::depends(RcppArmadillo)]]
@@ -10,10 +10,8 @@
 using namespace Rcpp;
 // using namespace arma;
 
-
 ///********************************************************************
 ///** immer_jml_prob_one_item_one_person      
-// [[Rcpp::export]]    
 Rcpp::NumericVector immer_jml_prob_one_item_one_person(double theta1, Rcpp::NumericVector b_ii)
 {
 	int K = b_ii.size();
@@ -34,9 +32,8 @@ Rcpp::NumericVector immer_jml_prob_one_item_one_person(double theta1, Rcpp::Nume
 ///********************************************************************
 
 ///********************************************************************
-///** immer_trim_increment_rcpp      
-// [[Rcpp::export]]    
-double immer_trim_increment_rcpp(double incr, double max_incr)
+///** immer_rcpp_trim_increment       
+double immer_rcpp_trim_increment(double incr, double max_incr)
 {
 	double incr1 = incr;	
 	bool do_cut = TRUE;	
@@ -57,8 +54,7 @@ double immer_trim_increment_rcpp(double incr, double max_incr)
 ///********************************************************************
 
 ///********************************************************************
-///** immer_abs2      
-// [[Rcpp::export]]    
+///** immer_abs2         
 double immer_abs2(double x)
 {
 	double y = x;	
@@ -188,7 +184,7 @@ Rcpp::List immer_jml_update_item_derivatives(Rcpp::NumericVector theta,
 	
 	//-- compute increments			
 	for (int hh=0; hh<NX; hh++){
-		incr[hh] = immer_trim_increment_rcpp( incr[hh], max_incr[hh]);
+		incr[hh] = immer_rcpp_trim_increment( incr[hh], max_incr[hh]);
 		xsi_new[hh] = xsi[hh] + incr[hh];
 	}
 	
@@ -291,7 +287,7 @@ Rcpp::List immer_jml_update_theta_derivatives(Rcpp::NumericVector theta,
 	for (int nn=0; nn<N; nn++){
 		if (update[nn]==1){
 			incr[nn] = der1[nn] / ( immer_abs2( der2[nn] ) + eps ); 
-			incr[nn] = immer_trim_increment_rcpp( incr[nn], max_incr);
+			incr[nn] = immer_rcpp_trim_increment( incr[nn], max_incr);
 			theta_temp = theta[nn] + incr[nn];
 		}
 		der2_out[nn] = der2[nn];
