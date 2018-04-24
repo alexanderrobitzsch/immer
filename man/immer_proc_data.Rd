@@ -1,5 +1,5 @@
 %% File Name: immer_proc_data.Rd
-%% File Version: 0.18
+%% File Version: 0.21
 
 \name{immer_proc_data}
 \alias{immer_proc_data}
@@ -12,7 +12,7 @@ Processing Datasets and Creating Design Matrices for Rating Data
 }
 
 \description{
-The function \code{immer_proc_data} processes datatsets containing rating data 
+The function \code{immer_proc_data} processes datasets containing rating data 
 into a dataset into a long format of pseudoitems (item \eqn{\times} raters).
 
 The function \code{immer_create_design_matrix_formula} creates a design matrix
@@ -68,7 +68,7 @@ The output of \code{immer_proc_data} is a list with several entries (selection)
 \item{N}{Number of persons}
 \item{RR}{Number of raters}
 \item{dat2.ind.resp}{Array containing indicators of pseudoitems and categories}
-\item{ND}{Number of person-rater inrteractions}
+\item{ND}{Number of person-rater interactions}
 \item{itemtable}{Information about processed data}
 
 The output of \code{immer_create_design_matrix_formula} is a list with several 

@@ -1,5 +1,5 @@
 %% File Name: data.ptam.Rd
-%% File Version: 0.16
+%% File Version: 0.18
 
 \name{data.ptam}
 
@@ -14,12 +14,12 @@
 
 
 \title{
-Example Datasets for Robitzsch and Steinfeld (2018, PTAM)
+Example Datasets for Robitzsch and Steinfeld (2018)
 }
 
 
 \description{
-Example datasets for Robitzsch and Steinfeld (2018, PTAM).
+Example datasets for Robitzsch and Steinfeld (2018).
 }
 
 
@@ -144,7 +144,9 @@ Each column corresponds to one rater. The format is
 
 
 \references{
-Robitzsch, A., & Steinfeld, J. (2018). XXX
+Robitzsch, A., & Steinfeld, J. (2018). Item response models for human ratings: Overview, 
+estimation methods, and implementation in R. 
+\emph{Psychological Test and Assessment Modeling, 60}(1), 101-139.
 }
 
 

@@ -1,5 +1,5 @@
 %% File Name: immer_hrm.Rd
-%% File Version: 0.57
+%% File Version: 0.62
 
 \name{immer_hrm}
 \alias{immer_hrm}
@@ -130,23 +130,18 @@ A list with following entries
 \references{
 Browne, W. J., & Draper, D. (2000). Implementation and performance issues in 
 the Bayesian and likelihood fitting of multilevel models. 
-\emph{Computational Statistics}, \bold{15}, 391-420.
+\emph{Computational Statistics, 15}, 391-420.
 
 Patz, R. J., Junker, B. W., Johnson, M. S., & Mariano, L. T. (2002). 
 The hierarchical rater model for rated test items and its 
 application to large-scale educational assessment data. 
-\emph{Journal of Educational and Behavioral Statistics}, 
-\bold{27(4)}, 341-384.
+\emph{Journal of Educational and Behavioral Statistics, 27}(4), 341-384.
 }
 
 %% Browne, W. J., & Draper, D. (2006). A comparison of Bayesian and
 %% likelihood-based methods for fitting multilevel models.
 %% \emph{Bayesian Analysis}, \bold{1(3)}, 473-514.
 
-
-\author{
-Alexander Robitzsch <robitzsch@ipn.uni-kiel.de>
-}
 
 
 %\note{
@@ -156,7 +151,7 @@ Alexander Robitzsch <robitzsch@ipn.uni-kiel.de>
 %% ~Make other sections like Warning with \section{Warning }{....} ~
 
 \seealso{
-Simulate the HRM with \code{\link{simulate_hrm}}.
+Simulate the HRM with \code{\link{immer_hrm_simulate}}.
 }
 
 
@@ -166,7 +161,7 @@ library(sirt)
 library(TAM)
 	
 #############################################################################
-# EXAMPLE 1: Simulated data using the "simulate_hrm" function
+# EXAMPLE 1: Simulated data using the immer_hrm_simulate() function
 #############################################################################
 
 # define data generating parameters
@@ -188,7 +183,7 @@ phi <- phi - rowMeans(phi)
 # rater variability parameters
 psi <- matrix( c(.1 , .4 , .8) , nrow=I , ncol=R , byrow=TRUE )
 # simulate HRM data
-data <- immer::simulate_hrm( theta , a , b , phi  = phi, psi = psi )
+data <- immer::immer_hrm_simulate( theta , a , b , phi  = phi, psi = psi )
 pid <- data$pid
 rater <- data$rater
 dat <- data[ , - c(1:2) ]

@@ -1,5 +1,5 @@
 %% File Name: immer_jml.Rd
-%% File Version: 0.43
+%% File Version: 0.45
 
 \name{immer_jml}
 \alias{immer_jml}
@@ -24,10 +24,10 @@ JML estimation method (Bertoli-Barsotti, Lando & Punzo, 2014).
 
 \usage{
 immer_jml(dat, A = NULL, maxK=NULL, center_theta = TRUE, b_fixed = NULL, irtmodel="PCM", 
-     pid=NULL, rater=NULL, eps = 0.3, est_method = "eps_adj", maxiter = 1000, conv = 1e-05, 
-     max_incr = 3, maxiter_update = 10, maxiter_line_search=6, conv_update = 1e-05, 
-     verbose = TRUE, use_Rcpp = TRUE, shortcut = TRUE)
-          
+     pid=NULL, rater=NULL, eps = 0.3, est_method = "eps_adj", maxiter = 1000, 
+     conv = 1e-05, max_incr = 3, maxiter_update = 10, maxiter_line_search=6, 
+     conv_update = 1e-05, verbose = TRUE, use_Rcpp = TRUE, shortcut = TRUE)
+
 \method{summary}{immer_jml}(object, digits=3, file=NULL, ...) 
 
 \method{logLik}{immer_jml}(object, ...)
@@ -134,7 +134,7 @@ List with following entries
 Bertoli-Barsotti, L., Lando, T., & Punzo, A. (2014). Estimating a Rasch Model via 
 fuzzy empirical probability functions. In D. Vicari, A. Okada, G. Ragozini & 
 C. Weihs (Eds.). 
-\emph{Analysis and Modeling of Complex Data in Behavioural and Social Sciences}, 
+\emph{Analysis and Modeling of Complex Data in Behavioral and Social Sciences}, 
 Springer.
 }
 

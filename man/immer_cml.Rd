@@ -1,5 +1,5 @@
 %% File Name: immer_cml.Rd
-%% File Version: 0.36
+%% File Version: 0.37
 
 \name{immer_cml}
 \alias{immer_cml}
@@ -151,9 +151,6 @@ New York: Springer.
 
 
 
-\author{
-Alexander Robitzsch <robitzsch@ipn.uni-kiel.de>
-}
 
 %\note{
 %%  ~~further notes~~

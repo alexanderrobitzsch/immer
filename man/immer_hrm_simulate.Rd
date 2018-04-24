@@ -1,8 +1,8 @@
-%% File Name: simulate_hrm.Rd
-%% File Version: 0.09
+%% File Name: immer_hrm_simulate.Rd
+%% File Version: 0.15
 
-\name{simulate_hrm}
-\alias{simulate_hrm}
+\name{immer_hrm_simulate}
+\alias{immer_hrm_simulate}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
 Simulating the Hierarchical Rater Model (Patz et al., 2002)
@@ -11,7 +11,7 @@ Simulating the Hierarchical Rater Model (Patz et al., 2002)
 Simulates the hierarchical rater model (Patz et al., 2002).
 }
 \usage{
-simulate_hrm(theta, a, b, phi, psi)
+immer_hrm_simulate(theta, a, b, phi, psi)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -45,13 +45,10 @@ and rater identifiers
 Patz, R. J., Junker, B. W., Johnson, M. S., & Mariano, L. T. (2002). 
 The hierarchical rater model for rated test items and its 
 application to large-scale educational assessment data. 
-\emph{Journal of Educational and Behavioral Statistics}, 
-\bold{27(4)}, 341-384.
+\emph{Journal of Educational and Behavioral Statistics, 27}(4), 341-384.
 }
 
-\author{
-Alexander Robitzsch <robitzsch@ipn.uni-kiel.de>
-}
+
 
 %\note{
 %%  ~~further notes~~
@@ -60,7 +57,8 @@ Alexander Robitzsch <robitzsch@ipn.uni-kiel.de>
 %% ~Make other sections like Warning with \section{Warning }{....} ~
 
 \seealso{
-For examples see Example 1 in \code{\link{immer_hrm}}.
+See Example 1 in \code{\link{immer_hrm}} for applying the
+\code{immer_hrm_simulate} function.
 }
 
 %\examples{

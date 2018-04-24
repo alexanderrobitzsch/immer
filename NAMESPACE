@@ -91,6 +91,7 @@ export(immer_create_design_matrix_formula)
 export(immer_FACETS)  
 export(immer_install)
 export(immer_hrm)
+export(immer_hrm_simulate)
 export(immer_jml)
 export(immer_latent_regression)
 export(immer_opcat)
@@ -100,7 +101,7 @@ export(immer_unique_patterns)
 export(lc2_agreement)
 export(logits2probs)
 export(probs2logits)
-export(simulate_hrm)
+
 
 
 

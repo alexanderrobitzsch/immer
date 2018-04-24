@@ -1,5 +1,5 @@
 //// File Name: immer_cmml_pbivnorm_rcpp.cpp
-//// File Version: 0.882
+//// File Version: 0.8881
 
 
 
@@ -252,9 +252,9 @@ Rcpp::List pbivnorm_drezner_derivative(Rcpp::NumericVector a,
 
 
 ///********************************************************************
-///** pml_calc_probs
+///** immer_cmml_calc_probs
 // [[Rcpp::export]]           
-Rcpp::NumericVector pml_calc_probs(Rcpp::NumericMatrix tau, 
+Rcpp::NumericVector immer_cmml_calc_probs(Rcpp::NumericMatrix tau, 
 		Rcpp::NumericMatrix rho, Rcpp::IntegerMatrix item_table) 
 {
 	int IP = item_table.nrow();
@@ -304,12 +304,12 @@ Rcpp::NumericVector pml_calc_probs(Rcpp::NumericMatrix tau,
 
 
 ///********************************************************************
-///** pml_probs_derivatives_tau_rho
+///** immer_cmml_probs_derivatives_tau_rho
 // item_table ... item i, item j, category h, category k
 // calculation of derivatives of probabilities p_ijhk with respect to
 // tau and rho
 // [[Rcpp::export]]           
-Rcpp::List pml_probs_derivatives_tau_rho(Rcpp::NumericMatrix tau, 
+Rcpp::List immer_cmml_probs_derivatives_tau_rho(Rcpp::NumericMatrix tau, 
 		Rcpp::NumericMatrix rho, Rcpp::IntegerMatrix item_table,
 		Rcpp::IntegerMatrix rho_index, int N_rho,
 		Rcpp::IntegerMatrix tau_index, int N_tau ) 
@@ -431,9 +431,9 @@ double immer_derivative_correlation( double cov12, double var1, double var2,
 
 
 ///********************************************************************
-///** pml_trafo_irt_parameters
+///** immer_cmml_trafo_irt_parameters
 // [[Rcpp::export]]           
-Rcpp::List pml_trafo_irt_parameters(Rcpp::NumericMatrix LAM,
+Rcpp::List immer_cmml_trafo_irt_parameters(Rcpp::NumericMatrix LAM,
 		Rcpp::NumericMatrix PHI, Rcpp::NumericMatrix PSI, Rcpp::NumericMatrix GAM,  
 		Rcpp::IntegerMatrix item_pairs, Rcpp::IntegerMatrix LAM_index,
 		int N_LAM, Rcpp::IntegerMatrix PHI_index, int N_PHI, Rcpp::IntegerMatrix PSI_index, 
@@ -499,9 +499,9 @@ Rcpp::List pml_trafo_irt_parameters(Rcpp::NumericMatrix LAM,
 
 
 ///********************************************************************
-///** pml_trafo_variances_covariances
+///** immer_cmml_trafo_variances_covariances
 // [[Rcpp::export]]           
-Rcpp::List pml_trafo_variances_covariances(Rcpp::NumericMatrix LAM,
+Rcpp::List immer_cmml_trafo_variances_covariances(Rcpp::NumericMatrix LAM,
 		Rcpp::NumericMatrix PHI, Rcpp::NumericMatrix PSI, Rcpp::NumericMatrix GAM,  
 		Rcpp::IntegerMatrix item_pairs, Rcpp::IntegerMatrix LAM_index,
 		int N_LAM, Rcpp::IntegerMatrix PHI_index, int N_PHI, Rcpp::IntegerMatrix PSI_index, 
@@ -553,9 +553,9 @@ Rcpp::List pml_trafo_variances_covariances(Rcpp::NumericMatrix LAM,
 
 
 ///********************************************************************
-///** pml_trafo_irt_parameters_derivative
+///** immer_cmml_trafo_irt_parameters_derivative
 // [[Rcpp::export]]           
-Rcpp::List pml_trafo_irt_parameters_derivative(Rcpp::NumericMatrix LAM,
+Rcpp::List immer_cmml_trafo_irt_parameters_derivative(Rcpp::NumericMatrix LAM,
 		Rcpp::NumericMatrix PHI, Rcpp::NumericMatrix PSI, Rcpp::NumericMatrix GAM,  
 		Rcpp::IntegerMatrix item_pairs, Rcpp::IntegerMatrix LAM_index,
 		int N_LAM, Rcpp::IntegerMatrix PHI_index, int N_PHI, Rcpp::IntegerMatrix PSI_index, 
@@ -824,9 +824,9 @@ Rcpp::NumericMatrix immer_sum_matrix_product(Rcpp::NumericMatrix x1, Rcpp::Numer
 
 
 ///********************************************************************
-///** pml_calc_prob_pars
+///** immer_cmml_calc_prob_pars
 // [[Rcpp::export]]           
-Rcpp::List pml_calc_prob_pars(Rcpp::NumericMatrix LAM,
+Rcpp::List immer_cmml_calc_prob_pars(Rcpp::NumericMatrix LAM,
 		Rcpp::NumericMatrix PHI, Rcpp::NumericMatrix PSI, Rcpp::NumericMatrix GAM,  
 		Rcpp::IntegerMatrix item_pairs, Rcpp::IntegerMatrix LAM_index,
 		int N_LAM, Rcpp::IntegerMatrix PHI_index, int N_PHI, Rcpp::IntegerMatrix PSI_index, 
@@ -835,14 +835,14 @@ Rcpp::List pml_calc_prob_pars(Rcpp::NumericMatrix LAM,
 {
 
 	// compute parameters rho and tau
-	Rcpp::List res = pml_trafo_irt_parameters(LAM, PHI, PSI, GAM, item_pairs, LAM_index,
+	Rcpp::List res = immer_cmml_trafo_irt_parameters(LAM, PHI, PSI, GAM, item_pairs, LAM_index,
 			N_LAM, PHI_index, N_PHI, PSI_index, N_PSI, tau_index, N_tau, GAM_index,
 			N_GAM, rho_index, N_rho );
 	Rcpp::NumericMatrix rho = res["rho"];
 	Rcpp::NumericMatrix tau = res["tau"];
 
 	// compute probabilities
-	Rcpp::NumericVector probs = pml_calc_probs(tau, rho, item_table);
+	Rcpp::NumericVector probs = immer_cmml_calc_probs(tau, rho, item_table);
 
 	// output
 	return Rcpp::List::create(
@@ -864,9 +864,9 @@ Rcpp::List pml_calc_prob_pars(Rcpp::NumericMatrix LAM,
 
 
 ///********************************************************************
-///** pml_derivative_fa_parameters
+///** immer_cmml_derivative_fa_parameters
 // [[Rcpp::export]]           
-Rcpp::List pml_derivative_fa_parameters(Rcpp::NumericMatrix LAM,
+Rcpp::List immer_cmml_derivative_fa_parameters(Rcpp::NumericMatrix LAM,
 		Rcpp::NumericMatrix PHI, Rcpp::NumericMatrix PSI, Rcpp::NumericMatrix GAM,  
 		Rcpp::IntegerMatrix item_pairs, Rcpp::IntegerMatrix LAM_index,
 		int N_LAM, Rcpp::IntegerMatrix PHI_index, int N_PHI, Rcpp::IntegerMatrix PSI_index, 
@@ -874,7 +874,7 @@ Rcpp::List pml_derivative_fa_parameters(Rcpp::NumericMatrix LAM,
 		int N_GAM, Rcpp::IntegerMatrix rho_index, int N_rho, Rcpp::IntegerMatrix item_table ) 
 {
 	// compute derivatives of tau, rho with respect to parameters
-	Rcpp::List res = pml_trafo_irt_parameters_derivative(LAM, PHI, PSI, GAM, item_pairs, LAM_index, 
+	Rcpp::List res = immer_cmml_trafo_irt_parameters_derivative(LAM, PHI, PSI, GAM, item_pairs, LAM_index, 
 						N_LAM, PHI_index, N_PHI, PSI_index, N_PSI, tau_index, N_tau, 
 						GAM_index, N_GAM, rho_index, N_rho); 
 	Rcpp::NumericMatrix rho = res["rho"];
@@ -887,10 +887,10 @@ Rcpp::List pml_derivative_fa_parameters(Rcpp::NumericMatrix LAM,
 	Rcpp::NumericMatrix rho_der_PSI = res["rho_der_PSI"];
 
 	// calculate probabilities
-	Rcpp::NumericVector probs = pml_calc_probs(tau, rho, item_table); 
+	Rcpp::NumericVector probs = immer_cmml_calc_probs(tau, rho, item_table); 
 
 	// derivative of probabilities
-	Rcpp::List res1 = pml_probs_derivatives_tau_rho(tau, rho, item_table, rho_index, N_rho, tau_index, N_tau );
+	Rcpp::List res1 = immer_cmml_probs_derivatives_tau_rho(tau, rho, item_table, rho_index, N_rho, tau_index, N_tau );
 	Rcpp::NumericMatrix probs_der_rho = res1["probs_der_rho"];
 	Rcpp::NumericMatrix probs_der_tau = res1["probs_der_tau"];    
 
@@ -1070,9 +1070,9 @@ Rcpp::NumericMatrix immer_matrix_vec_to_mat(Rcpp::NumericVector par,
 
 
 ///********************************************************************
-///** pml_derivative_designmatrix
+///** immer_cmml_derivative_designmatrix
 // [[Rcpp::export]]           
-Rcpp::NumericVector pml_derivative_designmatrix(
+Rcpp::NumericVector immer_cmml_derivative_designmatrix(
 		Rcpp::NumericMatrix probs_der_par, Rcpp::NumericMatrix W_par, 
 		Rcpp::NumericVector par, Rcpp::NumericVector do_log )
 {
@@ -1114,8 +1114,8 @@ Rcpp::NumericVector pml_derivative_designmatrix(
 
 
 ///********************************************************************
-///** pml_basispar_types_to_full_pars           
-Rcpp::NumericMatrix pml_basispar_types_to_full_pars( Rcpp::NumericMatrix W_par,
+///** immer_cmml_basispar_types_to_full_pars           
+Rcpp::NumericMatrix immer_cmml_basispar_types_to_full_pars( Rcpp::NumericMatrix W_par,
 		Rcpp::NumericVector par_basispar, Rcpp::NumericMatrix par_init, Rcpp::IntegerMatrix par_index,
 		Rcpp::NumericVector do_log_par )
 {
@@ -1137,8 +1137,8 @@ Rcpp::NumericMatrix pml_basispar_types_to_full_pars( Rcpp::NumericMatrix W_par,
 
 
 ///********************************************************************
-///** pml_basispar_to_pars_types_helper        
-Rcpp::NumericVector pml_basispar_to_pars_types_helper( Rcpp::NumericVector basispar, 
+///** immer_cmml_basispar_to_pars_types_helper        
+Rcpp::NumericVector immer_cmml_basispar_to_pars_types_helper( Rcpp::NumericVector basispar, 
 	Rcpp::IntegerVector design_temp, int Nvv )
 {
 	if (Nvv==0){ Nvv=1;}
@@ -1157,8 +1157,8 @@ Rcpp::NumericVector pml_basispar_to_pars_types_helper( Rcpp::NumericVector basis
 
 
 ///********************************************************************
-///** pml_basispar_to_pars_types     
-Rcpp::List pml_basispar_to_pars_types( Rcpp::NumericVector basispar, 
+///** immer_cmml_basispar_to_pars_types     
+Rcpp::List immer_cmml_basispar_to_pars_types( Rcpp::NumericVector basispar, 
 	Rcpp::IntegerMatrix basispar_design, Rcpp::IntegerVector basispar_length )
 {
 	// # LAM_basispar
@@ -1168,19 +1168,19 @@ Rcpp::List pml_basispar_to_pars_types( Rcpp::NumericVector basispar,
 	int vv=0;	
 	// LAM
 	vv = 0;
-	Rcpp::NumericVector LAM_basispar = pml_basispar_to_pars_types_helper( basispar, 
+	Rcpp::NumericVector LAM_basispar = immer_cmml_basispar_to_pars_types_helper( basispar, 
 						basispar_design(_,vv), basispar_length[vv] );
 	// GAM
 	vv = 1;
-	Rcpp::NumericVector GAM_basispar = pml_basispar_to_pars_types_helper( basispar, 
+	Rcpp::NumericVector GAM_basispar = immer_cmml_basispar_to_pars_types_helper( basispar, 
 						basispar_design(_,vv), basispar_length[vv] );
 	// PHI
 	vv = 2;
-	Rcpp::NumericVector PHI_basispar = pml_basispar_to_pars_types_helper( basispar, 
+	Rcpp::NumericVector PHI_basispar = immer_cmml_basispar_to_pars_types_helper( basispar, 
 						basispar_design(_,vv), basispar_length[vv] );
 	// PSI
 	vv = 3;
-	Rcpp::NumericVector PSI_basispar = pml_basispar_to_pars_types_helper( basispar, 
+	Rcpp::NumericVector PSI_basispar = immer_cmml_basispar_to_pars_types_helper( basispar, 
 						basispar_design(_,vv), basispar_length[vv] );
 						
 	//--- output 
@@ -1196,8 +1196,8 @@ Rcpp::List pml_basispar_to_pars_types( Rcpp::NumericVector basispar,
 
 
 ///********************************************************************
-///** pml_basispar_to_parameters         
-Rcpp::List pml_basispar_to_parameters( Rcpp::NumericVector basispar, 
+///** immer_cmml_basispar_to_parameters         
+Rcpp::List immer_cmml_basispar_to_parameters( Rcpp::NumericVector basispar, 
 	Rcpp::IntegerMatrix basispar_design, Rcpp::IntegerVector basispar_length,
 	Rcpp::NumericMatrix W_LAM, Rcpp::NumericMatrix LAM_init, Rcpp::IntegerMatrix LAM_index,
 	Rcpp::NumericMatrix W_GAM, Rcpp::NumericMatrix GAM_init, Rcpp::IntegerMatrix GAM_index,
@@ -1208,23 +1208,23 @@ Rcpp::List pml_basispar_to_parameters( Rcpp::NumericVector basispar,
 	)
 {
 	// select basis parameters
-	Rcpp::List res = pml_basispar_to_pars_types( basispar, basispar_design, basispar_length );	
+	Rcpp::List res = immer_cmml_basispar_to_pars_types( basispar, basispar_design, basispar_length );	
 	Rcpp::NumericVector LAM_basispar = res["LAM_basispar"];
 	Rcpp::NumericVector GAM_basispar = res["GAM_basispar"];
 	Rcpp::NumericVector PHI_basispar = res["PHI_basispar"];
 	Rcpp::NumericVector PSI_basispar = res["PSI_basispar"];	
 
 	// LAM
-	Rcpp::NumericMatrix LAM = pml_basispar_types_to_full_pars( W_LAM, LAM_basispar, LAM_init, 
+	Rcpp::NumericMatrix LAM = immer_cmml_basispar_types_to_full_pars( W_LAM, LAM_basispar, LAM_init, 
 					LAM_index, do_log_LAM );
 	// GAM
-	Rcpp::NumericMatrix GAM = pml_basispar_types_to_full_pars( W_GAM, GAM_basispar, GAM_init, 
+	Rcpp::NumericMatrix GAM = immer_cmml_basispar_types_to_full_pars( W_GAM, GAM_basispar, GAM_init, 
 					GAM_index, do_log_GAM  );
 	// PHI
-	Rcpp::NumericMatrix PHI = pml_basispar_types_to_full_pars( W_PHI, PHI_basispar, PHI_init, 
+	Rcpp::NumericMatrix PHI = immer_cmml_basispar_types_to_full_pars( W_PHI, PHI_basispar, PHI_init, 
 					PHI_index, do_log_PHI );
 	// PSI
-	Rcpp::NumericMatrix PSI = pml_basispar_types_to_full_pars( W_PSI, PSI_basispar, PSI_init, 
+	Rcpp::NumericMatrix PSI = immer_cmml_basispar_types_to_full_pars( W_PSI, PSI_basispar, PSI_init, 
 					PSI_index, do_log_PSI );
 			
 	//--- output 
@@ -1243,8 +1243,9 @@ Rcpp::List pml_basispar_to_parameters( Rcpp::NumericVector basispar,
 ///********************************************************************
 
 ///********************************************************************
-///** pml_basispar_to_probs     
-Rcpp::List pml_basispar_to_probs( Rcpp::NumericVector basispar, 
+///** immer_cmml_basispar_to_probs     
+// [[Rcpp::export]]   
+Rcpp::List immer_cmml_basispar_to_probs( Rcpp::NumericVector basispar, 
 	Rcpp::IntegerMatrix basispar_design, Rcpp::IntegerVector basispar_length,
 	Rcpp::NumericMatrix W_LAM, Rcpp::NumericMatrix LAM_init, Rcpp::IntegerMatrix LAM_index,
 	Rcpp::NumericMatrix W_GAM, Rcpp::NumericMatrix GAM_init, Rcpp::IntegerMatrix GAM_index,
@@ -1256,7 +1257,7 @@ Rcpp::List pml_basispar_to_probs( Rcpp::NumericVector basispar,
 	Rcpp::NumericVector do_log_PHI,	Rcpp::NumericVector do_log_PSI )
 {
 	// convert basis parameters to factor-analytic model parameters
-	Rcpp::List res = pml_basispar_to_parameters( basispar, basispar_design, basispar_length, W_LAM, 
+	Rcpp::List res = immer_cmml_basispar_to_parameters( basispar, basispar_design, basispar_length, W_LAM, 
 						LAM_init, LAM_index, W_GAM, GAM_init, GAM_index, W_PHI, PHI_init, PHI_index,
 						W_PSI, PSI_init, PSI_index, do_log_LAM, do_log_GAM, do_log_PHI, do_log_PSI );
 	Rcpp::NumericMatrix LAM = res["LAM"];
@@ -1265,7 +1266,7 @@ Rcpp::List pml_basispar_to_probs( Rcpp::NumericVector basispar,
 	Rcpp::NumericMatrix PSI = res["PSI"];
 
 	// compute probabilities
-	Rcpp::List res11 = pml_calc_prob_pars(LAM, PHI, PSI, GAM, item_pairs, LAM_index, N_LAM, PHI_index, 
+	Rcpp::List res11 = immer_cmml_calc_prob_pars(LAM, PHI, PSI, GAM, item_pairs, LAM_index, N_LAM, PHI_index, 
 					N_PHI, PSI_index, N_PSI, tau_index, N_tau, GAM_index, N_GAM, rho_index, N_rho, 
 					item_table);
 	Rcpp::NumericVector probs = res11["probs"];
@@ -1287,8 +1288,9 @@ Rcpp::List pml_basispar_to_probs( Rcpp::NumericVector basispar,
 ///********************************************************************
 
 ///********************************************************************
-///** pml_basispar_to_derivatives        
-Rcpp::List pml_basispar_to_derivatives( Rcpp::NumericVector basispar, 
+///** immer_cmml_basispar_to_derivatives        
+// [[Rcpp::export]]
+Rcpp::List immer_cmml_basispar_to_derivatives( Rcpp::NumericVector basispar, 
 	Rcpp::IntegerMatrix basispar_design, Rcpp::IntegerVector basispar_length,
 	Rcpp::NumericMatrix W_LAM, Rcpp::NumericMatrix LAM_init, Rcpp::IntegerMatrix LAM_index,
 	Rcpp::NumericMatrix W_GAM, Rcpp::NumericMatrix GAM_init, Rcpp::IntegerMatrix GAM_index,
@@ -1300,7 +1302,7 @@ Rcpp::List pml_basispar_to_derivatives( Rcpp::NumericVector basispar,
 	Rcpp::NumericVector do_log_PHI,	Rcpp::NumericVector do_log_PSI )
 {
 	// convert basis parameters to factor-analytic model parameters
-	Rcpp::List res = pml_basispar_to_parameters( basispar, basispar_design, basispar_length, W_LAM, 
+	Rcpp::List res = immer_cmml_basispar_to_parameters( basispar, basispar_design, basispar_length, W_LAM, 
 						LAM_init, LAM_index, W_GAM, GAM_init, GAM_index, W_PHI, PHI_init, PHI_index,
 						W_PSI, PSI_init, PSI_index, do_log_LAM, do_log_GAM, do_log_PHI, do_log_PSI);
 	Rcpp::NumericMatrix LAM = res["LAM"];
@@ -1309,7 +1311,7 @@ Rcpp::List pml_basispar_to_derivatives( Rcpp::NumericVector basispar,
 	Rcpp::NumericMatrix PSI = res["PSI"];
 
 	// compute derivatives with respect to FA parameters
-	Rcpp::List res11 = pml_derivative_fa_parameters(LAM, PHI, PSI, GAM, item_pairs, LAM_index, N_LAM, PHI_index, 
+	Rcpp::List res11 = immer_cmml_derivative_fa_parameters(LAM, PHI, PSI, GAM, item_pairs, LAM_index, N_LAM, PHI_index, 
 				N_PHI, PSI_index, N_PSI, tau_index, N_tau, GAM_index, N_GAM, rho_index, N_rho, 
 				item_table);
 	Rcpp::NumericMatrix probs_der_LAM = res11["probs_der_LAM"];
@@ -1333,7 +1335,7 @@ Rcpp::List pml_basispar_to_derivatives( Rcpp::NumericVector basispar,
 	//** LAM
 	vv=0;
 	Rcpp::NumericVector LAM_parvec = immer_matrix_mat_to_vec( LAM, LAM_index);
-	Rcpp::NumericVector LAM_probs_der_basispar = pml_derivative_designmatrix( probs_der_LAM, 
+	Rcpp::NumericVector LAM_probs_der_basispar = immer_cmml_derivative_designmatrix( probs_der_LAM, 
 								W_LAM, LAM_parvec, do_log_LAM );
 	NBL = basispar_length[vv];
 	for (int hh=0; hh<NBL; hh++){
@@ -1345,7 +1347,7 @@ Rcpp::List pml_basispar_to_derivatives( Rcpp::NumericVector basispar,
 	//** GAM
 	vv=1;
 	Rcpp::NumericVector GAM_parvec = immer_matrix_mat_to_vec( GAM, GAM_index);
-	Rcpp::NumericVector GAM_probs_der_basispar = pml_derivative_designmatrix( probs_der_GAM, 
+	Rcpp::NumericVector GAM_probs_der_basispar = immer_cmml_derivative_designmatrix( probs_der_GAM, 
 								W_GAM, GAM_parvec, do_log_GAM );
 	NBL = basispar_length[vv];
 	for (int hh=0; hh<NBL; hh++){
@@ -1357,7 +1359,7 @@ Rcpp::List pml_basispar_to_derivatives( Rcpp::NumericVector basispar,
 	//** PHI
 	vv=2;
 	Rcpp::NumericVector PHI_parvec = immer_matrix_mat_to_vec( PHI, PHI_index);
-	Rcpp::NumericVector PHI_probs_der_basispar = pml_derivative_designmatrix( probs_der_PHI, 
+	Rcpp::NumericVector PHI_probs_der_basispar = immer_cmml_derivative_designmatrix( probs_der_PHI, 
 								W_PHI, PHI_parvec, do_log_PHI );
 	NBL = basispar_length[vv];
 	for (int hh=0; hh<NBL; hh++){
@@ -1369,7 +1371,7 @@ Rcpp::List pml_basispar_to_derivatives( Rcpp::NumericVector basispar,
 	//** PSI
 	vv=3;
 	Rcpp::NumericVector PSI_parvec = immer_matrix_mat_to_vec( PSI, PSI_index);
-	Rcpp::NumericVector PSI_probs_der_basispar = pml_derivative_designmatrix( probs_der_PSI, 
+	Rcpp::NumericVector PSI_probs_der_basispar = immer_cmml_derivative_designmatrix( probs_der_PSI, 
 								W_PSI, PSI_parvec, do_log_PSI );
 	NBL = basispar_length[vv];
 	for (int hh=0; hh<NBL; hh++){
@@ -1464,9 +1466,9 @@ Rcpp::NumericMatrix immer_cmml_proc_freq( Rcpp::IntegerMatrix dat,
 
 
 ///********************************************************************
-///** immer_cpml_proc_generate_rho_index
+///** immer_cmml_proc_generate_rho_index
 // [[Rcpp::export]]    
-Rcpp::IntegerMatrix immer_cpml_proc_generate_rho_index( int I)
+Rcpp::IntegerMatrix immer_cmml_proc_generate_rho_index( int I)
 {
 	Rcpp::IntegerMatrix rho_index(I,I);
 	int ind = 1;
@@ -1483,9 +1485,9 @@ Rcpp::IntegerMatrix immer_cpml_proc_generate_rho_index( int I)
 
 
 ///********************************************************************
-///** immer_cpml_proc_generate_tau
+///** immer_cmml_proc_generate_tau
 // [[Rcpp::export]]    
-Rcpp::List immer_cpml_proc_generate_tau(Rcpp::IntegerVector maxK, int K)
+Rcpp::List immer_cmml_proc_generate_tau(Rcpp::IntegerVector maxK, int K)
 {	
 	int I = maxK.size();
 	Rcpp::IntegerMatrix tau(I,K+2);
@@ -1518,9 +1520,9 @@ Rcpp::List immer_cpml_proc_generate_tau(Rcpp::IntegerVector maxK, int K)
 
 
 ///********************************************************************
-///** immer_cpml_proc_generate_LAM
+///** immer_cmml_proc_generate_LAM
 // [[Rcpp::export]]    
-Rcpp::List immer_cpml_proc_generate_LAM(Rcpp::IntegerMatrix Q)
+Rcpp::List immer_cmml_proc_generate_LAM(Rcpp::IntegerMatrix Q)
 {	
 	int I = Q.nrow();
 	int D = Q.ncol();
@@ -1568,9 +1570,9 @@ Rcpp::List immer_cpml_proc_generate_LAM(Rcpp::IntegerMatrix Q)
 
 
 ///********************************************************************
-///** immer_cpml_proc_generate_PHI
+///** immer_cmml_proc_generate_PHI
 // [[Rcpp::export]]    
-Rcpp::List immer_cpml_proc_generate_PHI(int D, bool use_diag)
+Rcpp::List immer_cmml_proc_generate_PHI(int D, bool use_diag)
 {	
 	Rcpp::NumericMatrix PHI(D,D);
 	Rcpp::IntegerMatrix PHI_index(D,D);

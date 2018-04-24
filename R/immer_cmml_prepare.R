@@ -1,5 +1,5 @@
 ## File Name: immer_cmml_prepare.R
-## File Version: 0.27
+## File Version: 0.28
 
 immer_cmml_prepare <- function( dat, Q=NULL, weights=NULL)
 {
@@ -37,7 +37,7 @@ immer_cmml_prepare <- function( dat, Q=NULL, weights=NULL)
 	rho <- matrix( 0.5 , nrow=I, ncol=I)
 	diag(rho) <- 1
 	rho <- immer_matrix_add_names(x=rho, row=items, col=items)	
-	rho_index <- immer_cpml_proc_generate_rho_index(I=I)
+	rho_index <- immer_cmml_proc_generate_rho_index(I=I)
 	rho_index <- immer_matrix_add_names(x=rho_index, row=items, col=items)	
 	N_rho <- max( rho_index )	
 	cpml_design$rho <- rho
@@ -45,7 +45,7 @@ immer_cmml_prepare <- function( dat, Q=NULL, weights=NULL)
 	cpml_design$N_rho <- N_rho
 	
 	#*** tau
-	res <- immer_cpml_proc_generate_tau(maxK=maxK, K=K)
+	res <- immer_cmml_proc_generate_tau(maxK=maxK, K=K)
 	thresh <- paste0("thresh",0:(K+1))
 	tau <- immer_matrix_add_names(x=res$tau, row=items, col=thresh)
 	tau_index <- immer_matrix_add_names(x=res$tau_index, row=items, col=thresh)
@@ -65,7 +65,7 @@ immer_cmml_prepare <- function( dat, Q=NULL, weights=NULL)
 	Q_col <- colnames(Q)
 	D <- ncol(Q)
 	cpml_design$Q <- Q
-	res <- immer_cpml_proc_generate_LAM(Q=Q)
+	res <- immer_cmml_proc_generate_LAM(Q=Q)
 	LAM <- immer_matrix_add_names(x=res$LAM, row=items, col=Q_col)		
 	LAM_index <- immer_matrix_add_names(x=res$LAM_index, row=items, col=Q_col )	
 	LAM_init <- 0*LAM
@@ -95,7 +95,7 @@ immer_cmml_prepare <- function( dat, Q=NULL, weights=NULL)
 	cpml_design$GAM_basispar <- GAM_basispar
 	
 	#*** PHI
-	res <- immer_cpml_proc_generate_PHI(D=D, use_diag=TRUE)
+	res <- immer_cmml_proc_generate_PHI(D=D, use_diag=TRUE)
 	PHI <- immer_matrix_add_names(x=res$PHI, row=Q_col, col=Q_col)	
 	PHI_index <- immer_matrix_add_names(x=res$PHI_index, row=Q_col, col=Q_col)	
 	PHI_init <- immer_matrix_add_names(x=res$PHI_init, row=Q_col, col=Q_col)	
@@ -109,7 +109,7 @@ immer_cmml_prepare <- function( dat, Q=NULL, weights=NULL)
 	cpml_design$PHI_basispar <- PHI_basispar
 
 	#*** PSI
-	res <- immer_cpml_proc_generate_PHI(D=I, use_diag=FALSE)
+	res <- immer_cmml_proc_generate_PHI(D=I, use_diag=FALSE)
 	PSI <- immer_matrix_add_names(x=res$PHI, row=items, col=items)	
 	PSI_index <- immer_matrix_add_names(x=res$PHI_index, row=items, col=items)	
 	PSI_init <- immer_matrix_add_names(x=res$PHI_init, row=items, col=items)	

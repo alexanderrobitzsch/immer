@@ -1,5 +1,5 @@
 %% File Name: immer_reshape_wideformat.Rd
-%% File Version: 0.13
+%% File Version: 0.14
 
 \name{immer_reshape_wideformat}
 \alias{immer_reshape_wideformat}
@@ -42,9 +42,7 @@ identifier) to one rater.
 %% ~put references to the literature/web site here ~
 %}
 
-\author{
-Alexander Robitzsch <robitzsch@ipn.uni-kiel.de>
-}
+
 
 %\note{
 %%  ~~further notes~~

@@ -37,14 +37,13 @@ Alexander Robitzsch & Jan Steinfeld
                             
                    
 
-mailto:
+mailto: 
 -------
+
+robitzsch@ipn.uni-mail.de
 
 * For reporting a bug, please provide always a reproducible R script 
   and (if necessary) a corresponding dataset.
-
-* Mail to the author of a function in the immer package
-  which is mentioned as "Author(s)" at the R help page.
 
 
 URL:
@@ -57,8 +56,20 @@ https://sites.google.com/site/alexanderrobitzsch/software
 
 
 
+
 ------------------------------------------------------------
-VERSIONS immer 1.0  |  2018-04-17  |  Last: immer 1.0-127
+VERSIONS immer 1.1  |  2018-04-24  |  Last: immer 1.1-1
+------------------------------------------------------------
+
+ADDED * ---
+
+DATA  * included/modified datasets: ---
+EXAMP * included/modified examples: ---
+
+
+
+------------------------------------------------------------
+VERSIONS immer 1.0  |  2018-04-24  |  Last: immer 1.0-138
 ------------------------------------------------------------
 
 ADDED * included joint maximum likelihood estimation function
@@ -88,14 +99,13 @@ NOTE  * prevent alphanumeric order of rater labels in output
         of immer_hrm()
 ADDED * included Rcpp functions for faster computations in
         immer_cml()
+NOTE  * renamed simulate_hrm() into immer_hrm_simulate()
 
 DATA  * included/modified datasets: data.ptam4, data.ptam4long,
         data.ptam4long
 EXAMP * included/modified examples: immer_jml (1),
         immer_ccml (1), immer_latent_regression (1),
         immer_proc_data (1)
-
-
 
 ------------------------------------------------------------
 VERSIONS immer 0.8  |  2017-04-27  |  Last: immer 0.8-5

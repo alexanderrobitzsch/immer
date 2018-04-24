@@ -1,5 +1,5 @@
 %% File Name: immer_install.Rd
-%% File Version: 0.08
+%% File Version: 0.09
 
 \name{immer_install}
 \alias{immer_install}
@@ -32,8 +32,8 @@ optional argument for the specification of the path where FACETS should be saved
 
 \details{
 This function provides assistance for the installation process of the FACDOS 
-(DOS version of FACETS) and the required DosBox. Currently supported Operating 
-Systems are: Windows, Mac OS X and Ubuntu (Linux).
+(DOS version of FACETS) and the required DosBox. Currently supported operating 
+systems are: Windows, Mac OS X and Ubuntu (Linux).
 }
 
 %\value{
@@ -42,15 +42,12 @@ Systems are: Windows, Mac OS X and Ubuntu (Linux).
 
 
 \references{
-Linacre, J. M. (1999). FACETS (Version 3.17) [Computer software]. Chicago: MESA.
+Linacre, J. M. (1999). \emph{FACETS} (Version 3.17) [Computer software]. Chicago: MESA.
 
-Veenstra, P., Froessman, T., Wohlers, U. (2015): DOSBox (Version 0.74) 
+Veenstra, P., Froessman, T., Wohlers, U. (2015): \emph{DOSBox} (Version 0.74) 
 [Computer Software]. Arizona: Scottsdale.
 }
 
-\author{
-Jan Steinfeld <j.steinfeld@bifie.at>
-}
 
 
 %\note{

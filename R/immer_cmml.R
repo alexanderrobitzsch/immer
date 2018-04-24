@@ -1,5 +1,5 @@
 ## File Name: immer_cmml.R
-## File Version: 0.22
+## File Version: 0.23
 
 
 immer_cmml <- function( suff_stat, cpml_design, control=NULL )
@@ -72,7 +72,7 @@ immer_cmml <- function( suff_stat, cpml_design, control=NULL )
 
 	#- define optimization function
 	opt_fct <- function(par){
-		res <- pml_basispar_to_probs( basispar=par, basispar_design=basispar_design1, 
+		res <- immer_cmml_basispar_to_probs( basispar=par, basispar_design=basispar_design1, 
 				basispar_length=basispar_length, W_LAM=W_LAM, LAM_init=LAM_init, LAM_index=LAM_index1, 
 				W_GAM=W_GAM, GAM_init=GAM_init, GAM_index=GAM_index1, W_PHI=W_PHI, PHI_init=PHI_init, 
 				PHI_index=PHI_index1, W_PSI=W_PSI, PSI_init=PSI_init, PSI_index=PSI_index1, 
@@ -89,7 +89,7 @@ immer_cmml <- function( suff_stat, cpml_design, control=NULL )
 
 
 
-	res <- pml_basispar_to_derivatives( basispar=basispar, basispar_design=basispar_design1, 
+	res <- immer_cmml_basispar_to_derivatives( basispar=basispar, basispar_design=basispar_design1, 
 		basispar_length=basispar_length, W_LAM=W_LAM, LAM_init=LAM_init, LAM_index=LAM_index1, 
 		W_GAM=W_GAM, GAM_init=GAM_init, GAM_index=GAM_index1, W_PHI=W_PHI, PHI_init=PHI_init, 
 		PHI_index=PHI_index1, W_PSI=W_PSI, PSI_init=PSI_init, PSI_index=PSI_index1, 

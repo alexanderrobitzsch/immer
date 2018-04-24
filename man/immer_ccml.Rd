@@ -1,5 +1,5 @@
 %% File Name: immer_ccml.Rd
-%% File Version: 0.12
+%% File Version: 0.13
 
 \name{immer_ccml}
 \alias{immer_ccml}
@@ -87,10 +87,10 @@ List with following entries (selection)
 
 \references{
 Varin, C., Reid, N., & Firth, D. (2011). An overview of composite likelihood methods. 
-\emph{Statistica Sinica}, \bold{21}, 5-42.
+\emph{Statistica Sinica, 21}, 5-42.
 
 Zwinderman, A. H. (1995). Pairwise parameter estimation in Rasch models. 
-\emph{Applied Psychological Measurement}, \bold{19}(4), 369-375.
+\emph{Applied Psychological Measurement, 19}(4), 369-375.
 }
 
 %\author{

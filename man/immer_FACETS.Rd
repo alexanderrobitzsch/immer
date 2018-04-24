@@ -1,5 +1,5 @@
 %% File Name: immer_FACETS.Rd
-%% File Version: 0.21
+%% File Version: 0.29
 
 \name{immer_FACETS}
 \alias{immer_FACETS}
@@ -50,7 +50,7 @@ immer_FACETS(title = NULL, convergence = NULL, totalscore = NULL, facets = NULL,
   model to be used in the analysis
   }
   \item{inter_rater}{
-  Specify rater facet number for the agreemant report among raters
+  Specify rater facet number for the agreement report among raters
   }
   \item{pt_biserial}{
   correlation between the raw-score for each element
@@ -59,13 +59,13 @@ immer_FACETS(title = NULL, convergence = NULL, totalscore = NULL, facets = NULL,
   intended for communicating the measures as adjusted ratings
   }
   \item{unexpected}{
-  size of smalest standardized residual
+  size of smallest standardized residual
   }
   \item{usort}{
   order in which the unexpected observation are listed
   }
   \item{positive}{
-  specifie which facet is positiv oriented
+  specifies which facet is positively oriented
   }
   \item{labels}{
   name of each facet, followed by a list of elements
@@ -92,8 +92,8 @@ optional argument to specifie specific FACETS.exe
 }
 
 \details{
-Within. the function immer_FACETS it is either possible to pass existing 
-FACETS-Inpuitfiles or to specify the Input within the function.
+Within the function \code{immer_FACETS} it is either possible to pass existing 
+FACETS input files or to specify the Input within the function.
 To run the estimation in FACETS it is necessary to provide both the path to the 
 DosBox and FACDOS (it is recommended to use the function \code{immer_install} for the 
 installation process). After the estimation process is finished the Exports are 
@@ -106,7 +106,7 @@ in the Facets folder.
 
 
 \references{
-Linacre, J. M. (1999). FACETS (Version 3.17)[Computer software]. Chicago: MESA.
+Linacre, J. M. (1999). \emph{FACETS} (Version 3.17)[Computer software]. Chicago: MESA.
 }
 
 %% Browne, W. J., & Draper, D. (2006). A comparison of Bayesian and
@@ -114,9 +114,9 @@ Linacre, J. M. (1999). FACETS (Version 3.17)[Computer software]. Chicago: MESA.
 %% \emph{Bayesian Analysis}, \bold{1(3)}, 473-514.
 
 
-\author{
-Jan Steinfeld <j.steinfeld@bifie.at>
-}
+%\author{
+%Jan Steinfeld <j.steinfeld@bifie.at>
+%}
 %\note{
 %%  ~~further notes~~
 %}
@@ -152,7 +152,7 @@ phi <- phi - rowMeans(phi)
 # rater variability parameters
 psi <- matrix( c(.1 , .4 , .8) , nrow = I , ncol = R , byrow = TRUE )
 # simulate HRM data
-data <- immer::simulate_HRM( theta , a , b , phi   =  phi, psi  =  psi )
+data <- immer::immer_hrm_simulate( theta, a, b, phi=phi, psi=psi )
 
 # prepare data for FACETS
 data2FACETS <- function(data){

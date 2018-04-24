@@ -1,5 +1,5 @@
 %% File Name: lc2_agreement.Rd
-%% File Version: 0.14
+%% File Version: 0.16
 
 \name{lc2_agreement}
 \alias{lc2_agreement}
@@ -90,12 +90,9 @@ are set equal to each other using \code{type="unif"}.
 \references{
 Schuster, C., & Smith, D. A. (2006). Estimating with a latent 
 class model the reliability of nominal judgments upon which 
-two raters agree. \emph{Educational and Psychological Measurement}, 
-\bold{66}(5), 739-747.
+two raters agree. \emph{Educational and Psychological Measurement, 66}(5), 739-747.
 }
-\author{
-Alexander Robitzsch
-}
+
 
 %\note{
 %%  ~~further notes~~
