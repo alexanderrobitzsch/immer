@@ -68,7 +68,7 @@ Maintainer: Alexander Robitzsch <robitzsch@ipn.uni-kiel.de> \cr
 \references{
 Andersen, E. B. (1995). Polytomous Rasch models and their estimation.
 In G. H. Fischer & I. W. Molenaar (Eds.). \emph{Rasch Models} (pp. 39-52).
-New York: Springer.	
+New York: Springer.    
 
 Bertoli-Barsotti, L., Lando, T., & Punzo, A. (2014). Estimating a Rasch Model via 
 fuzzy empirical probability functions. In D. Vicari, A. Okada, G. Ragozini & 

@@ -1,8 +1,8 @@
 Package: immer
 Type: Package
 Title: Item Response Models for Multiple Ratings
-Version: 1.1-1
-Date: 2018-04-24 13:09:48
+Version: 1.1-11
+Date: 2018-05-23 15:29:36
 Author: 
     Alexander Robitzsch [aut, cre], Jan Steinfeld [aut]
 Maintainer: Alexander Robitzsch <robitzsch@ipn.uni-kiel.de>
@@ -20,8 +20,9 @@ Imports:
     CDM (>= 6.0-101), coda, graphics, MASS, methods, 
     psychotools, Rcpp, sirt (>= 2.4-9), stats, TAM         
 Suggests:     
-    eRm, lme4
+    eRm, lme4, R.rsp
 LinkingTo: 
     Rcpp, RcppArmadillo
+VignetteBuilder: R.rsp
 URL: https://github.com/alexanderrobitzsch/immer
 License: GPL (>= 2)

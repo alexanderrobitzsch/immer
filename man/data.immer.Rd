@@ -1,5 +1,5 @@
 %% File Name: data.immer.Rd
-%% File Version: 0.25
+%% File Version: 0.33
 
 \name{data.immer}
 
@@ -15,6 +15,8 @@
 \alias{data.immer08}
 \alias{data.immer09}
 \alias{data.immer10}
+\alias{data.immer11}
+\alias{data.immer12}
 
 \docType{data}
 
@@ -42,13 +44,15 @@ data(data.immer07)
 data(data.immer08)
 data(data.immer09)
 data(data.immer10)
+data(data.immer11)
+data(data.immer12)
 }
 
 
 \format{
 
-\itemize{	
-	
+\itemize{
+
 \item The format of the dataset \code{data.immer01a} is:
 
 \code{'data.frame':   23904 obs. of  8 variables:} \cr
@@ -71,10 +75,9 @@ data(data.immer10)
 \code{ $ k2    : int  1 0 1 2 2 1 3 2 2 1 ...} \cr
 \code{ $ k3    : int  1 0 1 1 3 2 2 1 3 1 ...} \cr
 \code{ $ k4    : int  2 0 1 2 3 2 2 2 3 2 ...} \cr
-\code{ $ k5    : int  1 0 2 1 3 1 2 3 3 1 ...} 
+\code{ $ k5    : int  1 0 2 1 3 1 2 3 3 1 ...}
 
 This dataset is a subset of \code{data.immer01a}. \cr
-
 
 
 
@@ -124,7 +127,7 @@ This dataset is a subset of \code{data.immer01a}. \cr
 \code{ $ TA    : int  0 3 5 5 3 2 3 6 4 5 ...} \cr
 \code{ $ CC    : int  0 3 4 5 4 1 4 7 3 3 ...} \cr
 \code{ $ GR    : int  0 3 3 6 5 2 3 6 3 2 ...} \cr
-\code{ $ VOC   : int  0 2 4 6 5 2 3 6 3 2 ...} 
+\code{ $ VOC   : int  0 2 4 6 5 2 3 6 3 2 ...}
 
 This dataset is a subset of \code{data.immer04a}. \cr
 
@@ -158,7 +161,8 @@ an input syntax for the FACETS program.
 
 
 
-\item The format of the dataset \code{data.immer08} is
+\item The format of the dataset \code{data.immer08} (example in
+Schuster & Smith, 2006) is
 
 \code{'data.frame':   16 obs. of  3 variables:} \cr
 \code{ $ Facility: int  1 1 1 1 2 2 2 2 3 3 ...} \cr
@@ -174,8 +178,9 @@ conference papers (Kuhlisch et al., 2016):
 \code{ $ idreviewer: int  11 15 20 1 10 11 15 20 13 16 ...} \cr
 \code{ $ score     : num  7 7 7 7 7 7 7 7 7 7 ...} \cr
 
-\item Dataset \code{data.immer10} contain standard setting
-ratings of 13 raters on 61 items.
+\item The dataset \code{data.immer10} contains standard setting
+ratings of 13 raters on 61 items (including item identifier \code{item}
+and item difficulty \code{itemdiff})
 
 \code{'data.frame':   61 obs. of  15 variables:} \cr
 \code{ $ item    : chr  "I01" "I02" "I03" "I04" ...} \cr
@@ -193,6 +198,32 @@ ratings of 13 raters on 61 items.
 \code{ $ R11     : int  2 2 1 2 1 2 2 2 3 2 ...} \cr
 \code{ $ R12     : int  2 2 1 3 1 2 2 2 3 2 ...} \cr
 \code{ $ R13     : int  1 1 1 1 1 1 1 1 2 1 ...} \cr
+
+\item The dataset \code{data.immer11} contains ratings of 148 cases (screening
+mammogram samples) diagnoses by 110 raters (Zhang & Petersen, xxxx). The codes of the
+polytomous rating are normal (code 0), benign (code 1), probably benign (code 2),
+possibly malignant (code 3), and probably malignant (code 4). The format of the dataset
+is
+
+\code{'data.frame':   148 obs. of  110 variables:} \cr
+\code{ $ R001: num  2 1 3 2 1 2 0 0 0 2 ...} \cr
+\code{ $ R002: num  1 3 4 4 0 4 0 0 3 0 ...} \cr
+\code{ $ R003: num  0 0 0 4 0 2 3 0 0 0 ...} \cr
+\code{ $ R004: num  1 2 1 4 2 2 2 0 4 4 ...} \cr
+\code{ [... ]} \cr
+
+
+\item The dataset \code{data.immer12} contains ratings of the 2002 olympic pairs
+figure skating competition. This dataset has been used in Lincare (2009).
+
+\code{'data.frame':   180 obs. of  7 variables:} \cr
+\code{ $ idpair: int  1 1 1 1 1 1 1 1 1 2 ...} \cr
+\code{ $ pair  : chr  "BB-Svk" "BB-Svk" "BB-Svk" "BB-Svk" ...} \cr
+\code{ $ judge : chr  "RUS" "CHI" "USA" "FRA" ...} \cr
+\code{ $ ST    : int  58 57 57 56 55 55 50 51 51 47 ...} \cr
+\code{ $ SA    : int  58 57 57 56 55 55 50 51 51 47 ...} \cr
+\code{ $ FT    : int  58 57 57 56 55 55 50 51 51 47 ...} \cr
+\code{ $ FA    : int  58 57 57 56 55 55 50 51 51 47 ...} \cr
 
 }
 }
@@ -218,9 +249,19 @@ ratings of 13 raters on 61 items.
 
 \references{
 Kuhlisch, W., Roos, M., Rothe, J., Rudolph, J., Scheuermann, B., &
-Stoyan, D. (2016). A statistical approach to calibrating the scores of 
+Stoyan, D. (2016). A statistical approach to calibrating the scores of
 biased reviewers of scientific papers.
 \emph{Metrika, 79}, 37-57.
+
+Linacre, J. M. (2009). Local independence and residual covariance: A study of
+Olympic figure skating ratings. \emph{Journal of Applied Measurement, 10}(2), 157-169.
+
+Schuster, C., & Smith, D. A. (2006). Estimating with a latent
+class model the reliability of nominal judgments upon which
+two raters agree. \emph{Educational and Psychological Measurement, 66}(5), 739-747.
+
+Zhang, S., & Petersen, J. H. (XXXX). Quantifying rater variation for ordinal data using
+a rating scale model. \emph{Statistics in Medicince, XX}(xx), xxx-xxx.
 }
 
 

@@ -3,6 +3,6 @@
 
 immer_rownorm <- function(x)
 {
-	y <- x / rowSums(x)
-	return(y)
+    y <- x / rowSums(x)
+    return(y)
 }

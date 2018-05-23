@@ -1,5 +1,5 @@
 %% File Name: immer_jml.Rd
-%% File Version: 0.45
+%% File Version: 0.49
 
 \name{immer_jml}
 \alias{immer_jml}
@@ -9,30 +9,30 @@
 
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
-Joint Maximum Likelihood Estimation for the Partial Credit Model 
-with a Design Matrix for Item Parameters 
+Joint Maximum Likelihood Estimation for the Partial Credit Model
+with a Design Matrix for Item Parameters
 and \eqn{\varepsilon}-Adjustment Bias Correction
 }
 
 
 \description{
 Estimates the partial credit model with a design matrix for item
-parameters with joint maximum likelihood (JML). The  \eqn{\varepsilon}-adjustment 
+parameters with joint maximum likelihood (JML). The  \eqn{\varepsilon}-adjustment
 bias correction is implemented with reduces bias of the
 JML estimation method (Bertoli-Barsotti, Lando & Punzo, 2014).
 }
 
 \usage{
-immer_jml(dat, A = NULL, maxK=NULL, center_theta = TRUE, b_fixed = NULL, irtmodel="PCM", 
-     pid=NULL, rater=NULL, eps = 0.3, est_method = "eps_adj", maxiter = 1000, 
-     conv = 1e-05, max_incr = 3, maxiter_update = 10, maxiter_line_search=6, 
-     conv_update = 1e-05, verbose = TRUE, use_Rcpp = TRUE, shortcut = TRUE)
+immer_jml(dat, A=NULL, maxK=NULL, center_theta=TRUE, b_fixed=NULL, irtmodel="PCM",
+     pid=NULL, rater=NULL, eps=0.3, est_method="eps_adj", maxiter=1000,
+     conv=1e-05, max_incr=3, maxiter_update=10, maxiter_line_search=6,
+     conv_update=1e-05, verbose=TRUE, use_Rcpp=TRUE, shortcut=TRUE)
 
-\method{summary}{immer_jml}(object, digits=3, file=NULL, ...) 
+\method{summary}{immer_jml}(object, digits=3, file=NULL, ...)
 
 \method{logLik}{immer_jml}(object, ...)
 
-\method{IRT.likelihood}{immer_jml}(object, theta=seq(-9,9,len=41), ...)    
+\method{IRT.likelihood}{immer_jml}(object, theta=seq(-9,9,len=41), ...)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -41,7 +41,7 @@ Data frame with polytomous item responses \eqn{0,1,\ldots, K}
 }
   \item{A}{
 Design matrix (items \eqn{\times} categories \eqn{\times} basis parameters).
-Entries for categories are for \eqn{1,\ldots,K} 
+Entries for categories are for \eqn{1,\ldots,K}
 }
 \item{maxK}{Optional vector with maximum category per item}
   \item{center_theta}{
@@ -99,16 +99,16 @@ for efficiency reasons}
 
 
 \details{
-The function uses the partial credit model as 
-\eqn{P(X_i = h | \theta ) \propto \exp( h \theta - b_{ih} )} with
-\eqn{b_{ih} = \sum_l a_{ihl} \xi_l} where the values \eqn{a_{ihl}}
+The function uses the partial credit model as
+\eqn{P(X_i=h | \theta ) \propto \exp( h \theta - b_{ih} )} with
+\eqn{b_{ih}=\sum_l a_{ihl} \xi_l} where the values \eqn{a_{ihl}}
 are included in the design matrix \code{A} and \eqn{\xi_l} denotes
 basis item parameters.
 
 The adjustment parameter \eqn{\varepsilon} is applied to the sum score
 as the sufficient statistic for the person parameter. In more detail,
 extreme scores \eqn{S_p=0} (minimum score) or \eqn{S_p=M_p} (maximum score)
-are adjusted to \eqn{S_p^\ast = \varepsilon} or \eqn{S_p^\ast = M_p - \varepsilon},
+are adjusted to \eqn{S_p^\ast=\varepsilon} or \eqn{S_p^\ast=M_p - \varepsilon},
 respectively. Therefore, the adjustment possesses more influence on
 parameter estimation for datasets with a small number of items.
 }
@@ -131,10 +131,10 @@ List with following entries
 }
 
 \references{
-Bertoli-Barsotti, L., Lando, T., & Punzo, A. (2014). Estimating a Rasch Model via 
-fuzzy empirical probability functions. In D. Vicari, A. Okada, G. Ragozini & 
-C. Weihs (Eds.). 
-\emph{Analysis and Modeling of Complex Data in Behavioral and Social Sciences}, 
+Bertoli-Barsotti, L., Lando, T., & Punzo, A. (2014). Estimating a Rasch Model via
+fuzzy empirical probability functions. In D. Vicari, A. Okada, G. Ragozini &
+C. Weihs (Eds.).
+\emph{Analysis and Modeling of Complex Data in Behavioral and Social Sciences},
 Springer.
 }
 
@@ -177,10 +177,10 @@ mod1c <- immer::immer_jml( dat, est_method="jml_bc" )
 summary(mod1c)
 
 # compare different estimators
-round( cbind( eps=mod1a$xsi, JML=mod1b$xsi, BC=mod1c$xsi ) , 2 )
+round( cbind( eps=mod1a$xsi, JML=mod1b$xsi, BC=mod1c$xsi ), 2 )
 
 #---  Model 2: LLTM by defining a design matrix for item difficulties
-A <- array(0 , dim=c(12,1,3) )
+A <- array(0, dim=c(12,1,3) )
 A[1:4,1,1] <- 1
 A[5:8,1,2] <- 1
 A[9:12,1,3] <- 1

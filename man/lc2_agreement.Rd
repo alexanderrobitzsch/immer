@@ -1,5 +1,5 @@
 %% File Name: lc2_agreement.Rd
-%% File Version: 0.16
+%% File Version: 0.21
 
 \name{lc2_agreement}
 \alias{lc2_agreement}
@@ -14,12 +14,12 @@ A Latent Class Model for Agreement of Two Raters
 
 \description{
 Estimates a latent class model for agreement of two raters
-(Schuster & Smith, 2006). See Details for the description of 
+(Schuster & Smith, 2006). See Details for the description of
 the model.
 }
 
 \usage{
-lc2_agreement(y, w = rep(1, nrow(y)), type = "homo", method = "BFGS", ...)
+lc2_agreement(y, w=rep(1, nrow(y)), type="homo", method="BFGS", ...)
 
 \method{summary}{lc2_agreement}(object, digits=3,...)
 
@@ -55,15 +55,15 @@ The latent class model for two raters decomposes a portion of ratings
 which conform to true agreement and another portion of ratings which
 conform to a random rating of a category. Let \eqn{X_r} denote the rating of
 rater \eqn{r}, then for \eqn{ i \neq j}, it is assumed that
-\deqn{P(X_1 = i , X_2 = j) = \phi_{1i}  \phi_{2j} ( 1 - \gamma )}
-For \eqn{i = j} it is assumed that
-\deqn{P(X_1 = i , X_2 = i) = \tau_i \gamma + \phi_{1i} \phi_{2i} ( 1 - \gamma )}
+\deqn{P(X_1=i, X_2=j)=\phi_{1i}  \phi_{2j} ( 1 - \gamma )}
+For \eqn{i=j} it is assumed that
+\deqn{P(X_1=i, X_2=i)=\tau_i \gamma + \phi_{1i} \phi_{2i} ( 1 - \gamma )}
 where \eqn{\gamma} denotes the proportion of true ratings.
 
 All \eqn{\tau_i} and \eqn{\phi_{ri}} parameters are estimated
-using \code{type="hete"}. If the \eqn{\phi} parameters are assumed 
-as invariant across the two raters (i.e. \eqn{\phi_{1i}=\phi_{2i}=\phi_{i}}), 
-then \code{type="homo"} must be specified. The constraint \eqn{\tau_i = \phi_i}
+using \code{type="hete"}. If the \eqn{\phi} parameters are assumed
+as invariant across the two raters (i.e. \eqn{\phi_{1i}=\phi_{2i}=\phi_{i}}),
+then \code{type="homo"} must be specified. The constraint \eqn{\tau_i=\phi_i}
 is imposed by \code{type="equal"}. All \eqn{\phi_i} parameters
 are set equal to each other using \code{type="unif"}.
 }
@@ -88,8 +88,8 @@ are set equal to each other using \code{type="unif"}.
 }
 
 \references{
-Schuster, C., & Smith, D. A. (2006). Estimating with a latent 
-class model the reliability of nominal judgments upon which 
+Schuster, C., & Smith, D. A. (2006). Estimating with a latent
+class model the reliability of nominal judgments upon which
 two raters agree. \emph{Educational and Psychological Measurement, 66}(5), 739-747.
 }
 
@@ -106,7 +106,7 @@ two raters agree. \emph{Educational and Psychological Measurement, 66}(5), 739-7
 
 \examples{
 #############################################################################
-# EXAMPLE 1: Dataset in Schuster & Smith (2006)
+# EXAMPLE 1: Dataset in Schuster and Smith (2006)
 #############################################################################
 
 data(data.immer08)
@@ -117,20 +117,20 @@ y <- dat[,1:2]
 w <- dat[,3]
 
 #*** Model 1: Uniform distribution phi parameters
-mod1 <- immer::lc2_agreement( y = y , w = w , type="unif")
+mod1 <- immer::lc2_agreement( y=y, w=w, type="unif")
 summary(mod1)
 
 #*** Model 2: Equal phi and tau parameters
-mod2 <- immer::lc2_agreement( y = y , w = w , type="equal")
+mod2 <- immer::lc2_agreement( y=y, w=w, type="equal")
 summary(mod2)
 
 \dontrun{
 #*** Model 3: Homogeneous rater model
-mod3 <- immer::lc2_agreement( y = y , w = w , type="homo")
+mod3 <- immer::lc2_agreement( y=y, w=w, type="homo")
 summary(mod3)
 
 #*** Model 4: Heterogeneous rater model
-mod4 <- immer::lc2_agreement( y = y , w = w , type="hete")
+mod4 <- immer::lc2_agreement( y=y, w=w, type="hete")
 summary(mod4)
 
 #--- some model comparisons

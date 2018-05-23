@@ -3,6 +3,6 @@
 
 immer_matrix2 <- function(x, nrow)
 {
-	y <- TAM::tam_matrix2(x=x, nrow=nrow)
-	return(y)
+    y <- TAM::tam_matrix2(x=x, nrow=nrow)
+    return(y)
 }

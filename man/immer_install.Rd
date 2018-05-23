@@ -1,5 +1,5 @@
 %% File Name: immer_install.Rd
-%% File Version: 0.09
+%% File Version: 0.12
 
 \name{immer_install}
 \alias{immer_install}
@@ -11,12 +11,12 @@ Support for the installation of the DOS-version from FACETS
 }
 
 \description{
-This function supports the installation process of the DOS-version from FACETS 
+This function supports the installation process of the DOS-version from FACETS
 and also the necessary DOSBox in Windows, Linux (Ubuntu) and OS X
 }
 
 \usage{
-immer_install(DosBox_path=NULL, Facets_path = NULL )
+immer_install(DosBox_path=NULL, Facets_path=NULL )
 
 
 }
@@ -31,8 +31,8 @@ optional argument for the specification of the path where FACETS should be saved
 }
 
 \details{
-This function provides assistance for the installation process of the FACDOS 
-(DOS version of FACETS) and the required DosBox. Currently supported operating 
+This function provides assistance for the installation process of the FACDOS
+(DOS version of FACETS) and the required DosBox. Currently supported operating
 systems are: Windows, Mac OS X and Ubuntu (Linux).
 }
 
@@ -44,7 +44,7 @@ systems are: Windows, Mac OS X and Ubuntu (Linux).
 \references{
 Linacre, J. M. (1999). \emph{FACETS} (Version 3.17) [Computer software]. Chicago: MESA.
 
-Veenstra, P., Froessman, T., Wohlers, U. (2015): \emph{DOSBox} (Version 0.74) 
+Veenstra, P., Froessman, T., Wohlers, U. (2015): \emph{DOSBox} (Version 0.74)
 [Computer Software]. Arizona: Scottsdale.
 }
 
@@ -61,8 +61,8 @@ Install FACDOS and DOSBox \code{\link{immer_FACETS}}.
 }
 
 \examples{
-\dontrun{	
-    immer::immer_install( DosBox_path = NULL, Facets_path = NULL )
+\dontrun{
+    immer::immer_install( DosBox_path=NULL, Facets_path=NULL )
   }
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the

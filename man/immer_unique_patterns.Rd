@@ -1,5 +1,5 @@
 %% File Name: immer_unique_patterns.Rd
-%% File Version: 0.06
+%% File Version: 0.09
 
 \name{immer_unique_patterns}
 \alias{immer_unique_patterns}
@@ -11,7 +11,7 @@ Extracts Unique Item Response Patterns
 Extracts unique item response patterns.
 }
 \usage{
-immer_unique_patterns(dat, w = rep(1, nrow(dat)))
+immer_unique_patterns(dat, w=rep(1, nrow(dat)))
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -53,7 +53,7 @@ unique item response patterns into a data frame with item responses.
 # EXAMPLE 1: Unique item response patterns data.read
 #############################################################################
 
-data( data.read , package="sirt")
+data( data.read, package="sirt")
 dat <- data.read
 
 # extract item response patterns
@@ -61,7 +61,7 @@ res <- immer::immer_unique_patterns( dat)
 
 \dontrun{
 # back-conversion with expand.table
-dat2 <- mirt::expand.table( cbind( res$y ,  res$w ) )
+dat2 <- mirt::expand.table( cbind( res$y,  res$w ) )
 # check correctness
 colMeans(dat)
 colMeans(dat2)

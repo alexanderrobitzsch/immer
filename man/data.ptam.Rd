@@ -1,5 +1,5 @@
 %% File Name: data.ptam.Rd
-%% File Version: 0.18
+%% File Version: 0.19
 
 \name{data.ptam}
 
@@ -35,12 +35,12 @@ data(data.ptam4wide)
 
 \format{
 
-\itemize{	
-	
-\item The dataset \code{data.ptam1} is a subset of the dataset from Example 3 
+\itemize{
+
+\item The dataset \code{data.ptam1} is a subset of the dataset from Example 3
 of the ConQuest manual and
-contains 9395 ratings for 6877 students and 9 raters 
-on 2 items (\code{OP} and \code{TF}). The format is 
+contains 9395 ratings for 6877 students and 9 raters
+on 2 items (\code{OP} and \code{TF}). The format is
 
 \code{'data.frame':   9395 obs. of  4 variables:} \cr
 \code{ $ pid  : int  1508 1564 1565 1566 1567 1568 1569 1629 1630 1631 ...} \cr
@@ -49,8 +49,8 @@ on 2 items (\code{OP} and \code{TF}). The format is
 \code{ $ TF   : int  3 1 2 2 1 1 2 2 2 3 ...} \cr
 
 
-\item The dataset \code{data.ptam2} contains 1043 ratings for 
-262 students and 17 raters on 19 items (\code{A1}, ..., \code{D9}). The format is 
+\item The dataset \code{data.ptam2} contains 1043 ratings for
+262 students and 17 raters on 19 items (\code{A1}, ..., \code{D9}). The format is
 
 \code{'data.frame':   1043 obs. of  21 variables:} \cr
 \code{ $ idstud : int  1001 1001 1001 1001 1002 1002 1002 1002 1003 1003 ...} \cr
@@ -62,8 +62,8 @@ on 2 items (\code{OP} and \code{TF}). The format is
 \code{ $ D9     : int  2 2 2 2 2 2 2 2 1 0 ...} \cr
 
 
-\item The dataset \code{data.ptam3} contains 523 ratings for 
-262 students and 8 raters on 23 items (\code{A1}, ..., \code{J0}). The format is 
+\item The dataset \code{data.ptam3} contains 523 ratings for
+262 students and 8 raters on 23 items (\code{A1}, ..., \code{J0}). The format is
 
 \code{'data.frame':   523 obs. of  25 variables:} \cr
 \code{ $ idstud : int  1001 1001 1002 1002 1003 1003 1004 1004 1005 1005 ...} \cr
@@ -74,7 +74,7 @@ on 2 items (\code{OP} and \code{TF}). The format is
 \code{ [...]} \cr
 \code{ $ J0     : int  2 3 3 2 0 0 2 2 0 1 ...} \cr
 
-\item The dataset \code{data.ptam4} contains 592 ratings for 
+\item The dataset \code{data.ptam4} contains 592 ratings for
 209 students and 10 raters on 3 items (\code{crit2}, \code{crit3} and
 \code{crit4}). The format is
 
@@ -103,8 +103,8 @@ converted into a long format for analysis with mixed effects models in the
 \code{ [...] } \cr
 \code{ $ R_844  : num  0 0 0 0 0 0 1 0 1 0 ...} \cr
 
-\item The dataset \code{data.ptam4wide} contains multiple ratings of 
-40 students from the dataset \code{data.ptam4} from the item \code{crit2}. 
+\item The dataset \code{data.ptam4wide} contains multiple ratings of
+40 students from the dataset \code{data.ptam4} from the item \code{crit2}.
 Each column corresponds to one rater. The format is
 
 \code{'data.frame':   40 obs. of  11 variables:} \cr
@@ -144,8 +144,8 @@ Each column corresponds to one rater. The format is
 
 
 \references{
-Robitzsch, A., & Steinfeld, J. (2018). Item response models for human ratings: Overview, 
-estimation methods, and implementation in R. 
+Robitzsch, A., & Steinfeld, J. (2018). Item response models for human ratings: Overview,
+estimation methods, and implementation in R.
 \emph{Psychological Test and Assessment Modeling, 60}(1), 101-139.
 }
 

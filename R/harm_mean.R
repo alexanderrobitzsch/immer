@@ -6,6 +6,6 @@
 # compute harmonic mean
 harm_mean <- function(x)
 {
-	exp( mean( log(x) ) )
+    exp( mean( log(x) ) )
 }
 #***********************************************

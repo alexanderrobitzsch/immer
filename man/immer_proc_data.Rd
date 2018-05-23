@@ -1,5 +1,5 @@
 %% File Name: immer_proc_data.Rd
-%% File Version: 0.21
+%% File Version: 0.26
 
 \name{immer_proc_data}
 \alias{immer_proc_data}
@@ -12,7 +12,7 @@ Processing Datasets and Creating Design Matrices for Rating Data
 }
 
 \description{
-The function \code{immer_proc_data} processes datasets containing rating data 
+The function \code{immer_proc_data} processes datasets containing rating data
 into a dataset into a long format of pseudoitems (item \eqn{\times} raters).
 
 The function \code{immer_create_design_matrix_formula} creates a design matrix
@@ -20,9 +20,9 @@ for a processed dataset and a provided formula.
 }
 
 \usage{
-immer_proc_data(dat, pid = NULL, rater = NULL, weights = NULL, maxK = NULL)
+immer_proc_data(dat, pid=NULL, rater=NULL, weights=NULL, maxK=NULL)
 
-immer_create_design_matrix_formula( itemtable , formulaA )
+immer_create_design_matrix_formula( itemtable, formulaA )
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -40,9 +40,9 @@ Vector with sampling weights
 }
 \item{maxK}{Optional vector with maximum category per item}
 \item{itemtable}{Processed item table. The table must include the column
-	\code{item} (an integer item identifier) and \code{maxK} (maximum number of
-	categories per item). Optional columns are \code{rater}
-	(an integer rater identifier),\code{item_name} and \code{rater_name}.
+    \code{item} (an integer item identifier) and \code{maxK} (maximum number of
+    categories per item). Optional columns are \code{rater}
+    (an integer rater identifier),\code{item_name} and \code{rater_name}.
 }
 \item{formulaA}{An \R formula. The facets \code{item}, \code{step} and
 \code{rater} are treated as numeric. However, numeric transformation can
@@ -71,7 +71,7 @@ The output of \code{immer_proc_data} is a list with several entries (selection)
 \item{ND}{Number of person-rater interactions}
 \item{itemtable}{Information about processed data}
 
-The output of \code{immer_create_design_matrix_formula} is a list with several 
+The output of \code{immer_create_design_matrix_formula} is a list with several
 entries (selection)
 
 \code{A}{design matrix}
@@ -104,46 +104,46 @@ entries (selection)
 data(data.immer01a, package="immer")
 dat <- data.immer01a
 
-res <- immer::immer_proc_data( dat=dat[,paste0("k",1:5)], pid=dat$idstud, 
+res <- immer::immer_proc_data( dat=dat[,paste0("k",1:5)], pid=dat$idstud,
              rater=dat$rater)
 str(res, max.level=1)
 
 \dontrun{
 #############################################################################
 # EXAMPLE 2: Creating several design matrices for rating data
-#############################################################################	
+#############################################################################
 
 data(data.ratings1, package="sirt")
 dat <- data.ratings1
 resp <- dat[,-c(1,2)]
 #- redefine the second and third item such that the maximum category score is 2
 for (vv in c(2,3)){
-    resp[ resp[,vv] >= 2 ,vv ] <- 2
+    resp[ resp[,vv] >=2,vv ] <- 2
 }
 
 #--- process data
 res0 <- immer::immer_proc_data( dat=resp, pid=dat$idstud,  rater=dat$rater)
 
 #--- rating scale model
-des1 <- immer::immer_create_design_matrix_formula( itemtable=res0$itemtable , 
-                formulaA=~ item + step )                                
+des1 <- immer::immer_create_design_matrix_formula( itemtable=res0$itemtable,
+                formulaA=~ item + step )
 des1$des
-             
+
 #--- partial scale model
-des2 <- immer::immer_create_design_matrix_formula( itemtable=res0$itemtable , 
+des2 <- immer::immer_create_design_matrix_formula( itemtable=res0$itemtable,
                 formulaA=~ item + item:step )
 des2$des
 
 #--- multi-facets Rasch model
-des3 <- immer::immer_create_design_matrix_formula( itemtable=res0$itemtable , 
+des3 <- immer::immer_create_design_matrix_formula( itemtable=res0$itemtable,
                 formulaA=~ item + item:step + rater )
 des3$des
 
 #--- polytomous model with quadratic step effects
-des4 <- immer::immer_create_design_matrix_formula( itemtable=res0$itemtable , 
+des4 <- immer::immer_create_design_matrix_formula( itemtable=res0$itemtable,
                 formulaA=~ item + item:I(step_num^2) )
-des4$des      		
-}	
+des4$des
+}
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.

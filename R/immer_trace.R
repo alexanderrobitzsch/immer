@@ -3,5 +3,5 @@
 
 immer_trace <- function(x)
 {
-	sum(diag(x))
+    sum(diag(x))
 }

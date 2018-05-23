@@ -1,5 +1,5 @@
 %% File Name: immer_hrm_simulate.Rd
-%% File Version: 0.15
+%% File Version: 0.16
 
 \name{immer_hrm_simulate}
 \alias{immer_hrm_simulate}
@@ -42,9 +42,9 @@ and rater identifiers
 }
 
 \references{
-Patz, R. J., Junker, B. W., Johnson, M. S., & Mariano, L. T. (2002). 
-The hierarchical rater model for rated test items and its 
-application to large-scale educational assessment data. 
+Patz, R. J., Junker, B. W., Johnson, M. S., & Mariano, L. T. (2002).
+The hierarchical rater model for rated test items and its
+application to large-scale educational assessment data.
 \emph{Journal of Educational and Behavioral Statistics, 27}(4), 341-384.
 }
 

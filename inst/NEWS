@@ -58,12 +58,15 @@ https://sites.google.com/site/alexanderrobitzsch/software
 
 
 ------------------------------------------------------------
-VERSIONS immer 1.1  |  2018-04-24  |  Last: immer 1.1-1
+VERSIONS immer 1.1  |  2018-05-23  |  Last: immer 1.1-11
 ------------------------------------------------------------
 
-ADDED * ---
+ADDED * included datasets of mammogram ratings data.immer11 
+        (Zhang & Petersen, 2018, Statistics in Medicine) and 
+        figure skating ratings data.immer12 (Linacre, 2009)
 
-DATA  * included/modified datasets: ---
+
+DATA  * included/modified datasets: data.immer11, data.immer12
 EXAMP * included/modified examples: ---
 
 

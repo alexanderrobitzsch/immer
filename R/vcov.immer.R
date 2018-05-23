@@ -3,15 +3,15 @@
 
 vcov.immer_ccml <- function(object, ... )
 {
-	return( object$vcov )
+    return( object$vcov )
 }
 
 vcov.immer_cml <- function(object, ... )
 {
-	return( object$vcov )
+    return( object$vcov )
 }
 
 vcov.immer_latent_regression <- function(object, ... )
 {
-	return( object$vcov )
+    return( object$vcov )
 }

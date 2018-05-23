@@ -1,5 +1,5 @@
 %% File Name: immer_opcat.Rd
-%% File Version: 0.15
+%% File Version: 0.20
 
 \name{immer_opcat}
 \alias{immer_opcat}
@@ -14,7 +14,7 @@ See Verhelst, Verstralen and Eggen (1991) for computational
 details.
 }
 \usage{
-immer_opcat(a, hmean, min = 1, max = 10, maxiter = 200)
+immer_opcat(a, hmean, min=1, max=10, maxiter=200)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -49,8 +49,8 @@ In G. H. Fischer & I. W. Molenaar (Eds.). \emph{Rasch Models} (pp. 215--238).
 New York: Springer.
 
 Verhelst, N. D., Verstralen, H. H. F. M., & Eggen, T. H. J. M. (1991).
-\emph{Finding starting values for the item parameters and suitable discrimination 
-indices in the one-parameter logistic model}. 
+\emph{Finding starting values for the item parameters and suitable discrimination
+indices in the one-parameter logistic model}.
 CITO Measurement and Research Department Reports, 91-10.
 }
 
@@ -80,17 +80,17 @@ dat <- data.read
 I <- ncol(dat)
 
 #--- estimate 2PL model
-mod <- sirt::rasch.mml2( dat , est.a = 1:I  , mmliter= 30)
+mod <- sirt::rasch.mml2( dat, est.a=1:I, mmliter=30)
 summary(mod)
-a <- mod$item$a		# extract (non-integer) item discriminations 
+a <- mod$item$a        # extract (non-integer) item discriminations
 
 #--- estimate integer item discriminations under different conditions
-a1 <- immer::immer_opcat( a , hmean = 3 , min = 1 , max = 6 )
+a1 <- immer::immer_opcat( a, hmean=3, min=1, max=6 )
 table(a1)
-a2 <- immer::immer_opcat( a , hmean = 2 , min = 1 , max = 3 )
-a3 <- immer::immer_opcat( a , hmean = 1.5 , min = 1 , max = 2 )
+a2 <- immer::immer_opcat( a, hmean=2, min=1, max=3 )
+a3 <- immer::immer_opcat( a, hmean=1.5, min=1, max=2 )
 #--- compare results
-cbind( a , a1 , a2 , a3)
+cbind( a, a1, a2, a3)
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.

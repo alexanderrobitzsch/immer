@@ -1,5 +1,5 @@
 %% File Name: immer_agree2.Rd
-%% File Version: 0.14
+%% File Version: 0.18
 
 \name{immer_agree2}
 \alias{immer_agree2}
@@ -16,7 +16,7 @@ agreement, Scott's Pi, Cohen's Kappa, Gwets AC1 and
 Aickens Alpha (see Gwet, 2010).
 }
 \usage{
-immer_agree2(y, w = rep(1, nrow(y)), symmetrize = FALSE, tol = c(0, 1))
+immer_agree2(y, w=rep(1, nrow(y)), symmetrize=FALSE, tol=c(0, 1))
 
 \method{summary}{immer_agree2}(object, digits=3,...)
 }
@@ -49,7 +49,7 @@ List with entries
 \item{agree_table}{Contingency table}
 \item{marg}{Marginal frequencies}
 \item{Pe}{Expected chance agreement probabilities}
-\item{PH}{Probabilities for hard-to-classify 
+\item{PH}{Probabilities for hard-to-classify
 subjects according to Aicken}
 \item{nobs}{Number of observations}
 }
@@ -67,13 +67,13 @@ Gaithersburg: Advanced Analytics.
 %% ~Make other sections like Warning with \section{Warning }{....} ~
 
 \seealso{
-For more inter-rater agreement statistics see the \R packages 
+For more inter-rater agreement statistics see the \R packages
 \pkg{agRee},
 \pkg{Agreement},
 \pkg{agrmt},
-\pkg{irr}, 
+\pkg{irr},
 \pkg{obs.agree},
-\pkg{rel}.  
+\pkg{rel}.
 }
 
 
@@ -88,7 +88,7 @@ dat <- data.immer08
 y <- dat[,1:2]
 w <- dat[,3]
 # agreement statistics
-res <- immer::immer_agree2( y = y , w = w )
+res <- immer::immer_agree2( y=y, w=w )
 summary(res)
 # extract some output values
 res$agree_stats

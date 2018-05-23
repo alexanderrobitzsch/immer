@@ -1,5 +1,5 @@
 %% File Name: immer_latent_regression.Rd
-%% File Version: 0.08
+%% File Version: 0.12
 
 \name{immer_latent_regression}
 \alias{immer_latent_regression}
@@ -17,14 +17,14 @@ Unidimensional Latent Regression
 }
 
 \description{
-Fits a unidimensional latent regression \eqn{\theta_{ig} = Y_{ig} \bold{\beta} + \varepsilon_{ig}}
-with group-specific variances \eqn{Var(\varepsilon _{ig} ) = \sigma^2_g} based on
+Fits a unidimensional latent regression \eqn{\theta_{ig}=Y_{ig} \bold{\beta} + \varepsilon_{ig}}
+with group-specific variances \eqn{Var(\varepsilon _{ig} )=\sigma^2_g} based on
 the individual likelihood of a fitted model.
 }
 
 \usage{
-immer_latent_regression(like, theta = NULL, Y = NULL, group = NULL, weights = NULL, 
-   conv = 1e-05, maxit = 200, verbose = TRUE)
+immer_latent_regression(like, theta=NULL, Y=NULL, group=NULL, weights=NULL,
+   conv=1e-05, maxit=200, verbose=TRUE)
 
 \method{summary}{immer_latent_regression}(object, digits=3, file=NULL, ...)
 
@@ -34,7 +34,7 @@ immer_latent_regression(like, theta = NULL, Y = NULL, group = NULL, weights = NU
 
 \method{logLik}{immer_latent_regression}(object, ...)
 
-\method{anova}{immer_latent_regression}(object, ...)   
+\method{anova}{immer_latent_regression}(object, ...)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -91,10 +91,10 @@ List containing values (selection)
 }
 
 \references{
-Adams, R. J., & Wu, M. L. (2007). The mixed-coefficients multinomial logit model. 
+Adams, R. J., & Wu, M. L. (2007). The mixed-coefficients multinomial logit model.
 A generalized form of the Rasch model. In M. von Davier & C. H. Carstensen (Eds.):
-\emph{Multivariate and mixture distribution Rasch models: Extensions and applications} (pp. 55-76). 
-New York: Springer. 
+\emph{Multivariate and mixture distribution Rasch models: Extensions and applications} (pp. 55-76).
+New York: Springer.
 }
 
 
@@ -111,7 +111,7 @@ extracting the individual likelihood.
 
 \seealso{
 See \code{\link[TAM:tam.latreg]{TAM::tam.latreg}} for latent regression estimation
-in the \pkg{TAM} package.  
+in the \pkg{TAM} package.
 }
 
 
@@ -128,11 +128,11 @@ set.seed(9877)
 I <- 15  # number of items
 N <- 700 # number of persons per group
 G <- 3   # number of groups
-b <- seq(-2,2,len=I) 
-group <- rep( 1:G , each=N)
+b <- seq(-2,2,len=I)
+group <- rep( 1:G, each=N)
 mu <- seq(0,1, length=G)
-sigma <- seq(1, 1.5 , length=G)
-dat <- sirt::sim.raschtype( stats::rnorm( N*G, mean=mu[group], sd = sigma[group] ), b)
+sigma <- seq(1, 1.5, length=G)
+dat <- sirt::sim.raschtype( stats::rnorm( N*G, mean=mu[group], sd=sigma[group] ), b)
 
 #-- estimate Rasch model with JML
 mod1 <- immer::immer_jml( dat )

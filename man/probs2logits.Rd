@@ -1,5 +1,5 @@
 %% File Name: probs2logits.Rd
-%% File Version: 0.07
+%% File Version: 0.10
 
 \name{probs2logits}
 \alias{probs2logits}
@@ -22,7 +22,7 @@ logits2probs(y)
 Vector containing probabilities
 }
 \item{y}{
-Vector containing logits 
+Vector containing logits
 }
 }
 
@@ -56,7 +56,7 @@ A vector with logits or probabilities
 #############################################################################
 
 # define vector of probabilities
-probs <- c( .3 , .25 , .25  , .2)
+probs <- c( .3, .25, .25, .2)
 sum(probs)
 
 # convert probabilities into logits

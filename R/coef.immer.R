@@ -3,16 +3,16 @@
 
 coef.immer_cml <- function(object, ... )
 {
-	return( object$coefficients )
+    return( object$coefficients )
 }
 
 coef.immer_ccml <- function(object, ... )
 {
-	return( object$coef )
+    return( object$coef )
 }
 
 
 coef.immer_latent_regression <- function(object, ... )
 {
-	return( object$coef )
+    return( object$coef )
 }
