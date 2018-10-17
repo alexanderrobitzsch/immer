@@ -1,5 +1,5 @@
 ## File Name: immer_cmml.R
-## File Version: 0.28
+## File Version: 0.29
 
 
 immer_cmml <- function( suff_stat, cpml_design, control=NULL )
@@ -46,8 +46,8 @@ immer_cmml <- function( suff_stat, cpml_design, control=NULL )
     W_PSI <- immer_cmml_proc_parameter_index( W_par=W_PSI, par_index=PSI_index )
 
     #**** create basis parameters
-    res <- immer_cmml_proc_basispar( LAM_basispar=LAM_basispar, GAM_basispar=GAM_basispar, 
-                PHI_basispar=PHI_basispar, PSI_basispar=PSI_basispar, LAM_index=LAM_index, 
+    res <- immer_cmml_proc_basispar( LAM_basispar=LAM_basispar, GAM_basispar=GAM_basispar,
+                PHI_basispar=PHI_basispar, PSI_basispar=PSI_basispar, LAM_index=LAM_index,
                 GAM_index=GAM_index, PHI_index=PHI_index, PSI_index=PSI_index )
     basispar <- res$basispar
     basispar_design <- res$basispar_design

@@ -1,5 +1,5 @@
 ## File Name: immer_install.R
-## File Version: 0.07
+## File Version: 0.08
 
 #####################################################
 # installation of the free FACETS DOS_Version
@@ -11,7 +11,7 @@ immer_install <- function(DosBox_path=NULL,Facets_path=NULL){
   switch(os_system,
          Windows=
 {cat("I'm a Windows PC. Install Facets and Dosbox for Windows \n")},
-Linux =
+Linux=
 {cat("I'm a penguin. Install Facets and Dosbox for Linux \n")},
 Darwin=
 {cat("I'm a Mac. Install Facets and Dosbox for Mac \n")}

@@ -1,8 +1,8 @@
 Package: immer
 Type: Package
 Title: Item Response Models for Multiple Ratings
-Version: 1.1-11
-Date: 2018-05-23 15:29:36
+Version: 1.1-27
+Date: 2018-10-17 16:25:26
 Author: 
     Alexander Robitzsch [aut, cre], Jan Steinfeld [aut]
 Maintainer: Alexander Robitzsch <robitzsch@ipn.uni-kiel.de>
@@ -13,7 +13,9 @@ Description:
     logistic partial credit model and a wrapper function
     to the commercial FACETS program. See Robitzsch and
     Steinfeld (2018) for a description of the functionality
-    of the package.
+    of the package. 
+    See Wang, Su & Qiu (2014; <doi:10.1111/jedm.12045>)
+    for an overview of modeling alternatives.
 Depends: 
     R (>= 3.0-0)
 Imports: 
@@ -24,5 +26,7 @@ Suggests:
 LinkingTo: 
     Rcpp, RcppArmadillo
 VignetteBuilder: R.rsp
-URL: https://github.com/alexanderrobitzsch/immer
+URL:
+    https://github.com/alexanderrobitzsch/immer,
+    https://sites.google.com/site/alexanderrobitzsch2/software
 License: GPL (>= 2)

@@ -1,5 +1,5 @@
 %% File Name: data.immer.Rd
-%% File Version: 0.33
+%% File Version: 0.37
 
 \name{data.immer}
 
@@ -202,8 +202,9 @@ and item difficulty \code{itemdiff})
 \item The dataset \code{data.immer11} contains ratings of 148 cases (screening
 mammogram samples) diagnoses by 110 raters (Zhang & Petersen, xxxx). The codes of the
 polytomous rating are normal (code 0), benign (code 1), probably benign (code 2),
-possibly malignant (code 3), and probably malignant (code 4). The format of the dataset
-is
+possibly malignant (code 3), and probably malignant (code 4). The dataset was extracted
+from an image plot in Figure 2 by using the processing function 
+\code{png::readPNG}. The format of the dataset is
 
 \code{'data.frame':   148 obs. of  110 variables:} \cr
 \code{ $ R001: num  2 1 3 2 1 2 0 0 0 2 ...} \cr
@@ -214,7 +215,11 @@ is
 
 
 \item The dataset \code{data.immer12} contains ratings of the 2002 olympic pairs
-figure skating competition. This dataset has been used in Lincare (2009).
+figure skating competition. This dataset has been used in Lincare (2009).  The items
+are \code{ST} (short program, technical merit), 
+\code{SA} (short program, artistic impression),
+\code{FT} (free program, technical merit), and 
+\code{FA} (free program, artistic impression). The format of the dataset is
 
 \code{'data.frame':   180 obs. of  7 variables:} \cr
 \code{ $ idpair: int  1 1 1 1 1 1 1 1 1 2 ...} \cr
@@ -261,7 +266,7 @@ class model the reliability of nominal judgments upon which
 two raters agree. \emph{Educational and Psychological Measurement, 66}(5), 739-747.
 
 Zhang, S., & Petersen, J. H. (XXXX). Quantifying rater variation for ordinal data using
-a rating scale model. \emph{Statistics in Medicince, XX}(xx), xxx-xxx.
+a rating scale model. \emph{Statistics in Medicine, XX}(xx), xxx-xxx.
 }
 
 

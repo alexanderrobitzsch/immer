@@ -1,5 +1,5 @@
 ## File Name: immer_cml.R
-## File Version: 0.840
+## File Version: 0.842
 
 ########################################################
 # CML function in immer package
@@ -90,7 +90,7 @@ immer_cml <- function( dat, weights=NULL, W=NULL, b_const=NULL,
     }
 
     if (use_rcpp){
-        ## analytical gradient
+        ## analytical gradient in Rcpp
         agrad <- function(par){
             esf_par0 <- W %*% par + b_const
             res <- immer_cml_agrad_helper( esf_par0=esf_par0,
@@ -100,7 +100,7 @@ immer_cml <- function( dat, weights=NULL, W=NULL, b_const=NULL,
             return(res)
         }
     } else {
-        ## analytical gradient
+        ## analytical gradient in R
         agrad <- function(par){
             esf_par0 <- W %*% par + b_const
             h1 <- sapply( 1:NP, FUN=function(pp){
@@ -148,23 +148,19 @@ immer_cml <- function( dat, weights=NULL, W=NULL, b_const=NULL,
                     sumwgt=colSums( weights * ( 1 - is.na(dat) ), na.rm=TRUE ),
                     M=M, a=a,  itemdiff=itemdiff, item )
     rownames(item) <- NULL
-
     vcov1 <- solve(opt$hessian)
     par_summary <- data.frame( par=colnames(W), est=par, se=sqrt(diag(vcov1)) )
 
-    #----------------
-    # output
+    #------ output
     s2 <- Sys.time()
     time <- list( start=s1, end=s2 )
-    res <- list( item=item, b=b, coefficients=par, vcov=vcov1, par_summary=par_summary,
-                loglike=-opt$value, deviance=2*opt$value,
-                result_optim=opt, W=W, b_const=b_const, par_init=par_init,
-                suffstat=suffstat, score_freq=score_freq, dat=dat, used_persons=used_persons,
-                NP=NP, N=N,I=I, maxK=maxK, K=K, npars=length(par),
-                pars_info=pars_info, parm_index=parm_index, item_index=item_index, score=score,
-                time=time, CALL=CALL, use_rcpp=use_rcpp,
-                description='Conditional Maximum Likelihood Estimation'
-                )
+    res <- list( item=item, b=b, coefficients=par, vcov=vcov1,
+                par_summary=par_summary, loglike=-opt$value, deviance=2*opt$value,
+                result_optim=opt, W=W, b_const=b_const, par_init=par_init, suffstat=suffstat,
+                score_freq=score_freq, dat=dat, used_persons=used_persons, NP=NP, N=N, I=I,
+                maxK=maxK, K=K, npars=length(par), pars_info=pars_info, parm_index=parm_index,
+                item_index=item_index, score=score, time=time, CALL=CALL, use_rcpp=use_rcpp,
+                description='Conditional Maximum Likelihood Estimation' )
     class(res) <- "immer_cml"
     return(res)
 }

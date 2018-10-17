@@ -1,5 +1,5 @@
 ## File Name: immer_FACETS.R
-## File Version: 0.29
+## File Version: 0.30
 
 #####################################################
 # Wrapper to FACDOS (Linacre, 1999)
@@ -231,7 +231,7 @@ immer_FACETS <- function(
 
          },
 
-         Linux =
+         Linux=
          {
            cat("I'm a penguin. Install Facets and Dosbox for Linux \n")
            cat("currently your system is not supported \n")

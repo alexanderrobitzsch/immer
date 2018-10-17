@@ -1,5 +1,5 @@
 ## File Name: summary.immer_jml.R
-## File Version: 0.19
+## File Version: 0.20
 
 
 #*******************************************************
@@ -35,13 +35,13 @@ summary.immer_jml <- function( object, digits=3, file=NULL, ... )
     cat( "Deviance=", round( object$ic$dev, 2 ), " | " )
     cat( "Log Likelihood=", round( -object$ic$dev/2, 2 ), "\n" )
     cat( "Number of person-rater-interactions=", object$ic$ND, "\n" )
-    cat( "Number of persons =", object$ic$n, "\n" )
-    cat( "Number of items =", object$ic$I, "\n" )
-    cat( "Number of raters =", object$ic$R, "\n\n" )
+    cat( "Number of persons=", object$ic$n, "\n" )
+    cat( "Number of items=", object$ic$I, "\n" )
+    cat( "Number of raters=", object$ic$R, "\n\n" )
 
     cat( "Number of estimated parameters=", object$ic$np, "\n" )
     cat( "                       # theta=", object$ic$ntheta, "\n" )
-    cat( "                       # xsi =", object$ic$nxsi, "\n" )
+    cat( "                       # xsi=", object$ic$nxsi, "\n" )
     cat("\n")
 
     cat( "irtmodel=", object$irtmodel, "\n" )

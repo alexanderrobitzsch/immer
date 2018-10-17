@@ -1,5 +1,5 @@
 %% File Name: immer-package.Rd
-%% File Version: 0.52
+%% File Version: 0.54
 
 \name{immer-package}
 \alias{immer-package}
@@ -16,7 +16,9 @@ Item Response Models for Multiple Ratings
     logistic partial credit model and a wrapper function
     to the commercial FACETS program. See Robitzsch and
     Steinfeld (2018) for a description of the functionality
-    of the package.
+    of the package. 
+    See Wang, Su & Qiu (2014; <doi:10.1111/jedm.12045>)
+    for an overview of modeling alternatives.
 }
 
 \details{
@@ -89,6 +91,9 @@ estimation methods, and implementation in R.
 
 Varin, C., Reid, N., & Firth, D. (2011). An overview of composite likelihood methods. 
 \emph{Statistica Sinica, 21}, 5-42.
+
+Wang, W. C., Su, C. M., & Qiu, X. L. (2014). Item response models for local dependence 
+among multiple ratings. \emph{Journal of Educational Measurement, 51}(3), 260-280.
 }
 
 

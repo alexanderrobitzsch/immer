@@ -1,5 +1,5 @@
 ## File Name: immer_hrm.R
-## File Version: 0.960
+## File Version: 0.962
 
 #####################################################
 # Hierarchical rater model Patz et al. (2002)
@@ -276,16 +276,13 @@ immer_hrm <- function( dat, pid, rater,
     # output list
     time$end <- Sys.time()
     res <- list( person=person, item=item, rater_pars=rater_pars,
-                        est_pars=est_pars,
-                        sigma=est_pars$sigma, mu=est_pars$mu,
-                        mcmcobj=res11$mcmcobj, summary.mcmcobj=summary.mcmcobj,
-                        dat=dat, pid=pid, rater=rater,
-                        EAP.rel=EAP.rel, ic=ic,
-                        f.yi.qk=res_ll$f.yi.qk, f.qk.yi=res_ll$f.qk.yi,
-                        theta_like=theta_like, pi.k=res_ll$pi.k,
-                        like=res_ll$ll, traces=traces, MHprop=MHprop, prior=prior,
-                        est_settings=est_settings, N.save=BB,
-                        iter=iter, burnin=burnin, time=time, CALL=CALL)
+                est_pars=est_pars, sigma=est_pars$sigma, mu=est_pars$mu,
+                mcmcobj=res11$mcmcobj, summary.mcmcobj=summary.mcmcobj, dat=dat, pid=pid,
+                rater=rater, EAP.rel=EAP.rel, ic=ic, f.yi.qk=res_ll$f.yi.qk,
+                f.qk.yi=res_ll$f.qk.yi, theta_like=theta_like, pi.k=res_ll$pi.k,
+                like=res_ll$ll, traces=traces, MHprop=MHprop, prior=prior,
+                est_settings=est_settings, N.save=BB, iter=iter, burnin=burnin, time=time,
+                CALL=CALL )
     res$description <- "Function immer_hrm() | Hierarchical Rater Model (Patz et al., 2002)"
     class(res) <- "immer_hrm"
     return(res)

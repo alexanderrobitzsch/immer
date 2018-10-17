@@ -1,5 +1,5 @@
 //// File Name: immer_ccml_rcpp.cpp
-//// File Version: 0.68
+//// File Version: 0.69
 
 
 // [[Rcpp::depends(RcppArmadillo)]]
@@ -241,7 +241,7 @@ Rcpp::NumericMatrix immer_ccml_gradient(Rcpp::NumericMatrix b, Rcpp::NumericVect
     grad.fill(0);
 
     // dfr$opt_fct <- dfr$zaehl / dfr$nenn
-    // ind <- c( which( ( dfr$item1 == ii0 ) & ( dfr$cat1 == cat0 ) ), which( ( dfr$item2 == ii0 ) & 
+    // ind <- c( which( ( dfr$item1 == ii0 ) & ( dfr$cat1 == cat0 ) ), which( ( dfr$item2 == ii0 ) &
     //                ( dfr$cat2 == cat0 ) ) )
     // - sum( dfr$n[ind] - dfr$ntot[ind] * dfr$opt_fct[ind] )
 

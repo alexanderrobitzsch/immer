@@ -1,8 +1,9 @@
 //// File Name: immer_hrm_rcpp.cpp
-//// File Version: 0.42
+//// File Version: 0.45
 
 
 // [[Rcpp::depends(RcppArmadillo)]]
+// [[RcppNOplugins(unwindProtect)]]
 
 // includes from the plugin
 #include <RcppArmadillo.h>
@@ -11,6 +12,8 @@
 
 using namespace Rcpp;
 // using namespace arma;
+
+
 
 
 

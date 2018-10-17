@@ -1,5 +1,5 @@
 ## File Name: summary.immer_latent_regression.R
-## File Version: 0.08
+## File Version: 0.09
 
 
 #*******************************************************
@@ -26,8 +26,8 @@ summary.immer_latent_regression <- function( object, digits=3, file=NULL, ... )
 
     cat( "Deviance=", round( object$ic$dev, 2 ), " | " )
     cat( "Log Likelihood=", round( -object$ic$dev/2, 2 ), "\n" )
-    cat( "Number of persons =", object$ic$n, "\n" )
-    cat( "Number of groups =", object$ic$G, "\n" )
+    cat( "Number of persons=", object$ic$n, "\n" )
+    cat( "Number of groups=", object$ic$G, "\n" )
 
     cat( "Number of estimated parameters=", object$ic$np, "\n" )
     cat("\n")

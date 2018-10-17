@@ -1,5 +1,5 @@
 ## File Name: immer_jml.R
-## File Version: 0.9632
+## File Version: 0.9636
 
 
 immer_jml <- function(dat, A=NULL, maxK=NULL, center_theta=TRUE, b_fixed=NULL, irtmodel="PCM",
@@ -306,16 +306,15 @@ immer_jml <- function(dat, A=NULL, maxK=NULL, center_theta=TRUE, b_fixed=NULL, i
     #--- output
     time$end <- Sys.time()
     time$diff <- time$end - time$start
-    res <- list(b=b, item=item, theta=theta, theta_se=theta_se, xsi=xsi, xsi_se=xsi_se,
-                    xsi_dfr=xsi_dfr, probs=probs,
-                    person=person, person_desc=person_desc, shortcut_index=shortcut_index,
-                    pid=pid,     dat=dat, dat_score=dat_score, dat_resp=dat_resp, score_pers=score_pers,
-                    score_items=score_items, eps=eps, eps_adjust_pers=eps_adjust_pers,
-                    eps=eps, eps_adjust_item=eps_adjust_item,  est_method=est_method,
-                    A=A, b_fixed=b_fixed, bc_adj_fac=bc_adj_fac, irtmodel=irtmodel,
-                    iter=iter, iter_opt=iter_opt, loglike=loglike, deviance=deviance, ic=ic,
-                    deviance.history=deviance.history, pseudoitems_design=pseudoitems_design,
-                    CALL=CALL,    time=time)
+    res <- list( b=b, item=item, theta=theta, theta_se=theta_se, xsi=xsi,
+                xsi_se=xsi_se, xsi_dfr=xsi_dfr, probs=probs, person=person,
+                person_desc=person_desc, shortcut_index=shortcut_index, pid=pid, dat=dat,
+                dat_score=dat_score, dat_resp=dat_resp, score_pers=score_pers,
+                score_items=score_items, eps=eps, eps_adjust_pers=eps_adjust_pers, eps=eps,
+                eps_adjust_item=eps_adjust_item, est_method=est_method, A=A, b_fixed=b_fixed,
+                bc_adj_fac=bc_adj_fac, irtmodel=irtmodel, iter=iter, iter_opt=iter_opt,
+                loglike=loglike, deviance=deviance, ic=ic, deviance.history=deviance.history,
+                pseudoitems_design=pseudoitems_design, CALL=CALL, time=time )
     res$description <- "Function immer_jml() | Joint maximum likelihood estimation"
     class(res) <- "immer_jml"
     return(res)
