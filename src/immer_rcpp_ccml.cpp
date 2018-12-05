@@ -1,5 +1,5 @@
-//// File Name: immer_ccml_rcpp.cpp
-//// File Version: 0.69
+//// File Name: immer_rcpp_ccml.cpp
+//// File Version: 0.719
 
 
 // [[Rcpp::depends(RcppArmadillo)]]
@@ -137,7 +137,7 @@ Rcpp::NumericVector immer_ccml_probs(Rcpp::NumericMatrix b, Rcpp::NumericVector 
     // dfr$opt_fct <- dfr$zaehl / dfr$nenn
     // compute denominator
     for (int ll=0; ll<NL; ll++){
-        zaehl[ll] = exp( - b( item10[ll], cat1[ll] ) - b( item20[ll], cat2[ll] ) );
+        zaehl[ll] = std::exp( - b( item10[ll], cat1[ll] ) - b( item20[ll], cat2[ll] ) );
         sz[ ll_index1[ll] ] += zaehl[ll];
     }
     // compute conditional probabilities
@@ -178,6 +178,18 @@ Rcpp::NumericVector immer_ccml_probs_from_par(Rcpp::NumericMatrix b_fixed,
 ///********************************************************************
 
 ///********************************************************************
+///** log_eps
+double log_eps(double x, double eps)
+{
+    // double val = x;
+    // if (val < eps){ val = eps; }    
+    double val=x+eps;    
+    val = std::log(val);
+    return val;
+}
+///********************************************************************
+
+///********************************************************************
 ///** immer_ccml_opt_function
 // [[Rcpp::export]]
 double immer_ccml_opt_function(Rcpp::NumericMatrix b, Rcpp::NumericVector ll_index1,
@@ -198,7 +210,7 @@ double immer_ccml_opt_function(Rcpp::NumericMatrix b, Rcpp::NumericVector ll_ind
 
     // compute optimization function
     for (int ll=0; ll<NL; ll++){
-        val += n[ll] * log( opt_fct[ll] + eps );
+        val += n[ll] * log_eps( opt_fct[ll], eps );
     }
     val = - val;
 
@@ -329,9 +341,7 @@ Rcpp::List immer_ccml_se( Rcpp::NumericMatrix b_fixed,
 
     //-----------------------------------------------
     //-- compute cross-product information
-    Rcpp::NumericVector opt_p;
-    Rcpp::NumericVector opt_m;
-    Rcpp::NumericVector opt_0;
+    Rcpp::NumericVector opt_p, opt_m, opt_0;
     Rcpp::NumericMatrix opt_p0(NL,NX);
     Rcpp::NumericMatrix opt_m0(NL,NX);
     Rcpp::NumericVector par_temp(NX);
@@ -349,7 +359,7 @@ Rcpp::List immer_ccml_se( Rcpp::NumericMatrix b_fixed,
                             max_ll_index, pp, -1, -h, 0 );
         opt_m0(_,pp)=opt_m;
         for (int ll=0; ll<NL; ll++){
-            der1_mat(ll,pp) = - ( ( log( opt_p[ll] + eps ) - log( opt_m[ll] + eps ) ) ) / (2*h);
+            der1_mat(ll,pp) = - ( ( log_eps( opt_p[ll], eps ) - log_eps( opt_m[ll], eps ) ) ) / (2*h);
         }
         par_temp[pp] = par[pp];
     }
@@ -368,15 +378,14 @@ Rcpp::List immer_ccml_se( Rcpp::NumericMatrix b_fixed,
 
     //-----------------------------------------------
     //-- compute observed information
-
     b = immer_ccml_calc_item_intercepts(b_fixed, A_, par);
     opt_0 = immer_ccml_probs(b, ll_index1, item10, item20, cat1, cat2, max_ll_index );
     double val=0;
     // observed information: diagonal elements
     for (int pp=0; pp<NX; pp++){
         for (int ll=0; ll<NL; ll++){
-            val = log( opt_p0(ll,pp) + eps ) - 2*log( opt_0[ll] + eps ) + log( opt_m0(ll,pp) + eps );
-            obs_mat(pp,pp) += - n[ll] * val / pow(h, 2.0);
+            val = log_eps( opt_p0(ll,pp), eps ) - 2*log_eps( opt_0[ll], eps ) + log_eps( opt_m0(ll,pp), eps );
+            obs_mat(pp,pp) += - n[ll] * val / std::pow(h, 2.0);
         }
         obs_mat(pp,pp) = obs_mat(pp,pp) / N;
     }
@@ -403,8 +412,8 @@ Rcpp::List immer_ccml_se( Rcpp::NumericMatrix b_fixed,
                                     max_ll_index, pp1, pp2, -h, -h );
             // f1,1 - f1,-1 - f-1,1 + f-1,-1 / 4*h^2
             for (int ll=0; ll<NL; ll++){
-                val = log( opt_11[ll] + eps ) - log( opt_10[ll] + eps ) - log( opt_01[ll] + eps ) +
-                            log( opt_00[ll] + eps );
+                val = log_eps( opt_11[ll], eps) - log_eps( opt_10[ll], eps) - log_eps( opt_01[ll], eps) +
+                            log_eps( opt_00[ll], eps);
                 obs_mat(pp1,pp2) += - n[ll] * val / ( 4 * h * h );
             }
             obs_mat(pp1,pp2) = obs_mat(pp1,pp2) / N;

@@ -1,5 +1,5 @@
-//// File Name: immer_cml_helper_rcpp.cpp
-//// File Version: 0.540
+//// File Name: immer_rcpp_cml.cpp
+//// File Version: 0.543
 
 
 
@@ -46,7 +46,6 @@ Rcpp::NumericVector immer_cml_extract_parmindex( Rcpp::NumericMatrix esf_par0,
     for (int ii=0; ii<N0; ii++){
         esf_par1[ii] = esf_par0( parm_index_pp[ii], 0);
     }
-
     //-- output
     return esf_par1;
 }
@@ -68,7 +67,6 @@ Rcpp::List psychotools_esf( Rcpp::List esf_par, int order,  bool diff )
     return res;
 }
 ///********************************************************************
-
 
 ///********************************************************************
 ///** immer_cml_cloglik_helper
@@ -113,7 +111,6 @@ double immer_cml_cloglik_helper( Rcpp::NumericMatrix esf_par0,
     return val;
 }
 ///********************************************************************
-
 
 ///********************************************************************
 ///** immer_cml_agrad_helper

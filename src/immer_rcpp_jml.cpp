@@ -1,5 +1,5 @@
-//// File Name: immer_jml_rcpp.cpp
-//// File Version: 0.919
+//// File Name: immer_rcpp_jml.cpp
+//// File Version: 0.924
 
 
 // [[Rcpp::depends(RcppArmadillo)]]
@@ -19,7 +19,7 @@ Rcpp::NumericVector immer_jml_prob_one_item_one_person(double theta1, Rcpp::Nume
     double temp=0;
     double tot=0;
     for (int kk=0; kk<K; kk++){
-        temp = exp( kk * theta1 - b_ii[kk] );
+        temp = std::exp( kk * theta1 - b_ii[kk] );
         tot += temp;
         probs_ii[kk] = temp;
     }
@@ -50,19 +50,6 @@ double immer_rcpp_trim_increment(double incr, double max_incr)
     }
     //-- output
     return incr1;
-}
-///********************************************************************
-
-///********************************************************************
-///** immer_abs2
-double immer_abs2(double x)
-{
-    double y = x;
-    if (x<0){
-        y = - x;
-    }
-    //-- output
-    return y;
 }
 ///********************************************************************
 
@@ -175,7 +162,7 @@ Rcpp::List immer_jml_update_item_derivatives(Rcpp::NumericVector theta,
             expected[pp] += A_bari(pp,ii);
             err[pp] += AA_bari(pp,ii) - A_Sq(pp,ii);
         }
-        err_inv[pp] = 1 / ( immer_abs2(err[pp]) + eps );
+        err_inv[pp] = 1 / ( std::abs(err[pp]) + eps );
         scores[pp] = ItemScore[pp] - expected[pp];
         incr[pp] = - err_inv[pp] * scores[pp];
     }
@@ -256,7 +243,6 @@ Rcpp::List immer_jml_update_theta_derivatives(Rcpp::NumericVector theta,
 
     double M_ii=0;
     double Var_ii=0;
-
     for (int nn=0; nn<N; nn++){
         der1[nn] = score_pers[nn];
     }
@@ -271,9 +257,9 @@ Rcpp::List immer_jml_update_theta_derivatives(Rcpp::NumericVector theta,
                     Var_ii=0;
                     for (int kk=0;kk<K;kk++){
                         M_ii += (kk+1) * probs_ii[kk+1];
-                        Var_ii += pow(kk+1, 2.0) * probs_ii[kk+1];
+                        Var_ii += std::pow(kk+1, 2.0) * probs_ii[kk+1];
                     }
-                    Var_ii = Var_ii - pow(M_ii, 2.0);
+                    Var_ii = Var_ii - std::pow(M_ii, 2.0);
                 }
                 for (int kk=0; kk<K+1; kk++){
                     probs[nn + ii*N + kk*N*I] = probs_ii[kk];
@@ -286,7 +272,7 @@ Rcpp::List immer_jml_update_theta_derivatives(Rcpp::NumericVector theta,
 
     for (int nn=0; nn<N; nn++){
         if (update[nn]==1){
-            incr[nn] = der1[nn] / ( immer_abs2( der2[nn] ) + eps );
+            incr[nn] = der1[nn] / ( std::abs( der2[nn] ) + eps );
             incr[nn] = immer_rcpp_trim_increment( incr[nn], max_incr);
             theta_temp = theta[nn] + incr[nn];
         }
@@ -303,3 +289,4 @@ Rcpp::List immer_jml_update_theta_derivatives(Rcpp::NumericVector theta,
             );
 
 }
+///********************************************************************

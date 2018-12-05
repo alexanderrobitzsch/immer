@@ -1,5 +1,5 @@
 ## File Name: immer_jml_facets.R
-## File Version: 0.24
+## File Version: 0.25
 
 
 immer_jml_facets <- function(y, design, center=NULL, weights=NULL, max_equal=FALSE, 
@@ -64,10 +64,9 @@ immer_jml_facets <- function(y, design, center=NULL, weights=NULL, max_equal=FAL
         # compute log-likelihood
         eps <- 1e-50
         ll <- sum( weights * log( probs[ y_design ] + eps ) )
-Revalpr("ll")
+# Revalpr("ll")
         parm_change <- abs( unlist( parm_change ) )
-Revalpr("parm_change")    
-
+# Revalpr("parm_change")    
         iter <- iter + 1
         
         utils::flush.console()
