@@ -1,25 +1,25 @@
 %% File Name: immer-package.Rd
-%% File Version: 0.54
+%% File Version: 0.55
 
 \name{immer-package}
 \alias{immer-package}
 \alias{immer}
 \docType{package}
+
 \title{
-Item Response Models for Multiple Ratings
+\packageTitle{immer}
 }
 
 \description{
-    Implements some item response models for multiple
-    ratings, including the hierarchical rater model, 
-    conditional maximum likelihood estimation of linear 
-    logistic partial credit model and a wrapper function
-    to the commercial FACETS program. See Robitzsch and
-    Steinfeld (2018) for a description of the functionality
-    of the package. 
-    See Wang, Su & Qiu (2014; <doi:10.1111/jedm.12045>)
-    for an overview of modeling alternatives.
+\packageDescription{immer}
 }
+
+\author{
+\packageAuthor{immer}
+
+Maintainer: \packageMaintainer{immer}
+}
+
 
 \details{
 
@@ -57,11 +57,7 @@ program FACETS (Linacre, 1999) for analyzing multi-faceted Rasch models.
 }
 
 }
-\author{
-Alexander Robitzsch, Jan Steinfeld \cr 
-\cr
-Maintainer: Alexander Robitzsch <robitzsch@ipn.uni-kiel.de> \cr 
-}
+
 
 %Federal Institute for Education Research, Innovation and Development of the 
 %Austrian School System (BIFIE Salzburg), Austria

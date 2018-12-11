@@ -1,5 +1,5 @@
 //// File Name: immer_rcpp_dnorm_pbivnorm_drezner.cpp
-//// File Version: 1.07
+//// File Version: 1.08
 
 
 
@@ -29,7 +29,7 @@ double immer_pnorm(double x)
 double immer_signum(double x)
 {
     double val=-1.0;
-    if (x>0){ 
+    if (x>0){
         val=1.0;
     }
     return val;
@@ -40,7 +40,7 @@ double immer_signum(double x)
 ///** immer_dnorm2
 double immer_dnorm2(double a, double b, double rho)
 {
-    double val = ( a*a + b*b - 2*rho*a*b ) / ( 2.0 * ( 1 - rho*rho ) );    
+    double val = ( a*a + b*b - 2*rho*a*b ) / ( 2.0 * ( 1 - rho*rho ) );
     val = std::exp(-val) / ( 2.0 * pi0 * std::sqrt( 1 - rho*rho) );
     return val;
 }

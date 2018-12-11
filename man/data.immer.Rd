@@ -1,5 +1,5 @@
 %% File Name: data.immer.Rd
-%% File Version: 0.37
+%% File Version: 0.38
 
 \name{data.immer}
 
@@ -203,7 +203,7 @@ and item difficulty \code{itemdiff})
 mammogram samples) diagnoses by 110 raters (Zhang & Petersen, xxxx). The codes of the
 polytomous rating are normal (code 0), benign (code 1), probably benign (code 2),
 possibly malignant (code 3), and probably malignant (code 4). The dataset was extracted
-from an image plot in Figure 2 by using the processing function 
+from an image plot in Figure 2 by using the processing function
 \code{png::readPNG}. The format of the dataset is
 
 \code{'data.frame':   148 obs. of  110 variables:} \cr
@@ -216,9 +216,9 @@ from an image plot in Figure 2 by using the processing function
 
 \item The dataset \code{data.immer12} contains ratings of the 2002 olympic pairs
 figure skating competition. This dataset has been used in Lincare (2009).  The items
-are \code{ST} (short program, technical merit), 
+are \code{ST} (short program, technical merit),
 \code{SA} (short program, artistic impression),
-\code{FT} (free program, technical merit), and 
+\code{FT} (free program, technical merit), and
 \code{FA} (free program, artistic impression). The format of the dataset is
 
 \code{'data.frame':   180 obs. of  7 variables:} \cr

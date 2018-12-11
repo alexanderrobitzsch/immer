@@ -1,5 +1,5 @@
 //// File Name: immer_rcpp_ccml.cpp
-//// File Version: 0.719
+//// File Version: 0.720
 
 
 // [[Rcpp::depends(RcppArmadillo)]]
@@ -182,8 +182,8 @@ Rcpp::NumericVector immer_ccml_probs_from_par(Rcpp::NumericMatrix b_fixed,
 double log_eps(double x, double eps)
 {
     // double val = x;
-    // if (val < eps){ val = eps; }    
-    double val=x+eps;    
+    // if (val < eps){ val = eps; }
+    double val=x+eps;
     val = std::log(val);
     return val;
 }
