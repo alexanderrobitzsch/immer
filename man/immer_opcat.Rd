@@ -1,5 +1,5 @@
 %% File Name: immer_opcat.Rd
-%% File Version: 0.20
+%% File Version: 0.21
 
 \name{immer_opcat}
 \alias{immer_opcat}
@@ -94,5 +94,5 @@ cbind( a, a1, a2, a3)
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.
-\keyword{Integer item discriminations}
-\keyword{OPLM}
+%% \keyword{Integer item discriminations}
+%% \keyword{OPLM}

@@ -1,5 +1,5 @@
 ## File Name: summary.immer_hrm.R
-## File Version: 0.35
+## File Version: 0.36
 
 
 #*******************************************************
@@ -38,8 +38,8 @@ summary.immer_hrm <- function( object, digits=3, file=NULL, ... )
     cat( "Number of estimated parameters=", object$ic$np, "\n" )
     cat( "                      # mu=", object$ic$Npars["mu"], "\n" )
     cat( "                      # sigma=", object$ic$Npars["sigma"], "\n" )
-    cat( "                      # a =", object$ic$Npars["a"], "\n" )
-    cat( "                      # b =", object$ic$Npars["b"], "\n" )
+    cat( "                      # a=", object$ic$Npars["a"], "\n" )
+    cat( "                      # b=", object$ic$Npars["b"], "\n" )
     cat( "                      # phi=", object$ic$Npars["phi"], "\n" )
     cat( "                      # psi=", object$ic$Npars["psi"], "\n\n" )
 

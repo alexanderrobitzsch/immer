@@ -1,5 +1,5 @@
 %% File Name: immer_hrm.Rd
-%% File Version: 0.69
+%% File Version: 0.70
 
 \name{immer_hrm}
 \alias{immer_hrm}
@@ -286,7 +286,7 @@ plot(mod, layout=2, ask=TRUE)
 
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.
-\keyword{Hierarchical rater model}
-\keyword{plot}
-\keyword{summary}
+%% \keyword{Hierarchical rater model}
+%% \keyword{plot}
+%% \keyword{summary}
 % \keyword{ ~kwd2 }% __ONLY ONE__ keyword per line

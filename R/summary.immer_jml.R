@@ -1,5 +1,5 @@
 ## File Name: summary.immer_jml.R
-## File Version: 0.20
+## File Version: 0.23
 
 
 #*******************************************************
@@ -21,30 +21,30 @@ summary.immer_jml <- function( object, digits=3, file=NULL, ... )
     #-- computation time
     immer_summary_print_computation_time(object=object )
 
-    cat( "Number of iterations=", object$iter, "\n" )
-    cat( "Iteration with minimal deviance=", object$iter_opt, "\n" )
+    cat( "Number of iterations", "=", object$iter, "\n" )
+    cat( "Iteration with minimal deviance", "=", object$iter_opt, "\n" )
     cat("\n")
 
-    cat("Estimation method=", object$est_method, "\n")
-    cat(" Epilson parameter=", object$eps, "\n")
+    cat("Estimation method", "=", object$est_method, "\n")
+    cat(" Epilson parameter", "=", object$eps, "\n")
     if ( object$est_method=="jml_bc" ){
-        cat(" Bias correction factor=", round(object$bc_adj_fac, digits), "\n")
+        cat(" Bias correction factor", "=", round(object$bc_adj_fac, digits), "\n")
     }
     cat("\n")
 
-    cat( "Deviance=", round( object$ic$dev, 2 ), " | " )
-    cat( "Log Likelihood=", round( -object$ic$dev/2, 2 ), "\n" )
-    cat( "Number of person-rater-interactions=", object$ic$ND, "\n" )
-    cat( "Number of persons=", object$ic$n, "\n" )
-    cat( "Number of items=", object$ic$I, "\n" )
-    cat( "Number of raters=", object$ic$R, "\n\n" )
+    cat( "Deviance", "=", round( object$ic$dev, 2 ), " | " )
+    cat( "Log Likelihood", "=", round( -object$ic$dev/2, 2 ), "\n" )
+    cat( "Number of person-rater-interactions", "=", object$ic$ND, "\n" )
+    cat( "Number of persons", "=", object$ic$n, "\n" )
+    cat( "Number of items", "=", object$ic$I, "\n" )
+    cat( "Number of raters", "=", object$ic$R, "\n\n" )
 
-    cat( "Number of estimated parameters=", object$ic$np, "\n" )
-    cat( "                       # theta=", object$ic$ntheta, "\n" )
-    cat( "                       # xsi=", object$ic$nxsi, "\n" )
+    cat( "Number of estimated parameters", "=", object$ic$np, "\n" )
+    cat( "                       # theta", "=", object$ic$ntheta, "\n" )
+    cat( "                       # xsi", "=", object$ic$nxsi, "\n" )
     cat("\n")
 
-    cat( "irtmodel=", object$irtmodel, "\n" )
+    cat( "irtmodel", "=", object$irtmodel, "\n" )
     cat("\n")
 
 

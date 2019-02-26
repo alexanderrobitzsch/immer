@@ -57,17 +57,20 @@ https://sites.google.com/site/alexanderrobitzsch/software
 
 
 ------------------------------------------------------------
-VERSIONS immer 1.2  |  2018-12-11  |  Last: immer 1.2-1
+VERSIONS immer 1.2  |  2019-02-26  |  Last: immer 1.2-4
 ------------------------------------------------------------
 
-ADDED * ---
+FIXED * fixed a bug in immer_jml() when a design matrix is 
+        provided and there are different number of categories
+        per items (thanks to a discussion with Kara Styck)
+
 
 DATA  * included/modified datasets: ---
-EXAMP * included/modified examples: ---
+EXAMP * included/modified examples: immer_jml (3)
 
 
 ------------------------------------------------------------
-VERSIONS immer 1.2  |  2018-12-11  |  Last: immer 1.2-35
+VERSIONS immer 1.1  |  2018-12-11  |  Last: immer 1.1-35
 ------------------------------------------------------------
 
 ADDED * included datasets of mammogram ratings data.immer11 

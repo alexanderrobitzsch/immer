@@ -4,7 +4,7 @@
 
 If you use `immer` and have suggestions for improvement or have found bugs, please email me at robitzsch@ipn.uni-kiel.de.
 
-#### CRAN version `immer` 1.2-35 (2018-12-11)
+#### CRAN version `immer` 1.1-35 (2018-12-11)
 
 
 [![CRAN_Status_Badge](http://www.r-pkg.org/badges/version-last-release/immer)](https://cran.r-project.org/package=immer)
@@ -18,9 +18,9 @@ The CRAN version can be installed from within R using:
 utils::install.packages("immer")
 ```
 
-#### GitHub version `immer` 1.2-1 (2018-12-11)
+#### GitHub version `immer` 1.2-4 (2019-02-26)
 
-[![](https://img.shields.io/badge/github%20version-1.2--1-orange.svg)](https://github.com/alexanderrobitzsch/immer)&#160;&#160;
+[![](https://img.shields.io/badge/github%20version-1.2--4-orange.svg)](https://github.com/alexanderrobitzsch/immer)&#160;&#160;
 
 The version hosted [here](https://github.com/alexanderrobitzsch/immer) is the development version of `immer`. 
 The GitHub version can be installed using `devtools` as:

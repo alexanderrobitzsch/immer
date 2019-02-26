@@ -1,5 +1,5 @@
 %% File Name: immer_cml.Rd
-%% File Version: 0.42
+%% File Version: 0.43
 
 \name{immer_cml}
 \alias{immer_cml}
@@ -423,6 +423,6 @@ summary(mod2)
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.
-\keyword{Conditional maximum likelihood estimation}
-\keyword{summary}
+%% \keyword{Conditional maximum likelihood estimation}
+%% \keyword{summary}
 % \keyword{ ~kwd2 }% __ONLY ONE__ keyword per line

@@ -1,5 +1,5 @@
 ## File Name: immer_create_design_matrix_A.R
-## File Version: 0.16
+## File Version: 0.18
 
 immer_create_design_matrix_A <- function( maxK, A, b_fixed, irtmodel, NA_val=99)
 {
@@ -27,7 +27,7 @@ immer_create_design_matrix_A <- function( maxK, A, b_fixed, irtmodel, NA_val=99)
     }
 
     #--- fixed b values
-    if (is.null(b_fixed)){
+    if (is.null(b_fixed) & (irtmodel!="user")){
         b_fixed <- matrix( 0, nrow=I, ncol=K)
         rownames(b_fixed) <- dimnames(A)[[1]]
         colnames(b_fixed) <- dimnames(A)[[2]]

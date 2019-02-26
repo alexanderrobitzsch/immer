@@ -1,5 +1,5 @@
 %% File Name: immer_jml.Rd
-%% File Version: 0.49
+%% File Version: 0.504
 
 \name{immer_jml}
 \alias{immer_jml}
@@ -25,7 +25,7 @@ JML estimation method (Bertoli-Barsotti, Lando & Punzo, 2014).
 \usage{
 immer_jml(dat, A=NULL, maxK=NULL, center_theta=TRUE, b_fixed=NULL, irtmodel="PCM",
      pid=NULL, rater=NULL, eps=0.3, est_method="eps_adj", maxiter=1000,
-     conv=1e-05, max_incr=3, maxiter_update=10, maxiter_line_search=6,
+     conv=1e-05, max_incr=3, incr_fac=1.1, maxiter_update=10, maxiter_line_search=6,
      conv_update=1e-05, verbose=TRUE, use_Rcpp=TRUE, shortcut=TRUE)
 
 \method{summary}{immer_jml}(object, digits=3, file=NULL, ...)
@@ -72,6 +72,8 @@ Convergence criterion
   \item{max_incr}{
 Maximum increment
 }
+\item{incr_fac}{Factor for shrinking increments from \code{max_incr}
+in every iteration}
   \item{maxiter_update}{
 Maximum number of iterations for parameter updates
 }
@@ -210,6 +212,28 @@ summary(mod1)
 
 #-- JML estimation with epsilon-adjusted bias correction
 mod2 <- immer::immer_jml(dat, A=A, est_method="eps_adj")
+summary(mod2)
+
+#############################################################################
+# EXAMPLE 3: Rating scale model with raters | Use design matrix from TAM
+#############################################################################
+
+data(data.ratings1, package="sirt")
+dat <- data.ratings1
+
+facets <- dat[,"rater", drop=FALSE]
+resp <- dat[,paste0("k",1:5)]
+
+#* Model 1: Rating scale model in TAM
+formulaA <- ~ item + rater + step
+mod1 <- TAM::tam.mml.mfr(resp=resp, facets=facets, formulaA=formulaA,
+                pid=dat$idstud)
+summary(mod1)
+
+#* Model 2: Same model estimated with JML
+resp0 <- mod1$resp
+A0 <- mod1$A[,-1,]
+mod2 <- immer::immer_jml(dat=resp0, A=A0, est_method="eps_adj")
 summary(mod2)
 }
 }

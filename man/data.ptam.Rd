@@ -1,5 +1,5 @@
 %% File Name: data.ptam.Rd
-%% File Version: 0.19
+%% File Version: 0.20
 
 \name{data.ptam}
 
@@ -155,4 +155,4 @@ estimation methods, and implementation in R.
 % }
 
 
-\keyword{datasets}
+%% \keyword{datasets}

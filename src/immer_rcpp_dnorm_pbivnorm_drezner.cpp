@@ -1,5 +1,5 @@
 //// File Name: immer_rcpp_dnorm_pbivnorm_drezner.cpp
-//// File Version: 1.08
+//// File Version: 1.12
 
 
 
@@ -22,7 +22,6 @@ double immer_pnorm(double x)
     return val;
 }
 ///********************************************************************
-
 
 ///********************************************************************
 ///** immer_signum
@@ -135,8 +134,6 @@ double pbivnorm_drezner_product_negative_cpp(double a, double b, double rho)
 }
 ///********************************************************************
 
-
-
 ///********************************************************************
 ///** pbivnorm_drezner_product_positive_cpp
 double pbivnorm_drezner_product_positive_cpp(double a, double b, double rho)
@@ -186,7 +183,6 @@ Rcpp::NumericVector pbivnorm_drezner(Rcpp::NumericVector a, Rcpp::NumericVector 
 }
 ///********************************************************************
 
-
 ///********************************************************************
 ///** pbivnorm_drezner_derivative_rho_numeric
 double pbivnorm_drezner_derivative_rho_numeric(double a, double b, double rho)
@@ -210,7 +206,7 @@ double pbivnorm_drezner_derivative_a_numeric(double a, double b, double rho)
 ///** pbivnorm_drezner_derivative_b_numeric
 double pbivnorm_drezner_derivative_b_numeric(double a, double b, double rho)
 {
-    double t1 = ( a - rho*b ) / sqrt( 1 - rho*rho );
+    double t1 = ( a - rho*b ) / std::sqrt( 1 - rho*rho );
     double val = immer_dnorm(b) * immer_pnorm(t1);
     return val;
 }
@@ -247,7 +243,9 @@ double immer_logdnorm2( double x, double y, double mu1, double mu2, double var1,
     double val = -std::log(2*pi0);
     double det1 = var1*var2 - cov12*cov12;
     val += - 0.5*std::log(det1);
-    double val1 = var2 * std::pow( x - mu1, 2.0) - 2 * cov12 * ( x- mu1)*(y-mu2) + var1*std::pow( y-mu2, 2.0);
+    double x1 = x - mu1;
+    double y1 = y - mu2;
+    double val1 = var2*x1*x1 - 2*cov12*x1*y1 + var1*y1*y1;
     val += - 0.5*val1 / det1;
     return val;
 }

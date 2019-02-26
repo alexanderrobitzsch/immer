@@ -1,5 +1,5 @@
 %% File Name: immer_install.Rd
-%% File Version: 0.12
+%% File Version: 0.13
 
 \name{immer_install}
 \alias{immer_install}
@@ -67,5 +67,5 @@ Install FACDOS and DOSBox \code{\link{immer_FACETS}}.
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.
-\keyword{install FACDOS}
+%% \keyword{install FACDOS}
 % \keyword{ ~kwd2 }% __ONLY ONE__ keyword per line

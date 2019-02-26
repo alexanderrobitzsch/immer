@@ -1,5 +1,5 @@
 ## File Name: immer_jml_calc_item_intercepts.R
-## File Version: 0.05
+## File Version: 0.06
 
 immer_jml_calc_item_intercepts <- function(A, xsi, b_fixed=0)
 {
