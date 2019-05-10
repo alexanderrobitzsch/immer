@@ -1,5 +1,5 @@
 ## File Name: immer_latent_regression.R
-## File Version: 0.37
+## File Version: 0.39
 
 immer_latent_regression <- function( like, theta=NULL, Y=NULL, group=NULL,
         weights=NULL, conv=1E-5, maxit=200, verbose=TRUE)
@@ -49,7 +49,7 @@ immer_latent_regression <- function( like, theta=NULL, Y=NULL, group=NULL,
     }
     Xw <- X * weights
 
-    XtX <- MASS::ginv( t(X) %*% Xw )
+    XtX <- immer_ginv( x = t(X) %*% Xw )
     thetaM <- matrix( theta, nrow=N, ncol=TP, byrow=TRUE)
     mu <- as.vector( X %*% beta )
     sigma <- gamma[ group ]
@@ -110,7 +110,7 @@ immer_latent_regression <- function( like, theta=NULL, Y=NULL, group=NULL,
     pars <- c(beta, gamma)
     infomat <- immer_latent_regression_vcov_xpd( X=X, group=group, G=G, pars=pars,
                     theta=theta, weights=weights, like=like, h=h )
-    V <- MASS::ginv(infomat)
+    V <- immer_ginv(infomat)
     rownames(V) <- colnames(V) <- names(pars)
     se <- sqrt( diag(V) )
     beta_stat <- data.frame( parm=names(beta), est=pars[1:NB],

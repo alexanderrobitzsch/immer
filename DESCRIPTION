@@ -1,8 +1,8 @@
 Package: immer
 Type: Package
 Title: Item Response Models for Multiple Ratings
-Version: 1.2-4
-Date: 2019-02-26 21:03:32
+Version: 1.2-7
+Date: 2019-05-10 12:37:00
 Author: 
     Alexander Robitzsch [aut, cre], Jan Steinfeld [aut]
 Maintainer: Alexander Robitzsch <robitzsch@ipn.uni-kiel.de>
@@ -14,14 +14,16 @@ Description:
     to the commercial FACETS program. See Robitzsch and
     Steinfeld (2018) for a description of the functionality
     of the package. 
-    See Wang, Su & Qiu (2014; <doi:10.1111/jedm.12045>)
+    See Wang, Su and Qiu (2014; <doi:10.1111/jedm.12045>)
     for an overview of modeling alternatives.
 Depends: 
     R (>= 3.0-0)
 Imports: 
-    CDM (>= 6.0-101), coda, graphics, MASS, methods, 
-    psychotools, Rcpp, sirt (>= 2.4-9), stats, TAM         
-Suggests:     
+    CDM, coda, graphics, methods, psychotools, 
+    Rcpp, sirt, stats, TAM         
+Suggests:
+    MASS
+Enhances: 
     eRm, lme4
 LinkingTo: 
     Rcpp, RcppArmadillo
@@ -29,3 +31,4 @@ URL:
     https://github.com/alexanderrobitzsch/immer,
     https://sites.google.com/site/alexanderrobitzsch2/software
 License: GPL (>= 2)
+RoxygenNote: 6.1.1

@@ -57,7 +57,7 @@ https://sites.google.com/site/alexanderrobitzsch/software
 
 
 ------------------------------------------------------------
-VERSIONS immer 1.2  |  2019-02-26  |  Last: immer 1.2-4
+VERSIONS immer 1.2  |  2019-05-10  |  Last: immer 1.2-7
 ------------------------------------------------------------
 
 FIXED * fixed a bug in immer_jml() when a design matrix is 

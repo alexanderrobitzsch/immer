@@ -1,5 +1,5 @@
 ## File Name: immer_ccml.R
-## File Version: 0.17
+## File Version: 0.18
 
 immer_ccml <- function( dat, weights=NULL, irtmodel="PCM", A=NULL, b_fixed=NULL, control=NULL )
 {
@@ -78,13 +78,13 @@ immer_ccml <- function( dat, weights=NULL, irtmodel="PCM", A=NULL, b_fixed=NULL,
     H <- res$obs_mat
     colnames(J) <- rownames(J) <- names(xsi)
     colnames(H) <- rownames(H) <- names(xsi)
-    J1 <- MASS::ginv(J)
+    J1 <- immer_ginv(J)
     V <- H %*% J1 %*% H
     se <- sqrt(diag(V))
 
     #-- information criteria
     ic <- list( objective=objective, np=length(xsi), N=N, I=I )
-    H1 <- MASS::ginv(H)
+    H1 <- immer_ginv(H)
     tr_HJ <- immer_trace( J %*% H1 )
     ic$dev <- 2*ic$objective
     ic$CLAIC <- ic$dev + 2*tr_HJ

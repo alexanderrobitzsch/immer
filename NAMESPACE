@@ -75,8 +75,14 @@ importFrom(TAM, tam_NA_pattern)
 #************** Imports (foreign) ******************
 
 importFrom(coda, as.mcmc.list)
-importFrom(MASS, ginv)
 importFrom(psychotools, elementary_symmetric_functions)
+
+
+#***************************************************
+#************** Suggests    ******************
+
+
+# importFrom(MASS, ginv)
 
 
 
