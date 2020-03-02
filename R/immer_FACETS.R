@@ -1,8 +1,7 @@
 ## File Name: immer_FACETS.R
-## File Version: 0.30
+## File Version: 0.41
 
-#####################################################
-# Wrapper to FACDOS (Linacre, 1999)
+#--- Wrapper to FACDOS (Linacre, 1999)
 immer_FACETS <- function(
   title=NULL,
   convergence=NULL,
@@ -30,9 +29,10 @@ immer_FACETS <- function(
 
   # ------------------------------------
   os_system <- Sys.info()["sysname"]
-  user <- Sys.info()['user']
+  # user <- Sys.info()['user']
   options(digits.secs=6)
-  time <- format(Sys.time(),"_%y%m%d_%H%M%S%OS")
+  # JS Verison 0.40: changed time format
+  time <- format(Sys.time(),"%y%m%d%H%M%S")
   # ------------------------------------
  if(!is.null(fileinput)){
    # Check if the specification is either NULL or a character vector
@@ -54,8 +54,8 @@ immer_FACETS <- function(
  }
   # Check if the DosBox is on its place
   if(!is.null(path.dosbox)){
-    if(!any(list.files(path.dosbox)=="DOSBox.exe")){
-      stop("The Path of DosBox.exe is not correct")
+    if(!any(list.files(path.dosbox)=="DOSBoxPortable.exe")){
+      stop("The Path of DOSBoxPortable.exe is not correct")
     }
   }
   if(is.null(facetsEXE)){
@@ -79,12 +79,12 @@ immer_FACETS <- function(
   labels <- tapply(labels,rep(1:(length(labels)/2),each=2),function(x) c(x,"*"))
   labels <- unlist(labels)
   labels <- rbind("Labels=",matrix(labels,ncol=1))
-  # "ISFILE"=paste0("Category",time,".txt"),
+  # "ISFILE"="Category.txt",
   input <- list(
     "title"=title,
-    "Output"=paste0("Output",time,".txt"),
-    "Scorefile"=paste0("Score",time,".txt"),
-    "Residualfile"=paste0("Residual",time,".txt"),
+    "Output"="Output.txt",
+    "Scorefile"="Score.txt",
+    "Residualfile"="Residual.txt",
     "Headin lines"="YES",
     "QM"="Double",
     "CSV"="Commas",
@@ -119,32 +119,40 @@ immer_FACETS <- function(
       if(!is.null(path.dosbox)){
         inputfile[woOut] <- paste0("Output=",bit8(Out)[1],"; Name of Output file")
         filenames <- c(filenames,"Outputfile"=bit8(Out)[1])
+      } else {
+        filenames <- c(filenames,"Outputfile"=Out)
       }
-   filenames <- c(filenames,"Outputfile"=Out)
+   
 
   woScor <- grep("Scorefile",inputfile,ignore.case=TRUE)
     Scor <- inputfile[woScor] ; Scor <- grepInput(Scor)
       if(!is.null(path.dosbox)){
         inputfile[woScor] <- paste0("Scorefile=",bit8(Scor)[1],"; Name of Scorefile file")
         filenames <- c(filenames,"Scorefile"=bit8(Scor)[1])
+      } else {
+        filenames <- c(filenames,"Scorefile"=Scor)
       }
-    filenames <- c(filenames,"Scorefile"=Scor)
+    
 
   woResid <- grep("Residualfile",inputfile,ignore.case=TRUE)
     Resid <- inputfile[woResid] ; Resid <- grepInput(Resid)
       if(!is.null(path.dosbox)){
         inputfile[woResid] <- paste0("Residualfile=",bit8(Resid)[1],"; Name of Residualfile file")
         filenames <- c(filenames,"Residualfile"=bit8(Resid)[1])
+      } else {
+        filenames <- c(filenames,"Residualfile"=Resid)
       }
-    filenames <- c(filenames,"Residualfile"=Resid)
-
- # woCate <- grep("ISFILE",inputfile,ignore.case=TRUE)
+    
+#  woCate <- grep("ISFILE",inputfile,ignore.case=TRUE)
 #    Cate <- inputfile[woCate] ; Resid <- grepInput(Cate)
 #    if(!is.null(path.dosbox)){
 #      inputfile[woCate] <- paste0("IFILE=",bit8(Cate)[1],"; Name of Residualfile file")
 #      filenames <- c(filenames,"IFILE"=bit8(Cate)[1])
 #    }
 #    filenames <- c(filenames,"Categoryfile"=Cate)
+
+  # changed 2020-02-24
+  filenames <- toupper(filenames)
 
   #woXfil <- grep("Xfile",inputfile,ignore.case=TRUE)
   #if(length(woXfil)>0){
@@ -176,10 +184,10 @@ immer_FACETS <- function(
 
   # ---------------------------------------------------------------------------------------------------
 
-  cat(paste0("writing the inputfile to \n --> ",path.facets," <-- \n"))
-  writeLines(inputfile,paste0(path.facets,"\\",model.name))
+  cat(paste0("writing the inputfile to \n --> ",path.facets,"/",model.name," <-- \n"))
+  writeLines(inputfile,file.path(path.facets,model.name))
   # ------------------------------------
-
+  # JS Verison 0.40: changed DOSBox to DOSBoxPortable
   # Ausgabe fuer den User
   switch(os_system,
          Windows=
@@ -187,47 +195,69 @@ immer_FACETS <- function(
            cat("I'm a Windows PC. writing batch-job \n")
            # it is very important to quote the first path to the DOSbox (" \" ")
            if(!is.null(path.dosbox)){
-             start.dosbox <- c( paste0( "echo start the DOSbox: ", Sys.time() ),
-                                paste( paste0("\"",path.dosbox,"\\DOSbox.exe"),"\" -c mount ", path.facets,"\\mymodel_",time,".bat",sep="")
-             )
+            #  start.dosbox <- c( paste0( "echo start the DOSbox: ", Sys.time() ),
+            #                     paste0( paste0("start /w \"\" ", file.path(path.dosbox,"DOSBoxPortable.exe")), " -c mount ", paste0(gsub("/","\\\\", path.facets),"\\mymodel.bat")),
+            #                     c("@ECHO OFF"),
+            #                     c("TASKKILL DosBox\n"),
+            #                     c(":LOOP"),
+            #                     c("tasklist | find /i \"DosBox\" >nul 2>&1"),
+            #                     c("IF ERRORLEVEL 1 ("),
+            #                     c("  GOTO CONTINUE"),
+            #                     c(") ELSE ("),
+            #                     c("  ECHO DosBox is still running"),
+            #                     c("  Timeout /T 5 /Nobreak"),
+            #                     c("  GOTO LOOP"),
+            #                     c(")\n"),
+            #                     c(":CONTINUE"),
+            #                     c("exit")
+            #                   )
+            start.dosbox <- c( paste0( "echo start the DOSbox: ", Sys.time() ),
+                            paste0( paste0("start /w \"\" ", file.path(path.dosbox,"DOSBoxPortable.exe")), " -c mount ", paste0(gsub("/","\\\\", path.facets),"\\mymodel.bat"))
+                          )
 
-             writeLines( start.dosbox, paste0("C:\\Users\\",user,"\\AppData\\Local\\Temp\\startDOSbox.bat") )
+
+             writeLines( start.dosbox, file.path(path.facets,"startDOS.bat") )
 
              # KEINE BLANKS IN DEN INPUT_FILE (Dateinamen)beim FACDOS!!
 
 
              start.facets <- c( paste( "echo change directory in DOSbox", Sys.time(),sep=" " ),
                                 # paste( "cd", paste(path.facets,"/",sep="",collapse=""), sep=" "),
-                                paste( "FACETS BATCH=YES ",model.name,  sep=""),
-                                paste( "echo shutdown DOSbox",  sep=""),
-                                paste( "exit",  sep="")
+                                paste0( "FACETS BATCH=YES ",model.name),
+                                paste0( "echo shutdown DOSbox"),
+                                c("del STARTDOS.BAT"),
+                                paste0( "exit")
              )
-             writeLines( start.facets, paste0(path.facets,"\\mymodel_",time,".bat") )
+             writeLines( start.facets, file.path(path.facets,"mymodel.bat") )
 
-             shell(paste0("C:\\Users\\",user,"\\AppData\\Local\\Temp\\startDOSbox.bat"),wait=TRUE)
-             invisible(file.remove(paste0("C:\\Users\\",user,"\\AppData\\Local\\Temp\\startDOSbox.bat")))
+             shell(file.path(path.facets,"startDOS.bat"), intern = TRUE, wait = TRUE)
+
+             while (file.exists(file.path(path.facets,"startDOS.bat"))) {
+                Sys.sleep(1)
+              }
+            #  invisible(file.remove(paste0("C:\\Users\\",user,"\\AppData\\Local\\Temp\\startDOSbox.bat")))
            }else{
              if(!is.null(facetsEXE)){
                Exe <- facetsEXE
              }else{
                Exe <- "Facets.exe"
              }
-             start.facets <- c( paste( "echo change directory in DOSbox", Sys.time(),sep=" " ),
-                                paste( "cd", paste(path.facets,"\\",sep="",collapse=""), sep=" "),
-                                paste( substring(path.facets,1,2),  sep=""),
-                                paste( "START /w ",Exe," BATCH=YES ",model.name,  sep=""),
+             start.facets <- c( paste0( "echo change directory in DOSbox ", Sys.time()),
+                                paste0( "cd", paste0(path.facets,"\\",collapse="")),
+                                paste0( substring(path.facets,1,2)),
+                                paste0( "START /w ",Exe," BATCH=YES ",model.name),
                                 #paste( "timeout /t 20 >nul 2>nul",  sep=""),
                                 #paste( "taskkill /im Facets.exe >nul 2>nul",  sep=""),
                                 # paste( "echo shutdown DOSbox",  sep=""),
-                                 paste( ":: exit",  sep="")
+                                 paste0( ":: exit")
              )
-             writeLines( start.facets, paste0(path.facets,"\\mymodel_",time,".bat") )
+             writeLines( start.facets, paste0(path.facets,"\\mymodel.bat") )
 
-             shell(paste0(path.facets,"\\mymodel_",time,".bat"),wait=TRUE,translate=TRUE)
+             shell(paste0(path.facets,"\\mymodel.bat"),wait=TRUE,translate=TRUE)
              # system2(paste0(path.facets,"\\mymodel_",time,".bat"),wait=TRUE,invisible=TRUE)
            }
            cat("removing temp-files \n")
-           invisible(file.remove(paste0(path.facets,"\\mymodel_",time,".bat")))
+           invisible(file.remove(paste0(path.facets,"\\mymodel.bat")))
 
          },
 
@@ -253,15 +283,17 @@ immer_FACETS <- function(
 #        "\n", grep("Residual",inputfile,ignore.case=TRUE,value=TRUE))
 #  )
   # read files created from FACDOS and store them in a list
-  files <- file.info(list.files(path.facets))
+  # files <- file.info(list.files(path.facets,full.names=TRUE))
+  files <- list.files(path.facets)
 
   filenames <- sapply(filenames,function(x) substr(x,1,nchar(x)-4))
-  fileListe <- sapply(filenames,function(x) grep(x,row.names(files),value=TRUE))
+  fileListe <- sapply(filenames,function(x) grep(x,files,value=TRUE))
+  
   # lapply(fileListe,FUN=function(x) sapply(x,function(x)readLines(x,skipNul=TRUE,)))
   # namScorefile <- c("T.Score","T.Count","Obs.Avge","Fair.Avge","Measure","S.E.","InfitMS","InfitZ","OutfitMS","OutfitZ","PtMea","PtMeExp","Discrim","Displace","Status","Group","Weight","Lable","Teams","F-Number","F-Label" )
   score <- try(
     lapply(fileListe$Scorefile,function(x){
-      all_content=readLines(paste0(path.facets,"/",x))
+      all_content=readLines(file.path(path.facets,x))
       skip_second=all_content[-1]
       dat <- read.csv(textConnection(skip_second), header=TRUE, stringsAsFactors=FALSE)
       return(dat)
@@ -278,16 +310,16 @@ immer_FACETS <- function(
   )
   names(residualfile) <- fileListe$residualfile
 
-  names(cate) <- fileListe$categoryfile
-  categoryfile <- try(
-    lapply(fileListe$Categoryfile,function(x){
-      all_content=readLines(paste0(path.facets,"/",x))
-      skip_second=all_content
-      dat <- read.csv(textConnection(skip_second), header=TRUE, stringsAsFactors=FALSE)
-      return(dat)
-    })
-  )
-  names(categoryfile) <- fileListe$categoryfile
+  # names(cate) <- fileListe$categoryfile
+  # categoryfile <- try(
+  #   lapply(fileListe$Categoryfile,function(x){
+  #     all_content=readLines(paste0(path.facets,"/",x))
+  #     skip_second=all_content
+  #     dat <- read.csv(textConnection(skip_second), header=TRUE, stringsAsFactors=FALSE)
+  #     return(dat)
+  #   })
+  # )
+  # names(categoryfile) <- fileListe$categoryfile
 
   output <- list(
     "Inputfile"=try(readLines(paste0(path.facets,"/",model.name),skipNul=TRUE)),
@@ -300,5 +332,3 @@ immer_FACETS <- function(
 
   return(output)
 }
-
-#############################################################################

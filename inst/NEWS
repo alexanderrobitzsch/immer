@@ -57,12 +57,18 @@ https://sites.google.com/site/alexanderrobitzsch/software
 
 
 ------------------------------------------------------------
-VERSIONS immer 1.2  |  2019-05-10  |  Last: immer 1.2-7
+VERSIONS immer 1.2  |  2020-03-02  |  Last: immer 1.2-9
 ------------------------------------------------------------
 
 FIXED * fixed a bug in immer_jml() when a design matrix is 
         provided and there are different number of categories
         per items (thanks to a discussion with Kara Styck)
+FIXED * fixed a bug in immer_install() and immer_FACETS()
+        We switched to a portable version of DosBox. This
+        means that installation is no longer necessary in 
+        Windows. The entire batch process in Windows for 
+        using facets has been rewritten (thanks to a 
+        discussion with Gareth McCray).
 
 
 DATA  * included/modified datasets: ---
