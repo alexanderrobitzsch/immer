@@ -1,4 +1,6 @@
 ## File Name: immer_install.R
+## File Version: 0.14
+## File Name: immer_install.R
 ## File Version: 0.12
 
 #####################################################
@@ -20,9 +22,9 @@ Darwin=
 if(os_system == "Windows"){
   # Link for dos-version of FACETS
   link_Facets <- "http://www.winsteps.com/a/facdos.zip"
-  # wo hinein
-  destination_facets <-
-    paste0("C:\\Users\\",user,"\\Downloads\\facdos.zip")
+  
+  # Facets_path <-
+  #   file.path("C:","Users",user,"Downloads")
   # win DOSbox
   # JS Verison 0.09: switched to portable Version of DosBox (no admin privileges needed)
   link_DosBox <-
@@ -30,26 +32,33 @@ if(os_system == "Windows"){
   # where
   if(is.null(DosBox_path)){
     destination_dosBox <-
-      paste0("C:\\Users\\",user,"\\Downloads\\DOSBoxPortable_0.74.3.exe")
+      paste0("C:\\Users\\",user,"\\Downloads\\")
   } else {
     destination_dosBox <- 
       DosBox_path
   }
+  if (!dir.exists(file.path(destination_dosBox))) { 
+      dir.create(file.path(destination_dosBox))
+    }
+
   if(is.null(Facets_path)){
-    installpath <-
+    destination_facets <-
       paste0("C:\\Users\\",user,"\\Documents\\facets")
   } else {
-    installpath <- 
+    destination_facets <- 
       Facets_path
   }
 
-
+  if (!dir.exists(file.path(destination_facets))) { 
+    dir.create(file.path(destination_facets))
+  }
+  
   # -----------------------------------------
   # download files
   error_facets <- tryCatch(
     download.file(
       url = link_Facets,
-      destfile = destination_facets,
+      destfile = file.path(destination_facets,"facdos.zip"),
       method = "internal"
     )
   )
@@ -57,10 +66,14 @@ if(os_system == "Windows"){
   error_DosBox <- tryCatch(
     download.file(
       url = link_DosBox,
-      destfile = destination_dosBox,
+      destfile = file.path(destination_dosBox,"DOSBoxPortable.exe"),
       method = "auto",
       mode = "wb"
     )
+  )
+  cat( "install the DOSbox: \n")
+  error_DosBox_install <- tryCatch(
+    shell(file.path(destination_dosBox,"DOSBoxPortable.exe"))
   )
   # -----------------------------------------
 
@@ -99,12 +112,14 @@ if(os_system == "Windows"){
           please try again or install die DosBox manually \n")
       cat(paste0("for the manual installation pleas go to: \n",link_Facets,"\n",
                  "after the download process finished we recomand to unzip the Folder and
-                 move the content to \n-->",installpath,"<--"))
+                 move the content to \n-->",destination_facets,"<--"))
     }
     if(error_facets==0){
       cat("unzip facets\n")
-      utils::unzip (destination_facets, exdir=installpath)
-      cat("move facets to ",installpath,"\n")
+      utils::unzip (file.path(destination_facets,"facdos.zip"), exdir=file.path(destination_facets,"facdos"))
+      cat("move facets to ",destination_facets,"\n")
+      # cat("remove facets.zip \n")
+      # system(paste("del",file.path(destination_facets,"facdos.zip")))
       # -----------------------------------------
     }
   } # End Windows

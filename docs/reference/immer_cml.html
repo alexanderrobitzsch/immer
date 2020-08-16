@@ -11,23 +11,27 @@ Partial Credit Model — immer_cml • immer</title>
 
 
 <!-- jquery -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
-<link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.3.7/flatly/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous" />
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.4.0/flatly/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous" />
 
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
+
+<!-- bootstrap-toc -->
+<link rel="stylesheet" href="../bootstrap-toc.css">
+<script src="../bootstrap-toc.js"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script>
 
 <!-- headroom.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -43,7 +47,6 @@ partial credit model (Molenaar, 1995; Andersen, 1995; Fischer, 1995).
 The immer_cml function allows for known
 integer discrimination parameters like in the one-parameter logistic
 model (Verhelst &amp;amp; Glas, 1995)." />
-<meta name="twitter:card" content="summary" />
 
 
 
@@ -61,7 +64,7 @@ model (Verhelst &amp;amp; Glas, 1995)." />
 
   </head>
 
-  <body>
+  <body data-spy="scroll" data-target="#toc">
     <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -93,7 +96,7 @@ model (Verhelst &amp;amp; Glas, 1995)." />
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li>
-  <a href="https://github.com/alexanderrobitzsch/immer">
+  <a href="https://github.com/alexanderrobitzsch/immer/">
     <span class="fab fa fab fa-github fa-lg"></span>
      
   </a>
@@ -304,7 +307,7 @@ credit model in the <span class="pkg">eRm</span> package for CML implementations
 
 <span class='co'>#----------------------------------------------------------------</span>
 <span class='co'>#--- Model 1: Rasch model, setting first item difficulty to zero</span>
-<span class='no'>mod1a</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>immer</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/immer/man/immer_cml.html'>immer_cml</a></span>( <span class='kw'>dat</span><span class='kw'>=</span><span class='no'>dat</span>)
+<span class='no'>mod1a</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>immer</span><span class='kw ns'>::</span><span class='fu'>immer_cml</span>( <span class='kw'>dat</span><span class='kw'>=</span><span class='no'>dat</span>)
 <span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span>(<span class='no'>mod1a</span>)
 <span class='fu'><a href='https://rdrr.io/r/stats/logLik.html'>logLik</a></span>(<span class='no'>mod1a</span>) <span class='co'># extract log likelihood</span>
 <span class='fu'><a href='https://rdrr.io/r/stats/coef.html'>coef</a></span>(<span class='no'>mod1a</span>)   <span class='co'># extract coefficients</span>
@@ -325,7 +328,7 @@ credit model in the <span class="pkg">eRm</span> package for CML implementations
 
 <span class='co'>#----------------------------------------------------------------</span>
 <span class='co'>#-- Model 2: Rasch model sum normalization</span>
-<span class='no'>mod2a</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>immer</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/immer/man/immer_cml.html'>immer_cml</a></span>( <span class='kw'>dat</span><span class='kw'>=</span><span class='no'>dat</span>, <span class='kw'>normalization</span><span class='kw'>=</span><span class='st'>"sum"</span>)
+<span class='no'>mod2a</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>immer</span><span class='kw ns'>::</span><span class='fu'>immer_cml</span>( <span class='kw'>dat</span><span class='kw'>=</span><span class='no'>dat</span>, <span class='kw'>normalization</span><span class='kw'>=</span><span class='st'>"sum"</span>)
 <span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span>(<span class='no'>mod2a</span>)
 
 <span class='co'># compare estimation in TAM</span>
@@ -345,7 +348,7 @@ credit model in the <span class="pkg">eRm</span> package for CML implementations
 <span class='no'>W</span>[ <span class='fu'><a href='https://rdrr.io/r/base/cbind.html'>cbind</a></span>( <span class='fu'><a href='https://rdrr.io/r/base/sets.html'>setdiff</a></span>( <span class='fl'>1</span>:<span class='fl'>12</span>, <span class='no'>fix_items</span> ), <span class='fl'>1</span>:<span class='fl'>9</span> ) ] <span class='kw'>&lt;-</span> <span class='fl'>1</span>
 <span class='fu'><a href='https://rdrr.io/r/base/colnames.html'>colnames</a></span>(<span class='no'>W</span>) <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/colnames.html'>colnames</a></span>(<span class='no'>dat</span>)[ - <span class='no'>fix_items</span> ]
 <span class='co'># estimate model</span>
-<span class='no'>mod3</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>immer</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/immer/man/immer_cml.html'>immer_cml</a></span>( <span class='kw'>dat</span><span class='kw'>=</span><span class='no'>dat</span>, <span class='kw'>W</span><span class='kw'>=</span><span class='no'>W</span>, <span class='kw'>b_const</span><span class='kw'>=</span><span class='no'>b_const</span>)
+<span class='no'>mod3</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>immer</span><span class='kw ns'>::</span><span class='fu'>immer_cml</span>( <span class='kw'>dat</span><span class='kw'>=</span><span class='no'>dat</span>, <span class='kw'>W</span><span class='kw'>=</span><span class='no'>W</span>, <span class='kw'>b_const</span><span class='kw'>=</span><span class='no'>b_const</span>)
 <span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span>(<span class='no'>mod3</span>)
 
 <span class='co'>#----------------------------------------------------------------</span>
@@ -356,9 +359,9 @@ credit model in the <span class="pkg">eRm</span> package for CML implementations
 <span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span>(<span class='no'>mod4a</span>)
 <span class='no'>a</span> <span class='kw'>&lt;-</span> <span class='no'>mod4a</span>$<span class='no'>item</span>$<span class='no'>a</span>     <span class='co'># extract (non-integer) item discriminations</span>
 <span class='co'># estimate integer item discriminations ranging from 1 to 3</span>
-<span class='no'>a_integer</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>immer</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/immer/man/immer_opcat.html'>immer_opcat</a></span>( <span class='no'>a</span>, <span class='kw'>hmean</span><span class='kw'>=</span><span class='fl'>2</span>, <span class='kw'>min</span><span class='kw'>=</span><span class='fl'>1</span>, <span class='kw'>max</span><span class='kw'>=</span><span class='fl'>3</span> )
+<span class='no'>a_integer</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>immer</span><span class='kw ns'>::</span><span class='fu'><a href='immer_opcat.html'>immer_opcat</a></span>( <span class='no'>a</span>, <span class='kw'>hmean</span><span class='kw'>=</span><span class='fl'>2</span>, <span class='kw'>min</span><span class='kw'>=</span><span class='fl'>1</span>, <span class='kw'>max</span><span class='kw'>=</span><span class='fl'>3</span> )
 <span class='co'># estimate one-parameter model with fixed integer item discriminations</span>
-<span class='no'>mod4</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>immer</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/immer/man/immer_cml.html'>immer_cml</a></span>( <span class='kw'>dat</span><span class='kw'>=</span><span class='no'>dat</span>, <span class='kw'>a</span><span class='kw'>=</span><span class='no'>a_integer</span> )
+<span class='no'>mod4</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>immer</span><span class='kw ns'>::</span><span class='fu'>immer_cml</span>( <span class='kw'>dat</span><span class='kw'>=</span><span class='no'>dat</span>, <span class='kw'>a</span><span class='kw'>=</span><span class='no'>a_integer</span> )
 <span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span>(<span class='no'>mod4</span>)
 
 <span class='co'>#----------------------------------------------------------------</span>
@@ -375,7 +378,7 @@ credit model in the <span class="pkg">eRm</span> package for CML implementations
 <span class='no'>W</span>[ <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>4</span>,<span class='fl'>8</span>,<span class='fl'>12</span>), <span class='st'>"Pos4"</span> ] <span class='kw'>&lt;-</span> <span class='fl'>1</span>
 
 <span class='co'># estimation with immer_cml</span>
-<span class='no'>mod5a</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>immer</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/immer/man/immer_cml.html'>immer_cml</a></span>( <span class='no'>dat</span>, <span class='kw'>W</span><span class='kw'>=</span><span class='no'>W</span> )
+<span class='no'>mod5a</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>immer</span><span class='kw ns'>::</span><span class='fu'>immer_cml</span>( <span class='no'>dat</span>, <span class='kw'>W</span><span class='kw'>=</span><span class='no'>W</span> )
 <span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span>(<span class='no'>mod5a</span>)
 
 <span class='co'># estimation in eRm package</span>
@@ -398,7 +401,7 @@ credit model in the <span class="pkg">eRm</span> package for CML implementations
 
 <span class='co'>#----------------------------------------------------------------</span>
 <span class='co'>#--- Model 1: Partial credit model with constraint on first parameter</span>
-<span class='no'>mod1a</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>immer</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/immer/man/immer_cml.html'>immer_cml</a></span>( <span class='kw'>dat</span><span class='kw'>=</span><span class='no'>dat</span> )
+<span class='no'>mod1a</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>immer</span><span class='kw ns'>::</span><span class='fu'>immer_cml</span>( <span class='kw'>dat</span><span class='kw'>=</span><span class='no'>dat</span> )
 <span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span>(<span class='no'>mod1a</span>)
 <span class='co'># compare pcmodel function from psychotools package</span>
 <span class='no'>mod1b</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>psychotools</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/psychotools/man/pcmodel.html'>pcmodel</a></span>( <span class='no'>dat</span> )
@@ -410,7 +413,7 @@ credit model in the <span class="pkg">eRm</span> package for CML implementations
 
 <span class='co'>#----------------------------------------------------------------</span>
 <span class='co'>#-- Model 2: Partial credit model with sum constraint on item difficulties</span>
-<span class='no'>mod2a</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>immer</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/immer/man/immer_cml.html'>immer_cml</a></span>( <span class='kw'>dat</span><span class='kw'>=</span><span class='no'>dat</span>, <span class='kw'>irtmodel</span><span class='kw'>=</span><span class='st'>"PCM2"</span>, <span class='kw'>normalization</span><span class='kw'>=</span><span class='st'>"sum"</span>)
+<span class='no'>mod2a</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>immer</span><span class='kw ns'>::</span><span class='fu'>immer_cml</span>( <span class='kw'>dat</span><span class='kw'>=</span><span class='no'>dat</span>, <span class='kw'>irtmodel</span><span class='kw'>=</span><span class='st'>"PCM2"</span>, <span class='kw'>normalization</span><span class='kw'>=</span><span class='st'>"sum"</span>)
 <span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span>(<span class='no'>mod2a</span>)
 <span class='co'># compare with estimation in TAM</span>
 <span class='no'>mod2b</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>TAM</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/TAM/man/tam.mml.html'>tam.mml</a></span>( <span class='no'>dat</span>, <span class='kw'>irtmodel</span><span class='kw'>=</span><span class='st'>"PCM2"</span>, <span class='kw'>constraint</span><span class='kw'>=</span><span class='st'>"items"</span>)
@@ -418,7 +421,7 @@ credit model in the <span class="pkg">eRm</span> package for CML implementations
 
 <span class='co'>#----------------------------------------------------------------</span>
 <span class='co'>#-- Model 3: Partial credit model with fixed integer item discriminations</span>
-<span class='no'>mod3</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>immer</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/immer/man/immer_cml.html'>immer_cml</a></span>( <span class='kw'>dat</span><span class='kw'>=</span><span class='no'>dat</span>, <span class='kw'>normalization</span><span class='kw'>=</span><span class='st'>"first"</span>, <span class='kw'>a</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>2</span>,<span class='fl'>2</span>,<span class='fl'>1</span>,<span class='fl'>3</span>,<span class='fl'>1</span>) )
+<span class='no'>mod3</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>immer</span><span class='kw ns'>::</span><span class='fu'>immer_cml</span>( <span class='kw'>dat</span><span class='kw'>=</span><span class='no'>dat</span>, <span class='kw'>normalization</span><span class='kw'>=</span><span class='st'>"first"</span>, <span class='kw'>a</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>2</span>,<span class='fl'>2</span>,<span class='fl'>1</span>,<span class='fl'>3</span>,<span class='fl'>1</span>) )
 <span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span>(<span class='no'>mod3</span>)
 
 <span class='co'>#############################################################################</span>
@@ -445,7 +448,7 @@ credit model in the <span class="pkg">eRm</span> package for CML implementations
 <span class='no'>W</span>[ <span class='fl'>11</span>:<span class='fl'>13</span>, <span class='fl'>2</span>] <span class='kw'>&lt;-</span> <span class='fl'>1</span>
 
 <span class='co'># estimate model with design matrix W</span>
-<span class='no'>mod</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>immer</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/immer/man/immer_cml.html'>immer_cml</a></span>( <span class='no'>dat</span>, <span class='kw'>W</span><span class='kw'>=</span><span class='no'>W</span>)
+<span class='no'>mod</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>immer</span><span class='kw ns'>::</span><span class='fu'>immer_cml</span>( <span class='no'>dat</span>, <span class='kw'>W</span><span class='kw'>=</span><span class='no'>W</span>)
 <span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span>(<span class='no'>mod</span>)
 
 <span class='co'>#############################################################################</span>
@@ -456,7 +459,7 @@ credit model in the <span class="pkg">eRm</span> package for CML implementations
 <span class='no'>dat</span> <span class='kw'>&lt;-</span> <span class='no'>data.immer07</span>
 
 <span class='co'>#*** reshape dataset for one variable</span>
-<span class='no'>dfr1</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>immer</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/immer/man/immer_reshape_wideformat.html'>immer_reshape_wideformat</a></span>( <span class='no'>dat</span>$<span class='no'>I1</span>, <span class='kw'>rater</span><span class='kw'>=</span><span class='no'>dat</span>$<span class='no'>rater</span>, <span class='kw'>pid</span><span class='kw'>=</span><span class='no'>dat</span>$<span class='no'>pid</span> )
+<span class='no'>dfr1</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>immer</span><span class='kw ns'>::</span><span class='fu'><a href='immer_reshape_wideformat.html'>immer_reshape_wideformat</a></span>( <span class='no'>dat</span>$<span class='no'>I1</span>, <span class='kw'>rater</span><span class='kw'>=</span><span class='no'>dat</span>$<span class='no'>rater</span>, <span class='kw'>pid</span><span class='kw'>=</span><span class='no'>dat</span>$<span class='no'>pid</span> )
 
 <span class='co'>#-- extract structure of design matrix</span>
 <span class='no'>res</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>immer</span><span class='kw ns'>:::</span><span class='fu'>lpcm_data_prep</span>( <span class='kw'>dat</span><span class='kw'>=</span><span class='no'>dfr1</span>[,-<span class='fl'>1</span>], <span class='kw'>weights</span><span class='kw'>=</span><span class='kw'>NULL</span>, <span class='kw'>a</span><span class='kw'>=</span><span class='kw'>NULL</span>)
@@ -477,7 +480,7 @@ credit model in the <span class="pkg">eRm</span> package for CML implementations
 <span class='no'>W</span> <span class='kw'>&lt;-</span> <span class='no'>W</span>[,-<span class='fl'>1</span>]
 
 <span class='co'># estimate model</span>
-<span class='no'>mod</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>immer</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/immer/man/immer_cml.html'>immer_cml</a></span>( <span class='no'>dfr1</span>[,-<span class='fl'>1</span>], <span class='kw'>W</span><span class='kw'>=</span><span class='no'>W</span>)
+<span class='no'>mod</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>immer</span><span class='kw ns'>::</span><span class='fu'>immer_cml</span>( <span class='no'>dfr1</span>[,-<span class='fl'>1</span>], <span class='kw'>W</span><span class='kw'>=</span><span class='no'>W</span>)
 <span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span>(<span class='no'>mod</span>)
 
 <span class='co'>#############################################################################</span>
@@ -488,7 +491,7 @@ credit model in the <span class="pkg">eRm</span> package for CML implementations
 <span class='no'>dat</span> <span class='kw'>&lt;-</span> <span class='no'>data.immer07</span>
 
 <span class='co'>#*** reshape dataset</span>
-<span class='no'>dfr1</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>immer</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/immer/man/immer_reshape_wideformat.html'>immer_reshape_wideformat</a></span>( <span class='no'>dat</span>[, <span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste0</a></span>(<span class='st'>"I"</span>,<span class='fl'>1</span>:<span class='fl'>4</span>) ], <span class='kw'>rater</span><span class='kw'>=</span><span class='no'>dat</span>$<span class='no'>rater</span>,
+<span class='no'>dfr1</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>immer</span><span class='kw ns'>::</span><span class='fu'><a href='immer_reshape_wideformat.html'>immer_reshape_wideformat</a></span>( <span class='no'>dat</span>[, <span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste0</a></span>(<span class='st'>"I"</span>,<span class='fl'>1</span>:<span class='fl'>4</span>) ], <span class='kw'>rater</span><span class='kw'>=</span><span class='no'>dat</span>$<span class='no'>rater</span>,
                 <span class='kw'>pid</span><span class='kw'>=</span><span class='no'>dat</span>$<span class='no'>pid</span> )
 
 <span class='co'>#-- structure of design matrix</span>
@@ -520,7 +523,7 @@ credit model in the <span class="pkg">eRm</span> package for CML implementations
 <span class='no'>W</span>[ <span class='no'>ind</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"R1"</span>,<span class='st'>"R2"</span>) ] <span class='kw'>&lt;-</span> -<span class='no'>pars_info</span>$<span class='no'>cat</span>[<span class='no'>ind</span> ]
 
 <span class='co'>#--- estimate model with immer_cml</span>
-<span class='no'>mod1</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>immer</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/immer/man/immer_cml.html'>immer_cml</a></span>( <span class='no'>dfr1</span>[,-<span class='fl'>1</span>], <span class='kw'>W</span><span class='kw'>=</span><span class='no'>W</span>, <span class='kw'>par_init</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span>(<span class='fl'>0</span>,<span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>ncol</a></span>(<span class='no'>W</span>) ) )
+<span class='no'>mod1</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>immer</span><span class='kw ns'>::</span><span class='fu'>immer_cml</span>( <span class='no'>dfr1</span>[,-<span class='fl'>1</span>], <span class='kw'>W</span><span class='kw'>=</span><span class='no'>W</span>, <span class='kw'>par_init</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span>(<span class='fl'>0</span>,<span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>ncol</a></span>(<span class='no'>W</span>) ) )
 <span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span>(<span class='no'>mod1</span>)
 
 <span class='co'>#--- comparison with estimation in TAM</span>
@@ -530,17 +533,10 @@ credit model in the <span class="pkg">eRm</span> package for CML implementations
 <span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span>(<span class='no'>mod2</span>)
 }</pre>
   </div>
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
-    <h2>Contents</h2>
-    <ul class="nav nav-pills nav-stacked">
-      <li><a href="#arguments">Arguments</a></li>
-      <li><a href="#details">Details</a></li>
-      <li><a href="#value">Value</a></li>
-      <li><a href="#references">References</a></li>
-      <li><a href="#see-also">See also</a></li>
-      <li><a href="#examples">Examples</a></li>
-    </ul>
-
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
+    <nav id="toc" data-toggle="toc" class="sticky-top">
+      <h2 data-toc-skip>Contents</h2>
+    </nav>
   </div>
 </div>
 
@@ -551,7 +547,7 @@ credit model in the <span class="pkg">eRm</span> package for CML implementations
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
 </div>
 
       </footer>

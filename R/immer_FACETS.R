@@ -1,5 +1,5 @@
 ## File Name: immer_FACETS.R
-## File Version: 0.41
+## File Version: 0.43
 
 #--- Wrapper to FACDOS (Linacre, 1999)
 immer_FACETS <- function(
@@ -294,8 +294,9 @@ immer_FACETS <- function(
   score <- try(
     lapply(fileListe$Scorefile,function(x){
       all_content=readLines(file.path(path.facets,x))
-      skip_second=all_content[-1]
-      dat <- read.csv(textConnection(skip_second), header=TRUE, stringsAsFactors=FALSE)
+      # skip_second=all_content[-1]
+      dat <- read.csv(textConnection(all_content), header=FALSE, stringsAsFactors=FALSE)
+      # colnames(dat) <- namScorefile
       return(dat)
     })
   )

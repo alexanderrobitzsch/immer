@@ -57,7 +57,7 @@ https://sites.google.com/site/alexanderrobitzsch/software
 
 
 ------------------------------------------------------------
-VERSIONS immer 1.2  |  2020-03-02  |  Last: immer 1.2-9
+VERSIONS immer 1.2  |  2020-08-16  |  Last: immer 1.2-10
 ------------------------------------------------------------
 
 FIXED * fixed a bug in immer_jml() when a design matrix is 
@@ -69,6 +69,10 @@ FIXED * fixed a bug in immer_install() and immer_FACETS()
         Windows. The entire batch process in Windows for 
         using facets has been rewritten (thanks to a 
         discussion with Gareth McCray).
+FIXED * fixed a bug in immer_FACETS(), the first line was 
+        deleted during data preparation. 
+        (thanks to Gareth McCray)
+NOTE  * link for Dosbox has been updated in immer_install()
 
 
 DATA  * included/modified datasets: ---
