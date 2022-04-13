@@ -1,8 +1,9 @@
 ## File Name: immer_jml.R
-## File Version: 0.9674
+## File Version: 1.011
 
 
-immer_jml <- function(dat, A=NULL, maxK=NULL, center_theta=TRUE, b_fixed=NULL, irtmodel="PCM",
+immer_jml <- function(dat, A=NULL, maxK=NULL, center_theta=TRUE, b_fixed=NULL,
+                weights=NULL, irtmodel="PCM",
                 pid=NULL, rater=NULL, eps=.3, est_method="eps_adj",
                 maxiter=1000, conv=1E-5, max_incr=3, incr_fac=1.1, maxiter_update=10, maxiter_line_search=6,
                 conv_update=1E-5, verbose=TRUE, use_Rcpp=TRUE, shortcut=TRUE )
@@ -11,15 +12,21 @@ immer_jml <- function(dat, A=NULL, maxK=NULL, center_theta=TRUE, b_fixed=NULL, i
     CALL <- match.call()
 
     #-- process rating data
-    res <- immer_proc_data( dat=dat, pid=pid, rater=rater, weights=NULL, maxK=maxK)
+    res <- immer_proc_data( dat=dat, pid=pid, rater=rater, weights=weights, maxK=maxK)
     dat <- res$dat2.NA
     pid <- res$pid
     maxK <- res$maxK
     K <- res$K
     pseudoitems_design <- res$pseudoitems_design
 
+    use_weights <- FALSE
+    if (! is.null(weights)){
+        use_Rcpp <- TRUE
+        use_weights <- TRUE
+    }
+
     #-- shortcut for analyzing the dataset
-    res <- immer_jml_proc_shortcut( dat=dat, pid=pid, shortcut=shortcut, weights=NULL)
+    res <- immer_jml_proc_shortcut( dat=dat, pid=pid, shortcut=shortcut, weights=weights)
     dat <- res$dat
     pid <- res$pid
     shortcut <- res$shortcut
@@ -69,7 +76,6 @@ immer_jml <- function(dat, A=NULL, maxK=NULL, center_theta=TRUE, b_fixed=NULL, i
         person$score_pers <- immer_score_person_adjusted( sum_score=person$sum_score,
                                 max_pers=person$max_pers, eps=eps)
     }
-
 
     dat_score <- array( dat_resp * person$eps_i, dim=c(N,I,K+1) )
     dat_score2 <- dat_score
@@ -144,9 +150,11 @@ immer_jml <- function(dat, A=NULL, maxK=NULL, center_theta=TRUE, b_fixed=NULL, i
         theta0 <- theta
         deviance0 <- deviance
         #** update item parameters
-        args_item <- list( score_items=score_items, I=I, K=K, b=b, A=A, xsi=xsi, theta=theta, N=N, dat_resp=dat_resp,
-                    max_incr=max_incr, maxiter_update=maxiter_update, conv_update=conv_update,
-                    b_fixed=b_fixed, ItemScore=ItemScore, shortcut_index=shortcut_index, weights=weights )
+        args_item <- list( score_items=score_items, I=I, K=K, b=b, A=A, xsi=xsi,
+                    theta=theta, N=N, dat_resp=dat_resp, max_incr=max_incr,
+                    maxiter_update=maxiter_update, conv_update=conv_update,
+                    b_fixed=b_fixed, ItemScore=ItemScore, shortcut_index=shortcut_index,
+                    weights=weights, use_weights=use_weights )
         res <- do.call( what=fct_item, args=args_item)
         b <- res$b
         xsi <- res$xsi
@@ -161,7 +169,7 @@ immer_jml <- function(dat, A=NULL, maxK=NULL, center_theta=TRUE, b_fixed=NULL, i
         theta <- res$theta
         theta_der2 <- res$theta_der2
         probs <- res$probs
-        
+
         #* trim theta increment
         incr <- theta - theta0
         max_incr <- max_incr/incr_fac
@@ -180,7 +188,6 @@ immer_jml <- function(dat, A=NULL, maxK=NULL, center_theta=TRUE, b_fixed=NULL, i
             # immer_jml_print_progress_line_search( verbose=verbose, deviance=deviance, digits_deviance=6)
             lambda <- 1
             lambda_fac <- 2
-            # lambda_fac <- 1.5
             xsi_old <- xsi0
             b_old <- b
             probs_old <- probs
@@ -210,7 +217,7 @@ immer_jml <- function(dat, A=NULL, maxK=NULL, center_theta=TRUE, b_fixed=NULL, i
                 iter_in <- iter_in + 1
                 # immer_jml_print_progress_line_search( verbose=verbose, deviance=deviance, digits_deviance=6)
             }
-            if (iter_in >= maxiter_ls){
+            if (iter_in >=maxiter_ls){
                 xsi <- .5*(xsi_old + xsi)
                 theta <- .5*(theta_old + theta)
                 b <- immer_jml_calc_item_intercepts(A=A, xsi=xsi)

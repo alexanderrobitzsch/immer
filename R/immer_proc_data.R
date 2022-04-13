@@ -1,5 +1,5 @@
 ## File Name: immer_proc_data.R
-## File Version: 0.16
+## File Version: 0.17
 
 immer_proc_data <- function( dat, pid=NULL, rater=NULL, weights=NULL, maxK=NULL)
 {
@@ -15,7 +15,8 @@ immer_proc_data <- function( dat, pid=NULL, rater=NULL, weights=NULL, maxK=NULL)
         rater <- rep(0,N1)
     }
     #-- apply sirt::rm_proc_data() function for processing rating data
-    res <- sirt::rm_proc_data( dat=dat, pid=pid, rater=rater, rater_item_int=FALSE, reference_rater=NULL )
+    res <- sirt::rm_proc_data( dat=dat, pid=pid, rater=rater, rater_item_int=FALSE,
+                    reference_rater=NULL )
     N <- res$N
     res$pid <- res$person.index$pid
     #-- maxK and K

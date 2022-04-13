@@ -1,5 +1,5 @@
 //// File Name: immer_rcpp_cmml.cpp
-//// File Version: 0.8904
+//// File Version: 0.892
 
 
 
@@ -510,7 +510,7 @@ double immer_sum_product(Rcpp::NumericVector x, Rcpp::NumericVector y)
     int n=x.size();
     double val=0;
     for (int nn=0; nn<n; nn++){
-        if ( ( x[nn] !=0 ) & ( y[nn] != 0) ){
+        if ( ( x[nn] !=0 ) && ( y[nn] != 0) ){
             val += x[nn]*y[nn];
         }
     }
@@ -1152,7 +1152,7 @@ Rcpp::NumericMatrix immer_cmml_proc_freq( Rcpp::IntegerMatrix dat,
     for (int ii1=0; ii1< (I-1); ii1++){
         for( int jj1=ii1+1; jj1 < I; jj1++){
             for (int nn=0; nn<N; nn++){
-                if ( ( dat_resp(nn,ii1) == 1 ) & ( dat_resp(nn,jj1) == 1 ) ){
+                if ( ( dat_resp(nn,ii1) == 1 ) && ( dat_resp(nn,jj1) == 1 ) ){
                     freq( dat(nn,ii1), dat(nn,jj1) ) += weights[nn];
                 }
             }

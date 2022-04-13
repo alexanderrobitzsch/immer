@@ -1,12 +1,12 @@
 ## File Name: immer_install.R
-## File Version: 0.14
+## File Version: 0.17
 ## File Name: immer_install.R
 ## File Version: 0.12
 
 #####################################################
 # installation of the free FACETS DOS_Version
 # for this the DOSBOX is needed
-immer_install <- function(DosBox_path = NULL, Facets_path = NULL){
+immer_install <- function(DosBox_path=NULL, Facets_path=NULL){
   os_system <- Sys.info()["sysname"]
   user <- Sys.info()['user']
   # Ausgabe fuer den User
@@ -19,10 +19,10 @@ Darwin=
 {cat("I'm a Mac. Install Facets and Dosbox for Mac \n")}
   )
 
-if(os_system == "Windows"){
+if(os_system=="Windows"){
   # Link for dos-version of FACETS
   link_Facets <- "http://www.winsteps.com/a/facdos.zip"
-  
+
   # Facets_path <-
   #   file.path("C:","Users",user,"Downloads")
   # win DOSbox
@@ -34,10 +34,10 @@ if(os_system == "Windows"){
     destination_dosBox <-
       paste0("C:\\Users\\",user,"\\Downloads\\")
   } else {
-    destination_dosBox <- 
+    destination_dosBox <-
       DosBox_path
   }
-  if (!dir.exists(file.path(destination_dosBox))) { 
+  if (!dir.exists(file.path(destination_dosBox))) {
       dir.create(file.path(destination_dosBox))
     }
 
@@ -45,30 +45,30 @@ if(os_system == "Windows"){
     destination_facets <-
       paste0("C:\\Users\\",user,"\\Documents\\facets")
   } else {
-    destination_facets <- 
+    destination_facets <-
       Facets_path
   }
 
-  if (!dir.exists(file.path(destination_facets))) { 
+  if (!dir.exists(file.path(destination_facets))) {
     dir.create(file.path(destination_facets))
   }
-  
+
   # -----------------------------------------
   # download files
   error_facets <- tryCatch(
     download.file(
-      url = link_Facets,
-      destfile = file.path(destination_facets,"facdos.zip"),
-      method = "internal"
+      url=link_Facets,
+      destfile=file.path(destination_facets,"facdos.zip"),
+      method="internal"
     )
   )
   # JS Verison 0.09: changed method to 'auto'
   error_DosBox <- tryCatch(
     download.file(
-      url = link_DosBox,
-      destfile = file.path(destination_dosBox,"DOSBoxPortable.exe"),
-      method = "auto",
-      mode = "wb"
+      url=link_DosBox,
+      destfile=file.path(destination_dosBox,"DOSBoxPortable.exe"),
+      method="auto",
+      mode="wb"
     )
   )
   cat( "install the DOSbox: \n")
@@ -79,7 +79,7 @@ if(os_system == "Windows"){
 
   # Den Admin des Computers herausfinden: und Installation von DosBox
   # -----------------------------------------
-    if(error_DosBox != 0){
+    if(error_DosBox !=0){
       cat("Attention, there was an error while downloading the DosBox,
           please try again or install die DosBox manually \n")
       cat(paste0("for the manual installation pleas go to: \n",link_DosBox,"\n",
@@ -87,7 +87,7 @@ if(os_system == "Windows"){
                  the DosBox into \n--> \\Users\\yourUser\\Documents <--"))
     }
 
-    if(error_DosBox == 0){
+    if(error_DosBox==0){
     # JS Verison 0.09: changed installation process, no admin privilegs needed
 
       writeLines(c("...starting installation process of DosBox",
@@ -97,7 +97,7 @@ if(os_system == "Windows"){
       # findeAdmin <- paste0("net localgroup ",gsub("\\*","",admin[grep("adm|Adm",admin)]))
       # test <- system(findeAdmin,intern=TRUE)
       # administrator <- test[grep("--",test)+1]
-      system("cmd.exe", input = paste0("start ",destination_dosBox))
+      system("cmd.exe", input=paste0("start ",destination_dosBox))
 
       # -----------------------------------------
       # Edit the configFile to speed up the process [if the installation is successful]

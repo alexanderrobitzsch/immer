@@ -1,10 +1,10 @@
 ## File Name: immer_jml_update_item_R.R
-## File Version: 0.79
+## File Version: 0.801
 
 
 immer_jml_update_item_R <- function( score_items, ItemScore, I, K, b, A, xsi, theta,
-        N, dat_resp, max_incr,     maxiter_update, conv_update, b_fixed, shortcut_index,
-        weights )
+        N, dat_resp, max_incr, maxiter_update, conv_update, b_fixed, shortcut_index,
+        weights, use_weights=TRUE )
 {
     iterate <- TRUE
     iter <- 0

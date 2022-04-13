@@ -1,5 +1,5 @@
 //// File Name: immer_rcpp_ccml.cpp
-//// File Version: 0.720
+//// File Version: 0.721
 
 
 // [[Rcpp::depends(RcppArmadillo)]]
@@ -25,7 +25,7 @@ Rcpp::NumericMatrix immer_ccml_proc_freq_item_pair( Rcpp::IntegerMatrix dat,
     int ii1 = ii - 1;
     int jj1 = jj - 1;
     for (int nn=0; nn<N; nn++){
-        if ( ( dat_resp(nn,ii1) == 1 ) & ( dat_resp(nn,jj1) == 1 ) ){
+        if ( ( dat_resp(nn,ii1) == 1 ) && ( dat_resp(nn,jj1) == 1 ) ){
             freq( dat(nn,ii1), dat(nn,jj1) ) += weights[nn];
         }
     }

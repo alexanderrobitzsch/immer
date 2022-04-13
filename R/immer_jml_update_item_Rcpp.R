@@ -1,9 +1,10 @@
 ## File Name: immer_jml_update_item_Rcpp.R
-## File Version: 0.41
+## File Version: 0.463
 
 
 immer_jml_update_item_Rcpp <- function( score_items, ItemScore, I, K, b, A, xsi, theta,
-    N, dat_resp, max_incr, maxiter_update, conv_update, b_fixed, shortcut_index, weights )
+    N, dat_resp, max_incr, maxiter_update, conv_update, b_fixed, shortcut_index, weights,
+    use_weights=FALSE)
 {
     iterate <- TRUE
     iter <- 0
@@ -14,6 +15,11 @@ immer_jml_update_item_Rcpp <- function( score_items, ItemScore, I, K, b, A, xsi,
     max_incr <- rep(5,NX)
     update <- as.vector(shortcut_index$update)
     update_weights <- as.vector(shortcut_index$update_weights)
+
+    if (TRUE){
+        update <- rep(1,length(update))
+        update_weights <- weights
+    }
 
     while(iterate){
         b0 <- b

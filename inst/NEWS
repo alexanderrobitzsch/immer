@@ -56,8 +56,22 @@ https://sites.google.com/site/alexanderrobitzsch/software
 
 
 
+
 ------------------------------------------------------------
-VERSIONS immer 1.2  |  2020-08-16  |  Last: immer 1.2-10
+VERSIONS immer 1.3  |  2022-04-13  |  Last: immer 1.3-2
+------------------------------------------------------------
+
+ADDED * ---
+
+
+DATA  * included/modified datasets: ---
+EXAMP * included/modified examples: ---
+
+
+
+
+------------------------------------------------------------
+VERSIONS immer 1.2  |  2022-04-11  |  Last: immer 1.2-19
 ------------------------------------------------------------
 
 FIXED * fixed a bug in immer_jml() when a design matrix is 
@@ -73,11 +87,11 @@ FIXED * fixed a bug in immer_FACETS(), the first line was
         deleted during data preparation. 
         (thanks to Gareth McCray)
 NOTE  * link for Dosbox has been updated in immer_install()
-
+NOTE  * included argument 'weights' in immer_jml() for
+        handling sampling weights
 
 DATA  * included/modified datasets: ---
 EXAMP * included/modified examples: immer_jml (3)
-
 
 ------------------------------------------------------------
 VERSIONS immer 1.1  |  2018-12-11  |  Last: immer 1.1-35

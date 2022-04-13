@@ -1,5 +1,5 @@
 ## File Name: immer_FACETS.R
-## File Version: 0.43
+## File Version: 0.46
 
 #--- Wrapper to FACDOS (Linacre, 1999)
 immer_FACETS <- function(
@@ -122,7 +122,7 @@ immer_FACETS <- function(
       } else {
         filenames <- c(filenames,"Outputfile"=Out)
       }
-   
+
 
   woScor <- grep("Scorefile",inputfile,ignore.case=TRUE)
     Scor <- inputfile[woScor] ; Scor <- grepInput(Scor)
@@ -132,7 +132,7 @@ immer_FACETS <- function(
       } else {
         filenames <- c(filenames,"Scorefile"=Scor)
       }
-    
+
 
   woResid <- grep("Residualfile",inputfile,ignore.case=TRUE)
     Resid <- inputfile[woResid] ; Resid <- grepInput(Resid)
@@ -142,7 +142,7 @@ immer_FACETS <- function(
       } else {
         filenames <- c(filenames,"Residualfile"=Resid)
       }
-    
+
 #  woCate <- grep("ISFILE",inputfile,ignore.case=TRUE)
 #    Cate <- inputfile[woCate] ; Resid <- grepInput(Cate)
 #    if(!is.null(path.dosbox)){
@@ -230,7 +230,7 @@ immer_FACETS <- function(
              )
              writeLines( start.facets, file.path(path.facets,"mymodel.bat") )
 
-             shell(file.path(path.facets,"startDOS.bat"), intern = TRUE, wait = TRUE)
+             shell(file.path(path.facets,"startDOS.bat"), intern=TRUE, wait=TRUE)
 
              while (file.exists(file.path(path.facets,"startDOS.bat"))) {
                 Sys.sleep(1)
@@ -288,7 +288,7 @@ immer_FACETS <- function(
 
   filenames <- sapply(filenames,function(x) substr(x,1,nchar(x)-4))
   fileListe <- sapply(filenames,function(x) grep(x,files,value=TRUE))
-  
+
   # lapply(fileListe,FUN=function(x) sapply(x,function(x)readLines(x,skipNul=TRUE,)))
   # namScorefile <- c("T.Score","T.Count","Obs.Avge","Fair.Avge","Measure","S.E.","InfitMS","InfitZ","OutfitMS","OutfitZ","PtMea","PtMeExp","Discrim","Displace","Status","Group","Weight","Lable","Teams","F-Number","F-Label" )
   score <- try(

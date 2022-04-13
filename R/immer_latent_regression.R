@@ -1,5 +1,5 @@
 ## File Name: immer_latent_regression.R
-## File Version: 0.39
+## File Version: 0.41
 
 immer_latent_regression <- function( like, theta=NULL, Y=NULL, group=NULL,
         weights=NULL, conv=1E-5, maxit=200, verbose=TRUE)
@@ -49,7 +49,7 @@ immer_latent_regression <- function( like, theta=NULL, Y=NULL, group=NULL,
     }
     Xw <- X * weights
 
-    XtX <- immer_ginv( x = t(X) %*% Xw )
+    XtX <- immer_ginv( x=t(X) %*% Xw )
     thetaM <- matrix( theta, nrow=N, ncol=TP, byrow=TRUE)
     mu <- as.vector( X %*% beta )
     sigma <- gamma[ group ]
