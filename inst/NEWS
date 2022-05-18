@@ -58,10 +58,10 @@ https://sites.google.com/site/alexanderrobitzsch/software
 
 
 ------------------------------------------------------------
-VERSIONS immer 1.3  |  2022-04-13  |  Last: immer 1.3-2
+VERSIONS immer 1.4  |  2022-05-18  |  Last: immer 1.4-2
 ------------------------------------------------------------
 
-ADDED * ---
+XXX   * ---
 
 
 DATA  * included/modified datasets: ---
@@ -69,6 +69,16 @@ EXAMP * included/modified examples: ---
 
 
 
+
+------------------------------------------------------------
+VERSIONS immer 1.3  |  2022-05-17  |  Last: immer 1.3-3
+------------------------------------------------------------
+
+NOTE  * new release on CRAN because immer was removed due to
+        the removal of the dependent CDM package from CRAN
+
+DATA  * included/modified datasets: ---
+EXAMP * included/modified examples: ---
 
 ------------------------------------------------------------
 VERSIONS immer 1.2  |  2022-04-11  |  Last: immer 1.2-19
