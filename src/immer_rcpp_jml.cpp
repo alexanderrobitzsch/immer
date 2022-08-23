@@ -1,5 +1,5 @@
 //// File Name: immer_rcpp_jml.cpp
-//// File Version: 0.924
+//// File Version: 0.927
 
 
 // [[Rcpp::depends(RcppArmadillo)]]
@@ -12,7 +12,8 @@ using namespace Rcpp;
 
 ///********************************************************************
 ///** immer_jml_prob_one_item_one_person
-Rcpp::NumericVector immer_jml_prob_one_item_one_person(double theta1, Rcpp::NumericVector b_ii)
+Rcpp::NumericVector immer_jml_prob_one_item_one_person(double theta1,
+                            Rcpp::NumericVector b_ii)
 {
     int K = b_ii.size();
     Rcpp::NumericVector probs_ii(K);
@@ -57,11 +58,12 @@ double immer_rcpp_trim_increment(double incr, double max_incr)
 ///** immer_jml_update_item_derivatives
 // [[Rcpp::export]]
 Rcpp::List immer_jml_update_item_derivatives(Rcpp::NumericVector theta,
-        Rcpp::NumericMatrix score_items, int N, int K, int I, Rcpp::IntegerMatrix dat_resp,
-        Rcpp::NumericMatrix b, Rcpp::NumericVector A_, Rcpp::NumericVector xsi,
-        Rcpp::NumericVector max_incr, Rcpp::NumericMatrix b_fixed,
-        Rcpp::NumericVector ItemScore, Rcpp::NumericVector update,
-        Rcpp::NumericVector update_weights )
+                Rcpp::NumericMatrix score_items, int N, int K, int I,
+                Rcpp::IntegerMatrix dat_resp, Rcpp::NumericMatrix b,
+                Rcpp::NumericVector A_, Rcpp::NumericVector xsi,
+                Rcpp::NumericVector max_incr, Rcpp::NumericMatrix b_fixed,
+                Rcpp::NumericVector ItemScore, Rcpp::NumericVector update,
+                Rcpp::NumericVector update_weights )
 {
     Rcpp::NumericMatrix der1_b(I,K);
     Rcpp::NumericMatrix der2_b(I,K);
@@ -93,7 +95,8 @@ Rcpp::List immer_jml_update_item_derivatives(Rcpp::NumericVector theta,
                     for (int kk=0; kk<K; kk++){
                         r(ii,kk) += update_weights[nn]*probs_ii[kk+1];
                         for (int hh=0;hh<K;hh++){
-                            rr[ ii + I*kk + I*K*hh ] += update_weights[nn]*probs_ii[kk+1]*probs_ii[hh+1];
+                            rr[ ii + I*kk + I*K*hh ] += update_weights[nn]*
+                                                        probs_ii[kk+1]*probs_ii[hh+1];
                         }
                     }
                 }

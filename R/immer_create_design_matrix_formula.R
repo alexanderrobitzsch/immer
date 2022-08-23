@@ -1,5 +1,5 @@
 ## File Name: immer_create_design_matrix_formula.R
-## File Version: 0.16
+## File Version: 0.19
 
 
 immer_create_design_matrix_formula <- function( itemtable, formulaA )
@@ -17,7 +17,8 @@ immer_create_design_matrix_formula <- function( itemtable, formulaA )
         itemtable[,"rater_name"] <- paste0( "rater", itemtable$rater )
     }
     if (has_rater){
-        itemtable$pseudoitem_name <- paste0( itemtable$item_name, "-", itemtable$rater_name )
+        itemtable$pseudoitem_name <- paste0( itemtable$item_name, "-",
+                                        itemtable$rater_name )
     } else {
         itemtable$pseudoitem_name <- itemtable$item_name
     }
@@ -38,7 +39,8 @@ immer_create_design_matrix_formula <- function( itemtable, formulaA )
     itemtable2 <- immer_convert_factor_data_frame(x=itemtable2, variable="step" )
     itemtable2$item_num <- as.numeric( paste(itemtable2$item) )
     if (has_rater){
-        rownames(itemtable2) <- paste0( itemtable2$item_name, "-", itemtable2$rater_name, "-",
+        rownames(itemtable2) <- paste0( itemtable2$item_name, "-",
+                                    itemtable2$rater_name, "-",
                                     "step", itemtable2$step_orig)
         itemtable2$rater_num <- as.numeric( paste(itemtable2$rater) )
     }
@@ -58,7 +60,8 @@ immer_create_design_matrix_formula <- function( itemtable, formulaA )
     if ( ( ! has_step ) |  ( ! ( "step" %in% taf ) ) ){
         contrast_list$step <- NULL
     }
-    des <- stats::model.matrix( object=formulaA, data=itemtable2, contrasts=contrast_list )
+    des <- stats::model.matrix( object=formulaA, data=itemtable2,
+                            contrasts=contrast_list )
     colnames(des) <- gsub( "item", "__item", colnames(des) )
 
     #--- multiply by step parameters
@@ -76,7 +79,8 @@ immer_create_design_matrix_formula <- function( itemtable, formulaA )
     if (NI > 0){
         for (ii in 1:NI){
             item_ii <- paste0( "__item", i1$item[ii] )
-            ind <- intersect( grep( ":step", cn_des ), grep( paste0( item_ii, ":"), cn_des ))
+            ind <- intersect( grep( ":step", cn_des ), grep( paste0( item_ii, ":"),
+                                        cn_des ))
             ind <- intersect( ind, ind_neg)
             if ( length(ind) > 0 ){
                 des <- des[, - ind ]
@@ -102,7 +106,9 @@ immer_create_design_matrix_formula <- function( itemtable, formulaA )
                     v1 <- paste0( item_ii0, ":step", i1_ii$step[xx] )
                     ind0 <- grep( v1, colnames(des) )
                     colnames(des) <- gsub( paste0( item_ii0, ":step", i1_ii$step[xx] ),
-                                paste0( item_ii0, ":step", i1_ii$step_orig[xx] ), colnames(des) )
+                                            paste0( item_ii0, ":step",
+                                                    i1_ii$step_orig[xx] ),
+                                                    colnames(des) )
                 }
             }
         }
@@ -115,8 +121,10 @@ immer_create_design_matrix_formula <- function( itemtable, formulaA )
     if ( length(ind) > 0 ){
         dfr_cndes$item_step <- 0
         dfr_cndes$item_step[ ind ] <- 1
-        dfr_cndes$item_extract[ ind ] <- gsub("__item", "", paste0( dfr_cndes[ ind, "cn" ] ) )
-        dfr_cndes$item_extract[ ind ] <-  as.numeric(unlist( lapply( strsplit( paste0( dfr_cndes[ ind, "item_extract" ] ),
+        dfr_cndes$item_extract[ ind ] <- gsub("__item", "",
+                                            paste0( dfr_cndes[ ind, "cn" ] ) )
+        dfr_cndes$item_extract[ ind ] <-  as.numeric(unlist( lapply(
+                                strsplit( paste0( dfr_cndes[ ind, "item_extract" ] ),
                                         split=":"), FUN=function(ll){ ll[1] } ) ) )
         dfr_ind <- dfr_cndes[ind,]
         dfr_cndes[ind, ] <- dfr_ind[ order( dfr_ind$item_extract), ]
@@ -136,7 +144,8 @@ immer_create_design_matrix_formula <- function( itemtable, formulaA )
         ind <- grep( paste0( "__item", item_ii, ":"), colnames(des))
         if (length(ind) > 0 ){
             colnames(des)[ ind ] <- gsub( paste0( "__item", item_ii, ":"),
-                                        paste0( itemtable[ii,"item_name"], ":"), colnames(des)[ind] )
+                                        paste0( itemtable[ii,"item_name"], ":"),
+                                        colnames(des)[ind] )
         }
     }
 
@@ -155,7 +164,7 @@ immer_create_design_matrix_formula <- function( itemtable, formulaA )
 
     #--- output
     res <- list( itemtable=itemtable, itemtable2=itemtable2,
-                    formulaA=formulaA, has_rater=has_rater, K=K, has_step=has_step, des=des,
-                    tA=tA, A=A )
+                    formulaA=formulaA, has_rater=has_rater, K=K,
+                    has_step=has_step, des=des, tA=tA, A=A )
     return(res)
 }

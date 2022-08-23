@@ -1,9 +1,9 @@
 ## File Name: lpcm_data_prep.R
-## File Version: 0.23
+## File Version: 0.241
 
-###################################################
-# data preparation function
-# linear logistic partial credit model
+
+#*** data preparation function
+#*** linear logistic partial credit model
 lpcm_data_prep <- function( dat, weights, a )
 {
     used_persons <- as.vector( which( rowSums( 1 - is.na(dat) ) > 1 ))
@@ -25,7 +25,7 @@ lpcm_data_prep <- function( dat, weights, a )
 
     if ( is.null(weights) ){
         weights <- rep(1, N )
-                            }
+    }
     patt_unique <- unique( resp_patt )
     patt <- match( resp_patt, patt_unique )
     NP <- length(patt_unique)
@@ -70,7 +70,7 @@ lpcm_data_prep <- function( dat, weights, a )
     suffstat <- sapply( 1:NP, FUN=function(pp){
             unlist( sapply( item_index[[pp]], FUN=function(ii){
                         sapply( 1:maxK[ii], FUN=function(kk){
-                                sum( ( dat[,ii]==kk ) * weights * ( patt==pp ), na.rm=TRUE)
+                                sum( (dat[,ii]==kk)*weights*( patt==pp ), na.rm=TRUE)
                                                 }, simplify=FALSE )
                                             }
                             ) ) }, simplify=FALSE )

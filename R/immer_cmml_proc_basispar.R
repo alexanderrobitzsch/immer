@@ -1,9 +1,9 @@
 ## File Name: immer_cmml_proc_basispar.R
-## File Version: 0.10
+## File Version: 0.13
 
 
-immer_cmml_proc_basispar <- function(LAM_basispar, GAM_basispar, PHI_basispar, PSI_basispar,
-    LAM_index, GAM_index, PHI_index, PSI_index )
+immer_cmml_proc_basispar <- function(LAM_basispar, GAM_basispar, PHI_basispar,
+        PSI_basispar, LAM_index, GAM_index, PHI_index, PSI_index )
 {
     basispar <- c(LAM_basispar, GAM_basispar, PHI_basispar, PSI_basispar )
     NB <- length(basispar)
@@ -51,8 +51,9 @@ immer_cmml_proc_basispar <- function(LAM_basispar, GAM_basispar, PHI_basispar, P
     basispar_length <- colSums( basispar_design > 0 )
 
     #--- output
-    res <- list( basispar=basispar, basispar_design=basispar_design, N_LAM=N_LAM, N_GAM=N_GAM,
-                    N_PHI=N_PHI, N_PSI=N_PSI, basispar_length=basispar_length)
+    res <- list( basispar=basispar, basispar_design=basispar_design, N_LAM=N_LAM,
+                    N_GAM=N_GAM, N_PHI=N_PHI, N_PSI=N_PSI,
+                    basispar_length=basispar_length)
     return(res)
 }
 

@@ -1,8 +1,8 @@
 Package: immer
 Type: Package
 Title: Item Response Models for Multiple Ratings
-Version: 1.4-2
-Date: 2022-05-18 10:15:04
+Version: 1.5-1
+Date: 2022-08-22 19:46:43
 Author: 
     Alexander Robitzsch [aut, cre], Jan Steinfeld [aut]
 Maintainer: Alexander Robitzsch <robitzsch@ipn.uni-kiel.de>

@@ -72,7 +72,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">immer</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Versions">1.4-vv</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Versions">1.5-vv</span>
       </span>
     </div>
 
@@ -153,11 +153,11 @@ unique item response patterns into a data frame with item responses.</p></div>
 <span class='no'>dat</span> <span class='kw'>&lt;-</span> <span class='no'>data.read</span>
 
 <span class='co'># extract item response patterns</span>
-<span class='no'>res</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>immer</span><span class='kw ns'>::</span><span class='fu'>immer_unique_patterns</span>( <span class='no'>dat</span>)
+<span class='no'>res</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>immer</span><span class='kw ns'>::</span><span class='fu'>immer_unique_patterns</span>(<span class='no'>dat</span>)
 
 <span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
 <span class='co'># back-conversion with expand.table</span>
-<span class='no'>dat2</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>mirt</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/mirt/man/expand.table.html'>expand.table</a></span>( <span class='fu'><a href='https://rdrr.io/r/base/cbind.html'>cbind</a></span>( <span class='no'>res</span>$<span class='no'>y</span>,  <span class='no'>res</span>$<span class='no'>w</span> ) )
+<span class='no'>dat2</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>mirt</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/mirt/man/expand.table.html'>expand.table</a></span>( <span class='fu'><a href='https://rdrr.io/r/base/cbind.html'>cbind</a></span>( <span class='no'>res</span>$<span class='no'>y</span>, <span class='no'>res</span>$<span class='no'>w</span> ) )
 <span class='co'># check correctness</span>
 <span class='fu'><a href='https://rdrr.io/r/base/colSums.html'>colMeans</a></span>(<span class='no'>dat</span>)
 <span class='fu'><a href='https://rdrr.io/r/base/colSums.html'>colMeans</a></span>(<span class='no'>dat2</span>)

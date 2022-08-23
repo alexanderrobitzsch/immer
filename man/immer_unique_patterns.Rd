@@ -1,5 +1,5 @@
 %% File Name: immer_unique_patterns.Rd
-%% File Version: 0.09
+%% File Version: 0.12
 
 \name{immer_unique_patterns}
 \alias{immer_unique_patterns}
@@ -44,7 +44,7 @@ A list with entries
 %% ~Make other sections like Warning with \section{Warning }{....} ~
 
 \seealso{
-See \code{\link[mirt:expand.table]{mirt::expand.table}} for back-converting
+See \code{mirt::expand.table} for back-converting
 unique item response patterns into a data frame with item responses.
 }
 
@@ -57,11 +57,11 @@ data( data.read, package="sirt")
 dat <- data.read
 
 # extract item response patterns
-res <- immer::immer_unique_patterns( dat)
+res <- immer::immer_unique_patterns(dat)
 
 \dontrun{
 # back-conversion with expand.table
-dat2 <- mirt::expand.table( cbind( res$y,  res$w ) )
+dat2 <- mirt::expand.table( cbind( res$y, res$w ) )
 # check correctness
 colMeans(dat)
 colMeans(dat2)

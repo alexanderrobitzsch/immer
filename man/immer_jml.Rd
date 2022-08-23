@@ -1,5 +1,5 @@
 %% File Name: immer_jml.Rd
-%% File Version: 0.507
+%% File Version: 0.508
 
 \name{immer_jml}
 \alias{immer_jml}
@@ -23,7 +23,7 @@ JML estimation method (Bertoli-Barsotti, Lando & Punzo, 2014).
 }
 
 \usage{
-immer_jml(dat, A=NULL, maxK=NULL, center_theta=TRUE, b_fixed=NULL, weights=NULL, 
+immer_jml(dat, A=NULL, maxK=NULL, center_theta=TRUE, b_fixed=NULL, weights=NULL,
      irtmodel="PCM", pid=NULL, rater=NULL, eps=0.3, est_method="eps_adj", maxiter=1000,
      conv=1e-05, max_incr=3, incr_fac=1.1, maxiter_update=10, maxiter_line_search=6,
      conv_update=1e-05, verbose=TRUE, use_Rcpp=TRUE, shortcut=TRUE)

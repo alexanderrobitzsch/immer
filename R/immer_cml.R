@@ -1,8 +1,8 @@
 ## File Name: immer_cml.R
-## File Version: 0.842
+## File Version: 0.844
 
-########################################################
-# CML function in immer package
+
+#*** CML function in immer package
 immer_cml <- function( dat, weights=NULL, W=NULL, b_const=NULL,
         par_init=NULL, a=NULL, irtmodel=NULL, normalization="first",
         nullcats="zeroprob", diff=FALSE, use_rcpp=FALSE, ... )
@@ -33,8 +33,9 @@ immer_cml <- function( dat, weights=NULL, W=NULL, b_const=NULL,
 
     #--------------------------
     # generate W matrix and b_const if not provided
-    res0 <- lpcm_generate_design( pars_info=pars_info, irtmodel=irtmodel, W=W, b_const=b_const,
-                    normalization=normalization, I=I, maxK=maxK, nullcats=nullcats )
+    res0 <- lpcm_generate_design( pars_info=pars_info, irtmodel=irtmodel, W=W,
+                    b_const=b_const, normalization=normalization, I=I, maxK=maxK,
+                    nullcats=nullcats )
     W <- res0$W
     b_const <- res0$b_const
     irtmodel <- res0$irtmodel
@@ -42,8 +43,8 @@ immer_cml <- function( dat, weights=NULL, W=NULL, b_const=NULL,
     #--------------------------
     # initial parameters
     if ( is.null(par_init) ){
-        par_init <- lpcm_inits( dat=dat, weights=weights, maxK=maxK, b_const=b_const, W=W, irtmodel=irtmodel,
-                            normalization=normalization )
+        par_init <- lpcm_inits( dat=dat, weights=weights, maxK=maxK, b_const=b_const,
+                            W=W, irtmodel=irtmodel, normalization=normalization )
     }
 
     #*** compute sufficient statistics for missing data patterns
@@ -69,8 +70,8 @@ immer_cml <- function( dat, weights=NULL, W=NULL, b_const=NULL,
         cloglik <- function(par){
             esf_par0 <- W %*% par + b_const
             res <- immer_cml_cloglik_helper( esf_par0=esf_par0,
-                        parm_index=parm_index0, splitvec_len=splitvec_len, suffstat=suffstat,
-                        score_freq=score_freq, diff=diff, NP=NP )
+                        parm_index=parm_index0, splitvec_len=splitvec_len,
+                        suffstat=suffstat, score_freq=score_freq, diff=diff, NP=NP )
             return(-res)
         }
     } else {
@@ -94,9 +95,9 @@ immer_cml <- function( dat, weights=NULL, W=NULL, b_const=NULL,
         agrad <- function(par){
             esf_par0 <- W %*% par + b_const
             res <- immer_cml_agrad_helper( esf_par0=esf_par0,
-                            parm_index=parm_index0, splitvec_len=splitvec_len, suffstat=suffstat,
-                            score_freq=score_freq, diff=diff, NP=NP, W=W, W_logical=W_logical,
-                            gr1_list=gr1_list )
+                            parm_index=parm_index0, splitvec_len=splitvec_len,
+                            suffstat=suffstat, score_freq=score_freq, diff=diff,
+                            NP=NP, W=W, W_logical=W_logical, gr1_list=gr1_list )
             return(res)
         }
     } else {
@@ -156,12 +157,13 @@ immer_cml <- function( dat, weights=NULL, W=NULL, b_const=NULL,
     time <- list( start=s1, end=s2 )
     res <- list( item=item, b=b, coefficients=par, vcov=vcov1,
                 par_summary=par_summary, loglike=-opt$value, deviance=2*opt$value,
-                result_optim=opt, W=W, b_const=b_const, par_init=par_init, suffstat=suffstat,
-                score_freq=score_freq, dat=dat, used_persons=used_persons, NP=NP, N=N, I=I,
-                maxK=maxK, K=K, npars=length(par), pars_info=pars_info, parm_index=parm_index,
-                item_index=item_index, score=score, time=time, CALL=CALL, use_rcpp=use_rcpp,
+                result_optim=opt, W=W, b_const=b_const, par_init=par_init,
+                suffstat=suffstat, score_freq=score_freq, dat=dat,
+                used_persons=used_persons, NP=NP, N=N, I=I, maxK=maxK, K=K,
+                npars=length(par), pars_info=pars_info, parm_index=parm_index,
+                item_index=item_index, score=score, time=time, CALL=CALL,
+                use_rcpp=use_rcpp,
                 description='Conditional Maximum Likelihood Estimation' )
     class(res) <- "immer_cml"
     return(res)
 }
-########################################################

@@ -1,5 +1,5 @@
 %% File Name: immer_latent_regression.Rd
-%% File Version: 0.12
+%% File Version: 0.154
 
 \name{immer_latent_regression}
 \alias{immer_latent_regression}
@@ -17,7 +17,8 @@ Unidimensional Latent Regression
 }
 
 \description{
-Fits a unidimensional latent regression \eqn{\theta_{ig}=Y_{ig} \bold{\beta} + \varepsilon_{ig}}
+Fits a unidimensional latent regression
+\eqn{\theta_{ig}=Y_{ig} \bm{\beta} + \varepsilon_{ig}}
 with group-specific variances \eqn{Var(\varepsilon _{ig} )=\sigma^2_g} based on
 the individual likelihood of a fitted model.
 }
@@ -39,10 +40,10 @@ immer_latent_regression(like, theta=NULL, Y=NULL, group=NULL, weights=NULL,
 %- maybe also 'usage' for other objects documented here.
 \arguments{
   \item{like}{
-Matrix containing the individual likelihood \eqn{L( \bold{X} | \theta )}
+Matrix containing the individual likelihood \eqn{L( \bm{X} | \theta )}
 }
   \item{theta}{
-Grid of \eqn{\bold} values
+Grid of \eqn{\bm{\theta}} values
 }
   \item{Y}{
 Predictor matrix
@@ -79,7 +80,7 @@ List containing values (selection)
 \item{vcov}{Covariance matrix for estimated parameters}
 \item{beta}{Regression coefficients}
 \item{gamma}{Standard deviations}
-\item{beta_stat}{Data frame with \eqn{\bold{\beta}} parameters}
+\item{beta_stat}{Data frame with \eqn{\bm{\beta}} parameters}
 \item{gamma_stat}{Data frame with standard deviations}
 \item{ic}{Information criteria}
 \item{deviance}{Deviance}
@@ -93,8 +94,8 @@ List containing values (selection)
 \references{
 Adams, R. J., & Wu, M. L. (2007). The mixed-coefficients multinomial logit model.
 A generalized form of the Rasch model. In M. von Davier & C. H. Carstensen (Eds.):
-\emph{Multivariate and mixture distribution Rasch models: Extensions and applications} (pp. 55-76).
-New York: Springer.
+\emph{Multivariate and mixture distribution Rasch models: Extensions and applications}
+ (pp. 55-76). New York: Springer.
 }
 
 

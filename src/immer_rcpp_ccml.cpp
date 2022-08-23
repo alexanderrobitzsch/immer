@@ -1,5 +1,5 @@
 //// File Name: immer_rcpp_ccml.cpp
-//// File Version: 0.721
+//// File Version: 0.724
 
 
 // [[Rcpp::depends(RcppArmadillo)]]
@@ -62,7 +62,8 @@ Rcpp::NumericMatrix immer_ccml_proc_freq( Rcpp::IntegerMatrix dat,
 
     for (int ii=1; ii<I+1;ii++){
         for (int jj=ii+1; jj<I+1; jj++){
-            freq_ii_jj = immer_ccml_proc_freq_item_pair( dat, dat_resp, K, weights, ii, jj );
+            freq_ii_jj = immer_ccml_proc_freq_item_pair( dat, dat_resp, K, weights,
+                                ii, jj );
             for (int rr=1; rr<2*K; rr++){
                 for (int uu=0; uu<rr+1; uu++){
                     ww=rr-uu;
@@ -123,15 +124,17 @@ Rcpp::NumericMatrix immer_ccml_calc_item_intercepts(Rcpp::NumericMatrix b_fixed,
 ///********************************************************************
 ///** immer_ccml_probs
 // [[Rcpp::export]]
-Rcpp::NumericVector immer_ccml_probs(Rcpp::NumericMatrix b, Rcpp::NumericVector ll_index1,
-    Rcpp::NumericVector item10, Rcpp::NumericVector item20, Rcpp::NumericVector cat1,
-    Rcpp::NumericVector cat2, int max_ll_index )
+Rcpp::NumericVector immer_ccml_probs(Rcpp::NumericMatrix b,
+            Rcpp::NumericVector ll_index1, Rcpp::NumericVector item10,
+            Rcpp::NumericVector item20, Rcpp::NumericVector cat1,
+            Rcpp::NumericVector cat2, int max_ll_index )
 {
     int NL = ll_index1.size();
     Rcpp::NumericVector zaehl(NL);
     Rcpp::NumericVector sz(max_ll_index);
     Rcpp::NumericVector opt_fct(NL);
-    // dfr$zaehl <- exp( - b[ cbind( dfr$item1, dfr$cat1 + 1) ] - b[ cbind( dfr$item2, dfr$cat2 + 1) ] )
+    // dfr$zaehl <- exp( - b[ cbind( dfr$item1, dfr$cat1 + 1) ]
+    //                   - b[ cbind( dfr$item2, dfr$cat2 + 1) ] )
     // sz <- rowsum( dfr$zaehl, dfr$ll_index )
     // dfr$nenn <- sz[dfr$ll_index]
     // dfr$opt_fct <- dfr$zaehl / dfr$nenn
@@ -171,7 +174,8 @@ Rcpp::NumericVector immer_ccml_probs_from_par(Rcpp::NumericMatrix b_fixed,
     //-- compute item intercepts
     Rcpp::NumericMatrix b = immer_ccml_calc_item_intercepts(b_fixed, A_, par1);
     //-- compute conditional probabilities
-    Rcpp::NumericVector opt_fct = immer_ccml_probs(b, ll_index1, item10, item20, cat1, cat2, max_ll_index );
+    Rcpp::NumericVector opt_fct = immer_ccml_probs(b, ll_index1, item10, item20,
+                                        cat1, cat2, max_ll_index );
     //-- output
     return opt_fct;
 }
@@ -206,7 +210,8 @@ double immer_ccml_opt_function(Rcpp::NumericMatrix b, Rcpp::NumericVector ll_ind
     // sum( dfr$log_opt_fct * dfr$n )
 
     // compute conditional probabilities
-    Rcpp::NumericVector opt_fct = immer_ccml_probs(b, ll_index1, item10, item20, cat1, cat2, max_ll_index );
+    Rcpp::NumericVector opt_fct = immer_ccml_probs(b, ll_index1, item10, item20,
+                                        cat1, cat2, max_ll_index );
 
     // compute optimization function
     for (int ll=0; ll<NL; ll++){
@@ -241,10 +246,11 @@ double immer_ccml_opt_function_par( Rcpp::NumericMatrix b_fixed,
 ///********************************************************************
 ///** immer_ccml_gradient
 // [[Rcpp::export]]
-Rcpp::NumericMatrix immer_ccml_gradient(Rcpp::NumericMatrix b, Rcpp::NumericVector ll_index1,
-    Rcpp::NumericVector item10, Rcpp::NumericVector item20, Rcpp::NumericVector cat1,
-    Rcpp::NumericVector cat2, Rcpp::NumericVector n, Rcpp::NumericVector ntot,
-    int max_ll_index )
+Rcpp::NumericMatrix immer_ccml_gradient(Rcpp::NumericMatrix b,
+            Rcpp::NumericVector ll_index1, Rcpp::NumericVector item10,
+            Rcpp::NumericVector item20, Rcpp::NumericVector cat1,
+            Rcpp::NumericVector cat2, Rcpp::NumericVector n, Rcpp::NumericVector ntot,
+            int max_ll_index )
 {
     int I = b.nrow();
     int K = b.ncol();
@@ -253,12 +259,14 @@ Rcpp::NumericMatrix immer_ccml_gradient(Rcpp::NumericMatrix b, Rcpp::NumericVect
     grad.fill(0);
 
     // dfr$opt_fct <- dfr$zaehl / dfr$nenn
-    // ind <- c( which( ( dfr$item1 == ii0 ) & ( dfr$cat1 == cat0 ) ), which( ( dfr$item2 == ii0 ) &
+    // ind <- c( which( ( dfr$item1 == ii0 ) & ( dfr$cat1 == cat0 ) ),
+    //       which( ( dfr$item2 == ii0 ) &
     //                ( dfr$cat2 == cat0 ) ) )
     // - sum( dfr$n[ind] - dfr$ntot[ind] * dfr$opt_fct[ind] )
 
     // compute conditional probabilities
-    Rcpp::NumericVector opt_fct = immer_ccml_probs(b, ll_index1, item10, item20, cat1, cat2, max_ll_index );
+    Rcpp::NumericVector opt_fct = immer_ccml_probs(b, ll_index1, item10, item20,
+                                        cat1, cat2, max_ll_index );
     // compute derivatives
     for (int ll=0; ll<NL; ll++){
         if (cat1[ll]>0){
@@ -351,15 +359,16 @@ Rcpp::List immer_ccml_se( Rcpp::NumericMatrix b_fixed,
 
     for (int pp=0; pp<NX; pp++){
         // f(x+h)
-        opt_p = immer_ccml_probs_from_par(b_fixed, A_, par, ll_index1, item10, item20, cat1, cat2,
-                            max_ll_index, pp, -1, h, 0 );
+        opt_p = immer_ccml_probs_from_par(b_fixed, A_, par, ll_index1, item10, item20,
+                        cat1, cat2, max_ll_index, pp, -1, h, 0 );
         opt_p0(_,pp)=opt_p;
         // f(x-h)
-        opt_m = immer_ccml_probs_from_par(b_fixed, A_, par, ll_index1, item10, item20, cat1, cat2,
-                            max_ll_index, pp, -1, -h, 0 );
+        opt_m = immer_ccml_probs_from_par(b_fixed, A_, par, ll_index1, item10, item20,
+                            cat1, cat2, max_ll_index, pp, -1, -h, 0 );
         opt_m0(_,pp)=opt_m;
         for (int ll=0; ll<NL; ll++){
-            der1_mat(ll,pp) = - ( ( log_eps( opt_p[ll], eps ) - log_eps( opt_m[ll], eps ) ) ) / (2*h);
+            der1_mat(ll,pp) = - ( ( log_eps( opt_p[ll], eps ) -
+                                    log_eps( opt_m[ll], eps ) ) ) / (2*h);
         }
         par_temp[pp] = par[pp];
     }
@@ -384,7 +393,8 @@ Rcpp::List immer_ccml_se( Rcpp::NumericMatrix b_fixed,
     // observed information: diagonal elements
     for (int pp=0; pp<NX; pp++){
         for (int ll=0; ll<NL; ll++){
-            val = log_eps( opt_p0(ll,pp), eps ) - 2*log_eps( opt_0[ll], eps ) + log_eps( opt_m0(ll,pp), eps );
+            val = log_eps( opt_p0(ll,pp), eps ) - 2*log_eps( opt_0[ll], eps ) +
+                                            log_eps( opt_m0(ll,pp), eps );
             obs_mat(pp,pp) += - n[ll] * val / std::pow(h, 2.0);
         }
         obs_mat(pp,pp) = obs_mat(pp,pp) / N;
@@ -399,20 +409,21 @@ Rcpp::List immer_ccml_se( Rcpp::NumericMatrix b_fixed,
         for (int pp2=pp1+1; pp2<NX; pp2++){
 
             // f(x+h, y+h)
-            opt_11 = immer_ccml_probs_from_par(b_fixed, A_, par, ll_index1, item10, item20, cat1, cat2,
-                                    max_ll_index, pp1, pp2, h, h );
+            opt_11 = immer_ccml_probs_from_par(b_fixed, A_, par, ll_index1, item10,
+                                    item20, cat1, cat2, max_ll_index, pp1, pp2, h, h );
             // f(x+h, y-h)
-            opt_10 = immer_ccml_probs_from_par(b_fixed, A_, par, ll_index1, item10, item20, cat1, cat2,
-                                    max_ll_index, pp1, pp2, h, -h );
+            opt_10 = immer_ccml_probs_from_par(b_fixed, A_, par, ll_index1, item10,
+                                    item20, cat1, cat2, max_ll_index, pp1, pp2, h, -h );
             // f(x-h, y+h)
-            opt_01 = immer_ccml_probs_from_par(b_fixed, A_, par, ll_index1, item10, item20, cat1, cat2,
-                                    max_ll_index, pp1, pp2, -h, h );
+            opt_01 = immer_ccml_probs_from_par(b_fixed, A_, par, ll_index1, item10,
+                                    item20, cat1, cat2, max_ll_index, pp1, pp2, -h, h );
             // f(x-h, y-h)
-            opt_00 = immer_ccml_probs_from_par(b_fixed, A_, par, ll_index1, item10, item20, cat1, cat2,
-                                    max_ll_index, pp1, pp2, -h, -h );
+            opt_00 = immer_ccml_probs_from_par(b_fixed, A_, par, ll_index1, item10,
+                                    item20, cat1, cat2, max_ll_index, pp1, pp2, -h, -h );
             // f1,1 - f1,-1 - f-1,1 + f-1,-1 / 4*h^2
             for (int ll=0; ll<NL; ll++){
-                val = log_eps( opt_11[ll], eps) - log_eps( opt_10[ll], eps) - log_eps( opt_01[ll], eps) +
+                val = log_eps( opt_11[ll], eps) - log_eps( opt_10[ll], eps) -
+                            log_eps( opt_01[ll], eps) +
                             log_eps( opt_00[ll], eps);
                 obs_mat(pp1,pp2) += - n[ll] * val / ( 4 * h * h );
             }

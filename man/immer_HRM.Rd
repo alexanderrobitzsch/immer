@@ -1,5 +1,5 @@
 %% File Name: immer_hrm.Rd
-%% File Version: 0.70
+%% File Version: 0.712
 
 \name{immer_hrm}
 \alias{immer_hrm}
@@ -97,8 +97,8 @@ iteration output on the console should be displayed.}
 \details{
 The hierarchical rater model is defined at the level of persons
 \deqn{P( \xi _{pi}=\xi  | \theta_p ) \propto \exp ( \xi
-    \cdot a_i \cdot \theta_p - b_{ik}  ) } where \eqn{\theta_p} is normally distributed with mean
-\eqn{\mu} and standard deviation \eqn{\sigma}.
+    \cdot a_i \cdot \theta_p - b_{ik}  ) } where \eqn{\theta_p}
+    is normally distributed with mean \eqn{\mu} and standard deviation \eqn{\sigma}.
 
 At the level of ratings, the model is defined as
 \deqn{P( X_{pir}=x | \theta_p, \xi_{pi} ) \propto \exp(

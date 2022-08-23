@@ -1,5 +1,5 @@
 //// File Name: immer_rcpp_latent_regression.cpp
-//// File Version: 1.02
+//// File Version: 1.04
 
 
 // [[Rcpp::depends(RcppArmadillo)]]
@@ -118,9 +118,11 @@ Rcpp::NumericVector immer_add_elements( Rcpp::NumericVector x, int pos, double h
 ///********************************************************************
 ///** immer_latent_regression_calc_individual_likelihood
 // [[Rcpp::export]]
-Rcpp::NumericVector immer_latent_regression_calc_individual_likelihood(Rcpp::NumericMatrix X,
-    Rcpp::IntegerVector group, int G, Rcpp::NumericVector pars,
-    Rcpp::NumericVector theta, Rcpp::NumericVector weights,    Rcpp::NumericMatrix like)
+Rcpp::NumericVector immer_latent_regression_calc_individual_likelihood(
+                        Rcpp::NumericMatrix X, Rcpp::IntegerVector group,
+                        int G, Rcpp::NumericVector pars,
+                        Rcpp::NumericVector theta, Rcpp::NumericVector weights,
+                        Rcpp::NumericMatrix like)
 {
     int NB = X.ncol();
     Rcpp::NumericVector beta(NB);

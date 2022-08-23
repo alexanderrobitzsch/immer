@@ -1,5 +1,5 @@
 //// File Name: immer_rcpp_cml.cpp
-//// File Version: 0.543
+//// File Version: 0.545
 
 
 
@@ -87,7 +87,8 @@ double immer_cml_cloglik_helper( Rcpp::NumericMatrix esf_par0,
         Rcpp::NumericVector suffstat_pp = suffstat[pp];
         Rcpp::NumericVector score_freq_pp = score_freq[pp];
 
-        Rcpp::NumericVector esf_par1 = immer_cml_extract_parmindex( esf_par0, parm_index_pp );
+        Rcpp::NumericVector esf_par1 = immer_cml_extract_parmindex( esf_par0,
+                                                parm_index_pp );
         Rcpp::List esf_par = immer_cml_splitvec( esf_par1, splitvec_len_pp);
 
         // apply psychotools function
@@ -132,7 +133,8 @@ Rcpp::NumericVector immer_cml_agrad_helper( Rcpp::NumericMatrix esf_par0,
         Rcpp::NumericVector suffstat_pp = suffstat[pp];
         Rcpp::NumericVector score_freq_pp = score_freq[pp];
 
-        Rcpp::NumericVector esf_par1 = immer_cml_extract_parmindex( esf_par0, parm_index_pp );
+        Rcpp::NumericVector esf_par1 = immer_cml_extract_parmindex( esf_par0,
+                                                parm_index_pp );
         Rcpp::List esf_par = immer_cml_splitvec( esf_par1, splitvec_len_pp);
 
         // apply psychotools function

@@ -40,7 +40,8 @@
 
 
 <meta property="og:title" content="Unidimensional Latent Regression — immer_latent_regression" />
-<meta property="og:description" content="Fits a unidimensional latent regression \(\theta_{ig}=Y_{ig} \bold{\beta} + \varepsilon_{ig}\)
+<meta property="og:description" content="Fits a unidimensional latent regression
+\(\theta_{ig}=Y_{ig} \bm{\beta} + \varepsilon_{ig}\)
 with group-specific variances \(Var(\varepsilon _{ig} )=\sigma^2_g\) based on
 the individual likelihood of a fitted model." />
 
@@ -74,7 +75,7 @@ the individual likelihood of a fitted model." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">immer</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Versions">1.4-vv</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Versions">1.5-vv</span>
       </span>
     </div>
 
@@ -116,7 +117,8 @@ the individual likelihood of a fitted model." />
     </div>
 
     <div class="ref-description">
-    <p>Fits a unidimensional latent regression \(\theta_{ig}=Y_{ig} \bold{\beta} + \varepsilon_{ig}\)
+    <p>Fits a unidimensional latent regression
+\(\theta_{ig}=Y_{ig} \bm{\beta} + \varepsilon_{ig}\)
 with group-specific variances \(Var(\varepsilon _{ig} )=\sigma^2_g\) based on
 the individual likelihood of a fitted model.</p>
     </div>
@@ -144,11 +146,11 @@ the individual likelihood of a fitted model.</p>
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>like</th>
-      <td><p>Matrix containing the individual likelihood \(L( \bold{X} | \theta )\)</p></td>
+      <td><p>Matrix containing the individual likelihood \(L( \bm{X} | \theta )\)</p></td>
     </tr>
     <tr>
       <th>theta</th>
-      <td><p>Grid of \(\bold\) values</p></td>
+      <td><p>Grid of \(\bm{\theta}\) values</p></td>
     </tr>
     <tr>
       <th>Y</th>
@@ -199,7 +201,7 @@ the individual likelihood of a fitted model.</p>
 <dt>vcov</dt><dd><p>Covariance matrix for estimated parameters</p></dd>
 <dt>beta</dt><dd><p>Regression coefficients</p></dd>
 <dt>gamma</dt><dd><p>Standard deviations</p></dd>
-<dt>beta_stat</dt><dd><p>Data frame with \(\bold{\beta}\) parameters</p></dd>
+<dt>beta_stat</dt><dd><p>Data frame with \(\bm{\beta}\) parameters</p></dd>
 <dt>gamma_stat</dt><dd><p>Data frame with standard deviations</p></dd>
 <dt>ic</dt><dd><p>Information criteria</p></dd>
 <dt>deviance</dt><dd><p>Deviance</p></dd>
@@ -213,8 +215,8 @@ the individual likelihood of a fitted model.</p>
 
     <p>Adams, R. J., &amp; Wu, M. L. (2007). The mixed-coefficients multinomial logit model.
 A generalized form of the Rasch model. In M. von Davier &amp; C. H. Carstensen (Eds.):
-<em>Multivariate and mixture distribution Rasch models: Extensions and applications</em> (pp. 55-76).
-New York: Springer.</p>
+<em>Multivariate and mixture distribution Rasch models: Extensions and applications</em>
+ (pp. 55-76). New York: Springer.</p>
     <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
 
     <p>The <code>IRT.likelihood</code> method can be used for

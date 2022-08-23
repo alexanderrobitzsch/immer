@@ -1,5 +1,5 @@
 ## File Name: MHprop_refresh.R
-## File Version: 0.14
+## File Version: 0.16
 
 
 MHprop_refresh <- function( MHprop )
@@ -12,7 +12,8 @@ MHprop_refresh <- function( MHprop )
         accept <- MHprop$accept[[ var.vv ]] / MHprop$refresh_iter[[ var.vv ]]
         SD <- MHprop$SD[[ var.vv ]]
         SDchange <- MHprop$refresh_SDchange[[ var.vv ]]
-        MHprop$SD[[ var.vv ]] <- MHprop_refresh_parstype( accept=accept, SD=SD, MHprop=MHprop, SDchange=SDchange )
+        MHprop$SD[[ var.vv ]] <- MHprop_refresh_parstype( accept=accept, SD=SD,
+                                        MHprop=MHprop, SDchange=SDchange )
         MHprop$accept[[ var.vv ]] <- 0*MHprop$accept[[var.vv]]
         MHprop$refresh_count[[var.vv]] <- 0
     }

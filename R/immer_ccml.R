@@ -1,7 +1,8 @@
 ## File Name: immer_ccml.R
-## File Version: 0.18
+## File Version: 0.20
 
-immer_ccml <- function( dat, weights=NULL, irtmodel="PCM", A=NULL, b_fixed=NULL, control=NULL )
+immer_ccml <- function( dat, weights=NULL, irtmodel="PCM", A=NULL, b_fixed=NULL,
+                control=NULL )
 {
     time <- list( start=Sys.time() )
     CALL <- match.call()
@@ -52,18 +53,20 @@ immer_ccml <- function( dat, weights=NULL, irtmodel="PCM", A=NULL, b_fixed=NULL,
 
     #- define optimization function
     opt_fct <- function(par){
-        immer_ccml_opt_function_par( b_fixed=b_fixed, A_=A_, par=par, ll_index1=ll_index1,
-                item10=item10, item20=item20, cat1=cat1, cat2=cat2, n=n, ntot=ntot,
-                max_ll_index=max_ll_index )
+        immer_ccml_opt_function_par( b_fixed=b_fixed, A_=A_, par=par,
+                ll_index1=ll_index1, item10=item10, item20=item20, cat1=cat1, cat2=cat2,
+                n=n, ntot=ntot, max_ll_index=max_ll_index )
     }
     #- define gradient
     grad_fct <- function(par){
-        immer_ccml_gradient_par( b_fixed=b_fixed, A_=A_, par=par, ll_index1=ll_index1, item10=item10, item20=item20,
-                    cat1=cat1, cat2=cat2, n=n, ntot=ntot, max_ll_index=max_ll_index )
+        immer_ccml_gradient_par( b_fixed=b_fixed, A_=A_, par=par, ll_index1=ll_index1,
+                    item10=item10, item20=item20, cat1=cat1, cat2=cat2, n=n,
+                    ntot=ntot, max_ll_index=max_ll_index )
     }
 
     #--- optimization
-    res <- nlminb_result <- stats::nlminb( start=par0, objective=opt_fct, gradient=grad_fct, control=control )
+    res <- nlminb_result <- stats::nlminb( start=par0, objective=opt_fct,
+                                gradient=grad_fct, control=control )
     par <- coef <- res$par
     names(par) <- names(coef) <- names(xsi)
     objective <- res$objective
@@ -72,8 +75,9 @@ immer_ccml <- function( dat, weights=NULL, irtmodel="PCM", A=NULL, b_fixed=NULL,
     b <- immer_ccml_calc_item_intercepts( b_fixed=b_fixed, A_=A_, par=par )
 
     #-- calculate standard errors
-    res <- immer_ccml_se( b_fixed=b_fixed, A_=A_, par=par, ll_index1=ll_index1, item10=item10, item20=item20,
-                cat1=cat1, cat2=cat2, n=n, ntot=ntot, max_ll_index=max_ll_index, h=1e-4 )
+    res <- immer_ccml_se( b_fixed=b_fixed, A_=A_, par=par, ll_index1=ll_index1,
+                    item10=item10, item20=item20, cat1=cat1, cat2=cat2, n=n,
+                    ntot=ntot, max_ll_index=max_ll_index, h=1e-4 )
     J <- res$xpd_mat
     H <- res$obs_mat
     colnames(J) <- rownames(J) <- names(xsi)
@@ -106,9 +110,10 @@ immer_ccml <- function( dat, weights=NULL, irtmodel="PCM", A=NULL, b_fixed=NULL,
     time$end <- Sys.time()
     time$diff <- time$end - time$start
     description <- "Composite Conditional Maximum Likelihood Estimation"
-    res <- list( coef=coef, vcov=V, se=se, b=b, objective=objective, nlminb_result=nlminb_result, A=A,
-                    weights=weights, b_fixed=b_fixed, K=K, maxK=maxK, N=N, W=W, ic=ic, suff_stat=dfr,
-                    xsi_out=xsi_out, item=item, time=time,
+    res <- list( coef=coef, vcov=V, se=se, b=b, objective=objective,
+                    nlminb_result=nlminb_result, A=A,
+                    weights=weights, b_fixed=b_fixed, K=K, maxK=maxK, N=N, W=W,
+                    ic=ic, suff_stat=dfr, xsi_out=xsi_out, item=item, time=time,
                     CALL=CALL, description=description)
     class(res) <- "immer_ccml"
     return(res)

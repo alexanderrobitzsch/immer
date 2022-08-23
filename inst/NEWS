@@ -58,7 +58,7 @@ https://sites.google.com/site/alexanderrobitzsch/software
 
 
 ------------------------------------------------------------
-VERSIONS immer 1.4  |  2022-05-18  |  Last: immer 1.4-2
+VERSIONS immer 1.5  |  2022-08-22  |  Last: immer 1.5-1
 ------------------------------------------------------------
 
 XXX   * ---
@@ -69,6 +69,15 @@ EXAMP * included/modified examples: ---
 
 
 
+------------------------------------------------------------
+VERSIONS immer 1.4  |  2022-08-22  |  Last: immer 1.4-15
+------------------------------------------------------------
+
+NOTE  * fixed issues in CRAN checks due to the recent use 
+        of KaTeX
+
+DATA  * included/modified datasets: ---
+EXAMP * included/modified examples: ---
 
 ------------------------------------------------------------
 VERSIONS immer 1.3  |  2022-05-17  |  Last: immer 1.3-3
