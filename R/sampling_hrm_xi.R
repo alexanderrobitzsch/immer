@@ -1,5 +1,5 @@
 ## File Name: sampling_hrm_xi.R
-## File Version: 3.48
+## File Version: 3.491
 
 ######################################################
 # sample complete xi data frame
@@ -8,7 +8,7 @@ sampling_hrm_xi <- function( dat, theta, b, a, phi, psi, K, pid, rater,  ND,
 {
     xi <- matrix( NA, nrow=N, ncol=I)
     eps <- 1E-20
-    for (ii in 1:I){
+    for (ii in 1L:I){
         x <- dat[,ii]
         x_ind <- dat_ind[,ii]
         xi[,ii] <- sampling_hrm_xi_item( x=x, theta=theta, b=b[ii,], a=a[ii],

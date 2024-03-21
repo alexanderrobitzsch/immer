@@ -1,10 +1,11 @@
 ## File Name: sampling_hrm_theta_1dim.R
-## File Version: 0.16
+## File Version: 0.172
 
 ################################################
 # simulation theta values
 sampling_hrm_theta_1dim <- function( theta, N, I, maxK, a, b, xi, xi_ind,
-        dat, dat_ind, pid, MHprop, mu_theta, SD_theta, useRcpp, eps=1E-20 ){
+        dat, dat_ind, pid, MHprop, mu_theta, SD_theta, useRcpp, eps=1E-20 )
+{
 
     # refresh count
     MHprop$refresh_count$theta <- MHprop$refresh_count$theta + 1
@@ -15,8 +16,7 @@ sampling_hrm_theta_1dim <- function( theta, N, I, maxK, a, b, xi, xi_ind,
     p_new <- log( stats::dnorm( theta_new, mean=mu_theta, sd=SD_theta ) )
     p_old <- log( stats::dnorm( theta_old, mean=mu_theta, sd=SD_theta ) )
 
-    for (ii in 1:I){
-        # ii <- 1
+    for (ii in 1L:I){
         ll_new <- probs_gpcm( x=xi[,ii], theta=theta_new, b=b[ii,], a=a[ii], K=maxK[ii],
                     x_ind=xi_ind[,ii], useRcpp )
         ll_new <- log( ll_new  + eps )

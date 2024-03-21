@@ -1,5 +1,5 @@
 ## File Name: lpcm_data_prep.R
-## File Version: 0.241
+## File Version: 0.243
 
 
 #*** data preparation function
@@ -30,18 +30,18 @@ lpcm_data_prep <- function( dat, weights, a )
     patt <- match( resp_patt, patt_unique )
     NP <- length(patt_unique)
     maxK <- apply( dat, 2, max, na.rm=TRUE )
-    item_index <- sapply( 1:NP, FUN=function(pp){
+    item_index <- sapply( 1L:NP, FUN=function(pp){
             # pp <- 1
             dat0 <- dat_ind[  patt==pp,, drop=FALSE ][1,]
             which( dat0==0 )
                     }, simplify=FALSE )
-    maxscore <- sapply( 1:NP, FUN=function(pp){
+    maxscore <- sapply( 1L:NP, FUN=function(pp){
         sum(maxK[ item_index[[pp]] ] )
             }, simplify=FALSE )
-    pars <- rep( 1:I, maxK )
-    pars_info <- data.frame( "item"=rep( colnames(dat),maxK),
-                            "itemid"=pars )
-    pars_info$cat <- unlist( sapply( 1:I, FUN=function(ii){
+    pars <- rep( 1L:I, maxK )
+    pars_info <- data.frame( 'item'=rep( colnames(dat),maxK),
+                            'itemid'=pars )
+    pars_info$cat <- unlist( sapply( 1L:I, FUN=function(ii){
                         seq( 1, maxK[ii] )
                             }, simplify=FALSE) )
     pars_info$index <- seq(1, nrow(pars_info) )
@@ -49,40 +49,40 @@ lpcm_data_prep <- function( dat, weights, a )
     pars_info$Freq <- 0
 
     K <- max( maxK )
-    for (kk in 1:K){
+    for (kk in 1L:K){
         f1 <- colSums( ( dat==kk ) * weights, na.rm=TRUE)
-        ind <- pars_info[ pars_info$cat==kk, "itemid" ]
-        pars_info[ pars_info$cat==kk, "Freq" ] <- f1[ind]
+        ind <- pars_info[ pars_info$cat==kk, 'itemid' ]
+        pars_info[ pars_info$cat==kk, 'Freq' ] <- f1[ind]
     }
-    parm_index <- sapply( 1:NP, FUN=function(pp){
+    parm_index <- sapply( 1L:NP, FUN=function(pp){
             which( pars_info$itemid %in% item_index[[pp]] )
             }, simplify=FALSE )
 
     # calculate raw score
     rs <- rowSums( dat, na.rm=TRUE)
-    score_freq <- sapply( 1:NP, FUN=function( pp ){
+    score_freq <- sapply( 1L:NP, FUN=function( pp ){
             # pp <- 2
             sapply( 0:maxscore[[pp]], FUN=function(ss){
                                 sum( ( rs==ss ) * ( patt==pp ) * weights, na.rm=TRUE) },
                                 simplify=TRUE )
                         }, simplify=FALSE )
 
-    suffstat <- sapply( 1:NP, FUN=function(pp){
+    suffstat <- sapply( 1L:NP, FUN=function(pp){
             unlist( sapply( item_index[[pp]], FUN=function(ii){
-                        sapply( 1:maxK[ii], FUN=function(kk){
+                        sapply( 1L:maxK[ii], FUN=function(kk){
                                 sum( (dat[,ii]==kk)*weights*( patt==pp ), na.rm=TRUE)
                                                 }, simplify=FALSE )
                                             }
                             ) ) }, simplify=FALSE )
 
-    splitvec <- sapply( 1:NP, FUN=function(pp){
+    splitvec <- sapply( 1L:NP, FUN=function(pp){
                     mv <- item_index[[pp]]
                     oj_max <- maxK[ mv ]
                     rep.int( mv, oj_max)
                         }, simplify=FALSE )
 
     # generate pararameter names
-    parnames <- paste0( pars_info$item, "_Cat", pars_info$cat )
+    parnames <- paste0( pars_info$item, '_Cat', pars_info$cat )
     rownames(pars_info) <- parnames
 
     res <- list( N=N, I=I, NP=NP, dat=dat,

@@ -1,5 +1,5 @@
 ## File Name: inits_item_parameters.R
-## File Version: 0.12
+## File Version: 0.131
 
 ################################################
 # inits item parameters
@@ -10,7 +10,7 @@ inits_itempars <- function( dat, prior, sd_init=1 )
     I <- ncol(dat)
     b <- matrix( NA, nrow=I, ncol=K)
     b1 <- colMeans( dat, na.rm=TRUE ) / maxK
-    for (ii in 1:I){
+    for (ii in 1L:I){
         b[ii, seq(1,maxK[ii],1) ] <- b1[ii] + seq( -2, 2, length=maxK[ii]  )
         # b <- sd_init * b
     }

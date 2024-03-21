@@ -1,5 +1,5 @@
 ## File Name: lpcm_inits.R
-## File Version: 0.12
+## File Version: 0.132
 
 ########################################################
 # lpcm initial parameters
@@ -10,10 +10,10 @@ lpcm_inits <- function( dat, weights, maxK, b_const, W,
 {
     I <- ncol(dat)
     m <- I
-    oj_vec <- sapply( 1:I, FUN=function(ii){
+    oj_vec <- sapply( 1L:I, FUN=function(ii){
                 seq( 0, maxK[ii] ) }, simplify=FALSE )
     y <- dat
-    ctot <- vector("list", length=m)
+    ctot <- vector('list', length=m)
     for (j in seq_len(m)){
         ctot[[j]] <- as.vector( tapply( weights, factor(y[, j], levels=oj_vec[[j]]), sum))
     }
@@ -24,7 +24,7 @@ lpcm_inits <- function( dat, weights, maxK, b_const, W,
     start[ is.na(start) ] <- 0
     par_init <- ( start - b_const ) %*% W
     par_init <- par_init[1,]
-    if ( ( irtmodel=="PCM2") & ( normalization=="sum") ){
+    if ( ( irtmodel=='PCM2') & ( normalization=='sum') ){
         par_init <- 0 * par_init
     }
     return(par_init)

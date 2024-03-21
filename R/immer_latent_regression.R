@@ -1,5 +1,5 @@
 ## File Name: immer_latent_regression.R
-## File Version: 0.41
+## File Version: 0.422
 
 immer_latent_regression <- function( like, theta=NULL, Y=NULL, group=NULL,
         weights=NULL, conv=1E-5, maxit=200, verbose=TRUE)
@@ -11,7 +11,7 @@ immer_latent_regression <- function( like, theta=NULL, Y=NULL, group=NULL,
 
     #-- theta
     if ( is.null(theta) ){
-        theta <- attr(like, "theta")
+        theta <- attr(like, 'theta')
     }
     TP <- length(theta)
 
@@ -22,15 +22,15 @@ immer_latent_regression <- function( like, theta=NULL, Y=NULL, group=NULL,
             group_u <- unique(group)
             G <- length(group_u)
             X <- matrix(0,nrow=N, ncol=G)
-            for (gg in 1:G){
+            for (gg in 1L:G){
                 X[,gg] <- 1 * ( group==group_u[gg] )
             }
-            colnames(X) <- paste0("Group", group_u)
+            colnames(X) <- paste0('Group', group_u)
         }
     }
     X <- as.matrix(X)
     if ( is.null(colnames(X))){
-        colnames(X) <- paste0("X", 1:ncol(X))
+        colnames(X) <- paste0('X', 1L:ncol(X))
     }
     if (is.null(weights)){
         weights <- rep(1,N)
@@ -44,7 +44,7 @@ immer_latent_regression <- function( like, theta=NULL, Y=NULL, group=NULL,
     G <- length( unique(group) )
     gamma <- rep(1, G)
     ind_group <- list()
-    for (gg in 1:G){
+    for (gg in 1L:G){
         ind_group[[gg]] <- which( group==gg )
     }
     Xw <- X * weights
@@ -77,7 +77,7 @@ immer_latent_regression <- function( like, theta=NULL, Y=NULL, group=NULL,
         mu <- as.vector( X %*% beta )
         resid <- thetaM - matrix( mu, nrow=N, ncol=TP)
         rp <- resid^2 * post
-        for (gg in 1:G){
+        for (gg in 1L:G){
             ind_gg <- ind_group[[gg]]
             N_gg <- sum(weights[ind_gg])
             gamma[gg] <- sqrt( sum( rp[ind_gg,]*weights[ind_gg] ) / N_gg )
@@ -91,19 +91,19 @@ immer_latent_regression <- function( like, theta=NULL, Y=NULL, group=NULL,
             iterate <- FALSE
         }
         if (verbose){
-            cat("* Iteration", iter-1,    "\n" )
-            v1 <- paste0("  Deviance=", round( deviance, 6 ),
-                "  | Parameter change=", round(parm_change, 8) )
-            cat(v1, "\n")
+            cat('* Iteration', iter-1,    '\n' )
+            v1 <- paste0('  Deviance=', round( deviance, 6 ),
+                '  | Parameter change=', round(parm_change, 8) )
+            cat(v1, '\n')
             utils::flush.console()
         }
     }
     #-- coefficients
     beta <- as.vector(beta)
     NB <- length(beta)
-    names(beta) <- paste0("beta_",colnames(X))
+    names(beta) <- paste0('beta_',colnames(X))
     gamma <- as.vector(gamma)
-    names(gamma) <- paste0("gamma_Group", 1:G)
+    names(gamma) <- paste0('gamma_Group', 1L:G)
 
     #-- standard errors
     h <- 1e-4
@@ -113,10 +113,10 @@ immer_latent_regression <- function( like, theta=NULL, Y=NULL, group=NULL,
     V <- immer_ginv(infomat)
     rownames(V) <- colnames(V) <- names(pars)
     se <- sqrt( diag(V) )
-    beta_stat <- data.frame( parm=names(beta), est=pars[1:NB],
-                    se=se[1:NB] )
-    gamma_stat <- data.frame( parm=names(gamma), est=pars[NB+1:G],
-                    se=se[NB+1:G] )
+    beta_stat <- data.frame( parm=names(beta), est=pars[1L:NB],
+                    se=se[1L:NB] )
+    gamma_stat <- data.frame( parm=names(gamma), est=pars[NB+1L:G],
+                    se=se[NB+1L:G] )
 
     #-- information criteria
     ic <- list(dev=deviance, n=N)
@@ -127,13 +127,13 @@ immer_latent_regression <- function( like, theta=NULL, Y=NULL, group=NULL,
     #--- output
     time$end <- Sys.time()
     time$diff <- time$end - time$start
-    description <- "Unidimensional latent regression"
+    description <- 'Unidimensional latent regression'
     res <- list( coef=pars, vcov=V, beta=beta, gamma=gamma,
                     beta_stat=beta_stat, gamma_stat=gamma_stat,
                     sigma=sigma, mu=mu, sigma=sigma, ic=ic,
                     loglike=loglike, deviance=deviance, N=N, G=G, group=group,
                     iter=iter-1, time=time, CALL=CALL,
                     description=description )
-    class(res) <- "immer_latent_regression"
+    class(res) <- 'immer_latent_regression'
     return(res)
 }

@@ -1,5 +1,5 @@
 %% File Name: immer_proc_data.Rd
-%% File Version: 0.26
+%% File Version: 0.271
 
 \name{immer_proc_data}
 \alias{immer_proc_data}
@@ -74,8 +74,8 @@ The output of \code{immer_proc_data} is a list with several entries (selection)
 The output of \code{immer_create_design_matrix_formula} is a list with several
 entries (selection)
 
-\code{A}{design matrix}
-\code{itemtable2}{Processed item table}
+\item{A}{design matrix}
+\item{itemtable2}{Processed item table}
 }
 
 

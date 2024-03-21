@@ -1,12 +1,13 @@
 ## File Name: immer_jml.R
-## File Version: 1.011
+## File Version: 1.016
 
 
 immer_jml <- function(dat, A=NULL, maxK=NULL, center_theta=TRUE, b_fixed=NULL,
                 weights=NULL, irtmodel="PCM",
                 pid=NULL, rater=NULL, eps=.3, est_method="eps_adj",
-                maxiter=1000, conv=1E-5, max_incr=3, incr_fac=1.1, maxiter_update=10, maxiter_line_search=6,
-                conv_update=1E-5, verbose=TRUE, use_Rcpp=TRUE, shortcut=TRUE )
+                maxiter=1000, conv=1E-5, max_incr=3, incr_fac=1.1, maxiter_update=10,
+                maxiter_line_search=6, conv_update=1E-5, verbose=TRUE,
+                use_Rcpp=TRUE, shortcut=TRUE )
 {
     time <- list( start=Sys.time() )
     CALL <- match.call()
@@ -43,7 +44,8 @@ immer_jml <- function(dat, A=NULL, maxK=NULL, center_theta=TRUE, b_fixed=NULL,
     bc_adj_fac <- ( I_adj - 1 ) / I_adj
 
     #-- create design matrix if not provided
-    res <- immer_create_design_matrix_A( maxK=maxK, A=A, b_fixed=b_fixed, irtmodel=irtmodel )
+    res <- immer_create_design_matrix_A( maxK=maxK, A=A, b_fixed=b_fixed,
+                        irtmodel=irtmodel )
     A <- res$A
     b_fixed <- res$b_fixed
     irtmodel <- res$irtmodel
@@ -55,18 +57,19 @@ immer_jml <- function(dat, A=NULL, maxK=NULL, center_theta=TRUE, b_fixed=NULL,
 
     eps_adjust_pers <- FALSE
     eps_adjust_item <- FALSE
-    if (est_method=="eps_adj"){
+    if (est_method=='eps_adj'){
         eps_adjust_pers <- TRUE
         eps_adjust_item <- TRUE
     }
 
-    person <- data.frame(index=1:N, sum_score=sumscore_pers, max_pers=max_pers )
+    person <- data.frame(index=1L:N, sum_score=sumscore_pers, max_pers=max_pers )
     if (eps_adjust_pers){
         person$eps <- eps
         max_pers1 <- maxK_M * dat_resp
         person$N_adj <- rowSums( max_pers1 * (max_pers1 + 1 ) / 2 )
         person$eps_i <- person$eps / person$N_adj
-        person$score_pers <- person$eps + ( person$max_pers - 2 * person$eps )/person$max_pers * person$sum_score
+        h1 <- ( person$max_pers - 2 * person$eps )/person$max_pers * person$sum_score
+        person$score_pers <- person$eps + h1
         person$score_pers_adj <- immer_score_person_adjusted( sum_score=person$sum_score,
                                 max_pers=person$max_pers, eps=eps)
 
@@ -79,12 +82,12 @@ immer_jml <- function(dat, A=NULL, maxK=NULL, center_theta=TRUE, b_fixed=NULL,
 
     dat_score <- array( dat_resp * person$eps_i, dim=c(N,I,K+1) )
     dat_score2 <- dat_score
-    for (ii in 1:I){
+    for (ii in 1L:I){
         if (maxK[ii] < K){
             dat_score[,ii, seq(maxK[ii]+2,K+1) ] <- 0
         }
         for (kk in 0:K){
-            dat_add <- ( dat[,ii]==kk ) * ( 1 - person$eps_i * (maxK[ii]+1) ) * dat_resp[,ii]
+            dat_add <- ( dat[,ii]==kk )*( 1 - person$eps_i * (maxK[ii]+1) )*dat_resp[,ii]
             dat_score[,ii,kk+1] <- dat_score[,ii,kk+1] + dat_add
             dat_score2[,ii,kk+1] <- kk*dat_score[,ii,kk+1]
         }
@@ -92,7 +95,7 @@ immer_jml <- function(dat, A=NULL, maxK=NULL, center_theta=TRUE, b_fixed=NULL,
 
     #-- sufficient statistics
     score_pers <- rep(0,N)
-    for (kk in 1:K){
+    for (kk in 1L:K){
         score_pers <- score_pers + kk * rowSums( dat_score[,,kk+1] )
         person$score_pers0 <- score_pers
     }
@@ -100,7 +103,7 @@ immer_jml <- function(dat, A=NULL, maxK=NULL, center_theta=TRUE, b_fixed=NULL,
 
     score_items0 <- matrix( NA, nrow=I, ncol=K)
     score_items <- matrix( NA, nrow=I, ncol=K)
-    for (kk in 1:K){
+    for (kk in 1L:K){
         score_items0[,kk] <- colSums( (dat==kk)*dat_resp*weights, na.rm=TRUE )
         score_items[,kk] <- colSums( dat_score[,,kk+1]*weights, na.rm=TRUE )
     }
@@ -110,7 +113,7 @@ immer_jml <- function(dat, A=NULL, maxK=NULL, center_theta=TRUE, b_fixed=NULL,
     dimA <- dim(A)
     NX <- dim(A)[3]
     ItemScore <- rep(0,NX)
-    for (xx in 1:NX){
+    for (xx in 1L:NX){
         ItemScore[xx] <- sum( A[,,xx] * score_items )
     }
 
@@ -162,9 +165,10 @@ immer_jml <- function(dat, A=NULL, maxK=NULL, center_theta=TRUE, b_fixed=NULL,
         # probs <- res$probs
 
         #** update person parameters
-        args_theta <- list( score_pers=score_pers, I=I, K=K, N=N, theta=theta, b=b, dat_resp=dat_resp,
-                        maxiter_update=maxiter_update, conv_update=conv_update, center_theta=center_theta,
-                        max_incr=max_incr, shortcut_index=shortcut_index )
+        args_theta <- list( score_pers=score_pers, I=I, K=K, N=N, theta=theta,
+                            b=b, dat_resp=dat_resp, maxiter_update=maxiter_update,
+                            conv_update=conv_update, center_theta=center_theta,
+                            max_incr=max_incr, shortcut_index=shortcut_index )
         res <- do.call( what=fct_theta, args=args_theta)
         theta <- res$theta
         theta_der2 <- res$theta_der2
@@ -176,16 +180,18 @@ immer_jml <- function(dat, A=NULL, maxK=NULL, center_theta=TRUE, b_fixed=NULL,
         theta <- theta0 + immer_trim_increment(incr=incr, max_incr=max_incr)
 
         #** calculate log-likelihood
-        loglike <- immer_jml_calc_loglike( dat_score=dat_score, probs=probs, K=K, weights=weights)
+        loglike <- immer_jml_calc_loglike( dat_score=dat_score, probs=probs,
+                                K=K, weights=weights)
         deviance <- -2*loglike
 
         if (verbose){
-            cat("* Iteration ", iter+1,    "\n" )
+            cat('* Iteration ', iter+1,    '\n' )
         }
 
         #--- line search in case of non-decreasing deviance
         if (deviance > deviance0 ){
-            # immer_jml_print_progress_line_search( verbose=verbose, deviance=deviance, digits_deviance=6)
+            # immer_jml_print_progress_line_search( verbose=verbose,
+            #        deviance=deviance, digits_deviance=6)
             lambda <- 1
             lambda_fac <- 2
             xsi_old <- xsi0
@@ -212,10 +218,12 @@ immer_jml <- function(dat, A=NULL, maxK=NULL, center_theta=TRUE, b_fixed=NULL,
                 theta <- res$theta
                 theta_der2 <- res$theta_der2
                 probs <- res$probs
-                loglike <- immer_jml_calc_loglike( dat_score=dat_score, probs=probs, K=K, weights=weights)
+                loglike <- immer_jml_calc_loglike( dat_score=dat_score, probs=probs,
+                                    K=K, weights=weights)
                 deviance <- -2*loglike
                 iter_in <- iter_in + 1
-                # immer_jml_print_progress_line_search( verbose=verbose, deviance=deviance, digits_deviance=6)
+                # immer_jml_print_progress_line_search( verbose=verbose,
+                #            deviance=deviance, digits_deviance=6)
             }
             if (iter_in >=maxiter_ls){
                 xsi <- .5*(xsi_old + xsi)
@@ -244,12 +252,12 @@ immer_jml <- function(dat, A=NULL, maxK=NULL, center_theta=TRUE, b_fixed=NULL,
         deviance_change <- abs(deviance0 - deviance) / abs(deviance)
         if (deviance_change < 1E-12){ iterate <- FALSE }
         if (verbose){
-            v2 <- paste0( " | Deviance change=", round( deviance0 - deviance, 6) )
-            if ( iter==1){ v2 <- "" }
-            v1 <- paste0("  Deviance=", round( deviance, 6 ), v2, "\n",
-                        "    Item parm. change=", round(item_parm_change, 8) )
-            v1 <- paste0( v1, " | Person parm. change=", round(pers_parm_change, 8) )
-            cat(v1, "\n")
+            v2 <- paste0( ' | Deviance change=', round( deviance0 - deviance, 6) )
+            if ( iter==1){ v2 <- '' }
+            v1 <- paste0('  Deviance=', round( deviance, 6 ), v2, '\n',
+                        '    Item parm. change=', round(item_parm_change, 8) )
+            v1 <- paste0( v1, ' | Person parm. change=', round(pers_parm_change, 8) )
+            cat(v1, '\n')
             utils::flush.console()
         }
 
@@ -261,15 +269,15 @@ immer_jml <- function(dat, A=NULL, maxK=NULL, center_theta=TRUE, b_fixed=NULL,
     envir <- environment()
     res <- immer_attach_list_elements(x=parm_minimal, envir=envir)
 
-    if ( est_method !="jml_bc" ){
+    if ( est_method !='jml_bc' ){
         bc_adj_fac <- 1
     }
-    if ( est_method %in% c("jml_bc","eps_adj") ){
+    if ( est_method %in% c('jml_bc','eps_adj') ){
         xsi <- bc_adj_fac * xsi
         b <- immer_jml_calc_item_intercepts(A=A, xsi=xsi, b_fixed=b_fixed)
         args_theta$theta <- theta
         args_theta$b <- b
-        if ( est_method=="eps_adj"){
+        if ( est_method=='eps_adj'){
             args_theta$score_pers <- person$score_pers_adj
         }
         res <- do.call( what=fct_theta, args=args_theta)
@@ -312,28 +320,30 @@ immer_jml <- function(dat, A=NULL, maxK=NULL, center_theta=TRUE, b_fixed=NULL,
 
     #-- item parameters
     rownames(b) <- colnames(dat)
-    colnames(b) <- paste0("Cat", 1:K)
-    item <- data.frame("item"=colnames(dat), "N"=colSums(dat_resp),
-                    "M"=colSums( dat * dat_resp ) / colSums(dat_resp) )
+    colnames(b) <- paste0('Cat', 1L:K)
+    item <- data.frame(item=colnames(dat), N=colSums(dat_resp),
+                        M=colSums(dat * dat_resp) / colSums(dat_resp) )
     item$SD <- colSums( dat^2 * dat_resp ) / colSums(dat_resp)
     item$SD <- sqrt( item$SD - item$M^2 )
     item <- data.frame( item, b )
     names(xsi) <- dimnames(A)[[3]]
-    xsi_dfr <- data.frame("par"=names(xsi), "est"=xsi, "se"=xsi_se )
+    xsi_dfr <- data.frame(par=names(xsi), est=xsi, se=xsi_se )
 
     #--- output
     time$end <- Sys.time()
     time$diff <- time$end - time$start
     res <- list( b=b, item=item, theta=theta, theta_se=theta_se, xsi=xsi,
                 xsi_se=xsi_se, xsi_dfr=xsi_dfr, probs=probs, person=person,
-                person_desc=person_desc, shortcut_index=shortcut_index, pid=pid, dat=dat,
-                dat_score=dat_score, dat_resp=dat_resp, score_pers=score_pers,
-                score_items=score_items, eps=eps, eps_adjust_pers=eps_adjust_pers, eps=eps,
-                eps_adjust_item=eps_adjust_item, est_method=est_method, A=A, b_fixed=b_fixed,
-                bc_adj_fac=bc_adj_fac, irtmodel=irtmodel, iter=iter, iter_opt=iter_opt,
-                loglike=loglike, deviance=deviance, ic=ic, deviance.history=deviance.history,
+                person_desc=person_desc, shortcut_index=shortcut_index,
+                pid=pid, dat=dat, dat_score=dat_score, dat_resp=dat_resp,
+                score_pers=score_pers, score_items=score_items, eps=eps,
+                eps_adjust_pers=eps_adjust_pers, eps=eps,
+                eps_adjust_item=eps_adjust_item, est_method=est_method, A=A,
+                b_fixed=b_fixed, bc_adj_fac=bc_adj_fac, irtmodel=irtmodel,
+                iter=iter, iter_opt=iter_opt, loglike=loglike, deviance=deviance,
+                ic=ic, deviance.history=deviance.history,
                 pseudoitems_design=pseudoitems_design, CALL=CALL, time=time )
-    res$description <- "Function immer_jml() | Joint maximum likelihood estimation"
-    class(res) <- "immer_jml"
+    res$description <- 'Function immer_jml() | Joint maximum likelihood estimation'
+    class(res) <- 'immer_jml'
     return(res)
 }

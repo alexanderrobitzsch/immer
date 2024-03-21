@@ -1,5 +1,5 @@
 ## File Name: immer_cmml.R
-## File Version: 0.303
+## File Version: 0.304
 
 
 immer_cmml <- function( suff_stat, cpml_design, control=NULL )
@@ -14,10 +14,10 @@ immer_cmml <- function( suff_stat, cpml_design, control=NULL )
     eps <- 1E-6
 
     #**** attach arguments
-    freq <- as.vector(suff_stat[,"freq"])
-    item_table <- as.matrix(suff_stat[, c("item1","item2","cat1","cat2")])
+    freq <- as.vector(suff_stat[,'freq'])
+    item_table <- as.matrix(suff_stat[, c('item1','item2','cat1','cat2')])
     item_pairs <- as.matrix(suff_stat[ (suff_stat$cat1==0) & (suff_stat$cat2==0),
-                                c("item1", "item2") ])
+                                c('item1', 'item2') ])
 
     LAM_init <- cpml_design$LAM_init
     GAM_init <- cpml_design$GAM_init
@@ -96,7 +96,6 @@ immer_cmml <- function( suff_stat, cpml_design, control=NULL )
                 N_rho=N_rho, N_tau=N_tau, do_log_LAM=do_log_LAM,
                 do_log_GAM=do_log_GAM, do_log_PHI=do_log_PHI, do_log_PSI=do_log_PSI )
 
-
     #**** rearrange objects for output
     cpml_design$W_LAM <- W_LAM
     cpml_design$W_GAM <- W_GAM
@@ -106,10 +105,10 @@ immer_cmml <- function( suff_stat, cpml_design, control=NULL )
     #--- output
     time$end <- Sys.time()
     time$diff <- time$end - time$start
-    description <- "Composite Marginal Maximum Likelihood Estimation"
+    description <- 'Composite Marginal Maximum Likelihood Estimation'
     res <- list( suff_stat=suff_stat, cpml_design=cpml_design,
                     time=time, CALL=CALL, description=description)
-    class(res) <- "immer_cmml"
+    class(res) <- 'immer_cmml'
     return(res)
 }
 

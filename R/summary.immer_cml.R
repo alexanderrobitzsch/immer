@@ -1,5 +1,5 @@
 ## File Name: summary.immer_cml.R
-## File Version: 0.18
+## File Version: 0.192
 
 
 #*******************************************************
@@ -54,11 +54,13 @@ summary.immer_cml <- function( object, digits=3, file=NULL, ... )
 
     cat("-----------------------------------------------------------------\n")
     cat("Item-Category Parameters \n")
-    immer_summary_print_objects(obji=object$item, from=2, digits=digits, rownames_null=TRUE)
+    immer_summary_print_objects(obji=object$item, from=2, digits=digits,
+                rownames_null=TRUE)
 
     cat("-----------------------------------------------------------------\n")
     cat("Estimated Basis Parameters \n")
-    immer_summary_print_objects(obji=object$par_summary, from=2, digits=digits, rownames_null=TRUE)
+    immer_summary_print_objects(obji=object$par_summary, from=2, digits=digits,
+                rownames_null=TRUE)
 
     #-- close sink
     immer_csink( file=file )

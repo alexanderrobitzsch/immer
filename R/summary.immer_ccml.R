@@ -1,5 +1,5 @@
 ## File Name: summary.immer_ccml.R
-## File Version: 0.08
+## File Version: 0.092
 
 
 #*******************************************************
@@ -42,11 +42,13 @@ summary.immer_ccml <- function( object, digits=3, file=NULL, ... )
 
     cat("-----------------------------------------------------------------\n")
     cat("Item Parameters \n")
-    immer_summary_print_objects(obji=object$item, from=2, digits=digits, rownames_null=TRUE)
+    immer_summary_print_objects(obji=object$item, from=2, digits=digits,
+                    rownames_null=TRUE)
 
     cat("-----------------------------------------------------------------\n")
     cat("Basis Item Parameters \n")
-    immer_summary_print_objects(obji=object$xsi_out, from=1, digits=digits, rownames_null=FALSE)
+    immer_summary_print_objects(obji=object$xsi_out, from=1, digits=digits,
+                    rownames_null=FALSE)
 
     #-- close sink
     immer_csink( file=file )

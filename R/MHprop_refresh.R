@@ -1,12 +1,12 @@
 ## File Name: MHprop_refresh.R
-## File Version: 0.16
+## File Version: 0.171
 
 
 MHprop_refresh <- function( MHprop )
 {
     vars <- MHprop$VARS_refreshing
     V <- length(vars)
-    for (vv in 1:V){
+    for (vv in 1L:V){
         var.vv <- vars[vv]
         ri <- MHprop$refresh_iter[[ var.vv ]]
         accept <- MHprop$accept[[ var.vv ]] / MHprop$refresh_iter[[ var.vv ]]

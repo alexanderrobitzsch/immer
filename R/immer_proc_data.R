@@ -1,5 +1,5 @@
 ## File Name: immer_proc_data.R
-## File Version: 0.17
+## File Version: 0.182
 
 immer_proc_data <- function( dat, pid=NULL, rater=NULL, weights=NULL, maxK=NULL)
 {
@@ -9,7 +9,7 @@ immer_proc_data <- function( dat, pid=NULL, rater=NULL, weights=NULL, maxK=NULL)
     N1 <- nrow(dat)
     I <- ncol(dat)
     if (is.null(pid)){
-        pid <- 1:N1
+        pid <- 1L:N1
     }
     if ( is.null(rater) ){
         rater <- rep(0,N1)
@@ -49,8 +49,10 @@ immer_proc_data <- function( dat, pid=NULL, rater=NULL, weights=NULL, maxK=NULL)
     }
     #-- pseudoitems_design
     res$pseudoitems_design <- list( dataproc.vars=res$dataproc.vars,
-                                person.index=res$person.index, rater.index=res$rater.index,
-                                maxK=res$maxK, K=res$K, is_rating_data=res$is_rating_data )
+                                person.index=res$person.index,
+                                rater.index=res$rater.index,
+                                maxK=res$maxK, K=res$K,
+                                is_rating_data=res$is_rating_data )
 
     #-- create item table
     pseudoitems_design <- res$pseudoitems_design

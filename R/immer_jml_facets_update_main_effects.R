@@ -1,5 +1,5 @@
 ## File Name: immer_jml_facets_update_main_effects.R
-## File Version: 0.03
+## File Version: 0.05
 
 immer_jml_facets_update_main_effects <- function(parm, des_names1, parm_sign,
     suff_stat, design, N, K, maxcat, is_step, weights, max_incr, center)
@@ -14,7 +14,8 @@ immer_jml_facets_update_main_effects <- function(parm, des_names1, parm_sign,
         score_dd <- suff_stat[[dd]]$score
         design_dd <- design[,dd]
         res <- immer_jml_facets_calc_probs( maxcat=maxcat, N=N, K=K, design=design,
-                    des_names1=des_names1, parm=parm, parm_sign=parm_sign, is_step=is_step )
+                    des_names1=des_names1, parm=parm, parm_sign=parm_sign,
+                    is_step=is_step )
         probs <- res$probs
         M <- res$M
         Var <- res$Var

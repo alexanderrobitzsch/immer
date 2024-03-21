@@ -1,5 +1,5 @@
 ## File Name: immer_jml_facets_calc_probs.R
-## File Version: 0.09
+## File Version: 0.104
 
 immer_jml_facets_calc_probs <- function(maxcat, N, K, design, des_names1,
     parm, parm_sign, is_step)
@@ -13,11 +13,11 @@ immer_jml_facets_calc_probs <- function(maxcat, N, K, design, des_names1,
     }
     # add step parameters
     if (is_step){
-        uu <- "step"
+        uu <- 'step'
         des_uu <- design[,uu]
         parm_uu <- parm[[uu]][ des_uu, ] * parm_sign[[ uu ]]
-        for (mm in 1:maxcat){
-            probs[, mm+1] <- probs[, mm+1] + rowSums( parm_uu[, 1:mm, drop=FALSE ] )
+        for (mm in 1L:maxcat){
+            probs[, mm+1] <- probs[, mm+1] + rowSums( parm_uu[, 1L:mm, drop=FALSE ] )
         }
     }
     # compute probabilities

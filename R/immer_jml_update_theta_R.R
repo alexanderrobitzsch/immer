@@ -1,8 +1,8 @@
 ## File Name: immer_jml_update_theta_R.R
-## File Version: 0.30
+## File Version: 0.312
 
-immer_jml_update_theta_R <- function(score_pers, I, K, N, theta, b, dat_resp, maxiter_update,
-    conv_update, center_theta, max_incr, shortcut_index, weights )
+immer_jml_update_theta_R <- function(score_pers, I, K, N, theta, b, dat_resp,
+        maxiter_update, conv_update, center_theta, max_incr, shortcut_index, weights )
 {
     KM <- matrix( 0:K, nrow=N, ncol=K+1, byrow=TRUE )
     iterate <- TRUE
@@ -13,7 +13,7 @@ immer_jml_update_theta_R <- function(score_pers, I, K, N, theta, b, dat_resp, ma
         theta0 <- theta
         der1 <- score_pers
         der2 <- rep(0,N)
-        for (ii in 1:I){
+        for (ii in 1L:I){
             b_ii <- c(0,b[ii,])
             probs_ii <- probs_pcm_one_item(theta=theta, b_ii=b_ii)
             probs[,ii,] <- probs_ii

@@ -1,5 +1,5 @@
 ## File Name: immer_ccml.R
-## File Version: 0.20
+## File Version: 0.212
 
 immer_ccml <- function( dat, weights=NULL, irtmodel="PCM", A=NULL, b_fixed=NULL,
                 control=NULL )
@@ -24,7 +24,7 @@ immer_ccml <- function( dat, weights=NULL, irtmodel="PCM", A=NULL, b_fixed=NULL,
     #-- count frequencies
     dfr <- immer_ccml_proc_freq( dat=dat, dat_resp=dat_resp, K=K, weights=weights )
     dfr <- as.data.frame(dfr)
-    colnames(dfr) <- c("ll_index", "item1", "item2", "score", "cat1", "cat2", "n")
+    colnames(dfr) <- c('ll_index', 'item1', 'item2', 'score', 'cat1', 'cat2', 'n')
     dfr <- dfr[ dfr$ll_index > 0, ]
     sz <- rowsum( dfr$n, dfr$ll_index )
     dfr$ntot <- sz[dfr$ll_index]
@@ -102,19 +102,19 @@ immer_ccml <- function( dat, weights=NULL, irtmodel="PCM", A=NULL, b_fixed=NULL,
 
     #-- output item parameters
     item <- b[,-1,drop=FALSE]
-    colnames(item) <- paste0("Cat", 1:K)
+    colnames(item) <- paste0('Cat', 1L:K)
     M <- colSums( dat * dat_resp * weights ) / colSums( dat_resp * weights )
     item <- data.frame( item=colnames(dat), M=M, item )
 
     #--- output
     time$end <- Sys.time()
     time$diff <- time$end - time$start
-    description <- "Composite Conditional Maximum Likelihood Estimation"
+    description <- 'Composite Conditional Maximum Likelihood Estimation'
     res <- list( coef=coef, vcov=V, se=se, b=b, objective=objective,
                     nlminb_result=nlminb_result, A=A,
                     weights=weights, b_fixed=b_fixed, K=K, maxK=maxK, N=N, W=W,
                     ic=ic, suff_stat=dfr, xsi_out=xsi_out, item=item, time=time,
                     CALL=CALL, description=description)
-    class(res) <- "immer_ccml"
+    class(res) <- 'immer_ccml'
     return(res)
 }

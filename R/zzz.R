@@ -1,5 +1,5 @@
 ## File Name: zzz.R
-## File Version: 0.12
+## File Version: 0.131
 #  zzz.R
 #
 # This function is simply copied from mice package.
@@ -7,13 +7,13 @@
 # on attach immer
 .onAttach <- function(libname,pkgname)
 {
-    d <- utils::packageDescription("immer")
+    d <- utils::packageDescription('immer')
     d1 <- d$Version
     packageStartupMessage(
-        paste("* ",d$Package," ", d1," (",d$Date,")",sep="")  )
+        paste('* ',d$Package,' ', d1,' (',d$Date,')',sep='')  )
 }
 
-version <- function(pkg="immer")
+version <- function(pkg='immer')
 {
     lib <- dirname(system.file(package=pkg))
     d <- utils::packageDescription(pkg)
@@ -21,6 +21,6 @@ version <- function(pkg="immer")
 }
 
 # .First.lib <- function(lib, pkg){
-#          library.dynam("sirt", package=pkg, lib.loc=lib)
+#          library.dynam('sirt', package=pkg, lib.loc=lib)
 #          return(invisible(0))
 #        }

@@ -1,5 +1,5 @@
 ## File Name: loglik_hrm.R
-## File Version: 0.18
+## File Version: 0.191
 
 ##############################################################
 # log likelihood in the HRM
@@ -20,10 +20,10 @@ loglik_hrm <- function( dat, dat_ind, est_pars, theta_like,
     #****
     # log likelihood (based on dyads)
     ll1 <- matrix( 1, nrow=ND, ncol=TP )
-    for (tt in 1:TP){
+    for (tt in 1L:TP){
         theta_tt <- theta_like[tt]
         theta0 <- rep(theta_tt,ND)
-        for (ii in 1:I){
+        for (ii in 1L:I){
             phi_ii <- as.numeric( phi[ii,] )
             psi_ii <- as.numeric( psi[ii,] )
             K_ii <- maxK[ii]

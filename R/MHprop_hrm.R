@@ -1,5 +1,5 @@
 ## File Name: MHprop_hrm.R
-## File Version: 0.13
+## File Version: 0.142
 
 
 ######################################################################
@@ -14,10 +14,10 @@ MHprop_hrm <- function( MHprop, b, a, phi, theta, iter, burnin )
     # Browne and Draper (2006)
     MHprop$refresh_formula <- TRUE
 
-    MHprop$SD <- list( "b"=.4+0*b, "a"=.4 +0*a, "phi"=.2 + 0*phi, "psi"=.4 + 0*psi,
-            "theta"=.5 + 0*theta )
-    MHprop$accept <- list("b"=0 + 0*b, "a"=0 + 0*a, "phi"=0+0*phi,
-                        "psi"=0 + 0*psi, "theta"=0 + 0*theta  )
+    MHprop$SD <- list( 'b'=.4+0*b, 'a'=.4 +0*a, 'phi'=.2 + 0*phi, 'psi'=.4 + 0*psi,
+            'theta'=.5 + 0*theta )
+    MHprop$accept <- list('b'=0 + 0*b, 'a'=0 + 0*a, 'phi'=0+0*phi,
+                        'psi'=0 + 0*psi, 'theta'=0 + 0*theta  )
 
     MHprop$refresh_count$b <- 0
     MHprop$refresh_count$a <- 0
@@ -39,15 +39,15 @@ MHprop_hrm <- function( MHprop, b, a, phi, theta, iter, burnin )
     MHprop$refresh_SDchange$theta <- .05
 
 
-    vars <- c("b","a", "phi", "psi", "theta")
+    vars <- c('b','a', 'phi', 'psi', 'theta')
 
     # compute iterations for which MH updatings must be computed
     refresh_iters <- sort( unique( unlist( MHprop$refresh_iter ) ) )
     RI <- length(refresh_iters)
     v1 <- NULL
-    for (rr in 1:RI){
-        l1 <- ( 1:iter %% refresh_iters[rr] )==0
-        l1 <- (1:iter)[l1]
+    for (rr in 1L:RI){
+        l1 <- (1L:iter %% refresh_iters[rr] )==0
+        l1 <- (1L:iter)[l1]
         v1 <- c( v1, l1 )
     }
     v2 <- sort( unique(v1) )
@@ -55,7 +55,7 @@ MHprop_hrm <- function( MHprop, b, a, phi, theta, iter, burnin )
     MHprop$ITER_refreshing <- v2
 
     # refreshing variables
-    MHprop$VARS_refreshing <- c("b", "phi", "psi", "theta")
+    MHprop$VARS_refreshing <- c('b', 'phi', 'psi', 'theta')
 
     # boundaries for acceptance rates
     MHprop$accept_bounds <- c( .4, .6 )

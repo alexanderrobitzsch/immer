@@ -1,5 +1,5 @@
 ## File Name: sampling_hrm_xi_item.R
-## File Version: 0.16
+## File Version: 0.171
 
 
 ##############################################################
@@ -31,7 +31,6 @@ sampling_hrm_xi_item <- function( x, theta, b, a, phi, psi, K, pid, rater,
         probs1 <- sirt::rowCumsums.sirt(probs)
         xi <- sirt::rowIntervalIndex.sirt(matr=probs1,rn=rn) - 1
     } else {
-        # xi <- .Call("sample_prob_index", as.matrix(probs), rn, PACKAGE="immer")
         xi <- sample_prob_index( as.matrix(probs), rn )
     }
     return(xi)

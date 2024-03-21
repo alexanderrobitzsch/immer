@@ -25,9 +25,9 @@ The CRAN version can be installed from within R using:
 utils::install.packages("immer")
 ```
 
-#### GitHub version `immer` 1.5-1 (2022-08-22)
+#### GitHub version `immer` 1.5-10 (2024-03-21)
 
-[![](https://img.shields.io/badge/github%20version-1.5--1-orange.svg)](https://github.com/alexanderrobitzsch/immer)&#160;&#160;
+[![](https://img.shields.io/badge/github%20version-1.5--10-orange.svg)](https://github.com/alexanderrobitzsch/immer)&#160;&#160;
 
 The version hosted [here](https://github.com/alexanderrobitzsch/immer) is the development version of `immer`. 
 The GitHub version can be installed using `devtools` as:

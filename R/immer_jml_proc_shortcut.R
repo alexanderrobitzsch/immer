@@ -1,16 +1,16 @@
 ## File Name: immer_jml_proc_shortcut.R
-## File Version: 0.14
+## File Version: 0.152
 
 immer_jml_proc_shortcut <- function(dat, pid, shortcut, weights)
 {
     N <- nrow(dat)
     if (is.null(pid)){
-        pid <- 1:N
+        pid <- 1L:N
     }
     if (is.null(weights)){
         weights <- rep(1,N)
     }
-    dfr <- data.frame( orig=1:N, pid=pid, weights=weights)
+    dfr <- data.frame( orig=1L:N, pid=pid, weights=weights)
 
     #-- shortcut
     if (shortcut){
@@ -34,6 +34,7 @@ immer_jml_proc_shortcut <- function(dat, pid, shortcut, weights)
         dfr$update_weights <- 1
     }
     #--- output
-    res <- list( dat=dat, pid=pid, shortcut=shortcut, N=N, shortcut_index=dfr, weights=weights)
+    res <- list( dat=dat, pid=pid, shortcut=shortcut, N=N, shortcut_index=dfr,
+                        weights=weights)
     return(res)
 }

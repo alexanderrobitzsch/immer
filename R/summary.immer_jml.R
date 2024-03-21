@@ -1,5 +1,5 @@
 ## File Name: summary.immer_jml.R
-## File Version: 0.23
+## File Version: 0.242
 
 
 #*******************************************************
@@ -63,11 +63,13 @@ summary.immer_jml <- function( object, digits=3, file=NULL, ... )
 
     cat("-----------------------------------------------------------------\n")
     cat("Item Parameters \n")
-    immer_summary_print_objects(obji=object$item, from=2, digits=digits, rownames_null=TRUE)
+    immer_summary_print_objects(obji=object$item, from=2, digits=digits,
+                rownames_null=TRUE)
 
     cat("-----------------------------------------------------------------\n")
     cat("Basis Item Parameters \n")
-    immer_summary_print_objects(obji=object$xsi_dfr, from=2, digits=digits, rownames_null=TRUE)
+    immer_summary_print_objects(obji=object$xsi_dfr, from=2, digits=digits,
+                rownames_null=TRUE)
 
     #-- close sink
     immer_csink( file=file )

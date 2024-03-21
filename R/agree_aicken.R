@@ -1,8 +1,8 @@
 ## File Name: agree_aicken.R
-## File Version: 0.09
+## File Version: 0.102
 
-#################################
-# algorithm for Aicken's statistic
+
+#--- algorithm for Aicken's statistic
 agree_aicken <- function( PAk, PBk, Pa )
 {
     PAH <- PAk
@@ -26,7 +26,6 @@ agree_aicken <- function( PAk, PBk, Pa )
     # chance agreement
     Pe <- pet
     # output
-    res <- list( "alpha"=alpha, "PAH"=PAH,
-                    "PBH"=PBH, "Pe"=Pe )
+    res <- list( alpha=alpha, PAH=PAH, PBH=PBH, Pe=Pe )
     return(res)
 }

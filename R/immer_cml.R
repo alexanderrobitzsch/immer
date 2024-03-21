@@ -1,5 +1,5 @@
 ## File Name: immer_cml.R
-## File Version: 0.844
+## File Version: 0.846
 
 
 #*** CML function in immer package
@@ -49,7 +49,7 @@ immer_cml <- function( dat, weights=NULL, W=NULL, b_const=NULL,
 
     #*** compute sufficient statistics for missing data patterns
     gr1_list <- list()
-    for (pp in 1:NP){
+    for (pp in 1L:NP){
         W1 <- W[ parm_index[[pp]],, drop=FALSE ]
         gr1_list[[pp]] <- suffstat[[pp]] %*% W1
     }
@@ -61,7 +61,7 @@ immer_cml <- function( dat, weights=NULL, W=NULL, b_const=NULL,
     if (use_rcpp){
         parm_index0 <- parm_index
         splitvec_len <- list()
-        for (pp in 1:NP){
+        for (pp in 1L:NP){
             parm_index0[[pp]] <- parm_index0[[pp]] - 1
             splitvec_len[[pp]] <- as.vector( table(splitvec[[pp]]) )
             gr1_list[[pp]] <- as.vector( gr1_list[[pp]])
@@ -77,7 +77,7 @@ immer_cml <- function( dat, weights=NULL, W=NULL, b_const=NULL,
     } else {
         cloglik <- function (par){
                 esf_par0 <- W %*% par + b_const
-                cll <- sum( unlist( sapply( 1:NP, FUN=function(pp){
+                cll <- sum( unlist( sapply( 1L:NP, FUN=function(pp){
                     esf_par <- esf_par0[ parm_index[[pp]], 1 ]
                     b <- esf_par
                     esf_par <- split(esf_par, splitvec[[pp]] )
@@ -104,7 +104,7 @@ immer_cml <- function( dat, weights=NULL, W=NULL, b_const=NULL,
         ## analytical gradient in R
         agrad <- function(par){
             esf_par0 <- W %*% par + b_const
-            h1 <- sapply( 1:NP, FUN=function(pp){
+            h1 <- sapply( 1L:NP, FUN=function(pp){
                 esf_par <- esf_par0[ parm_index[[pp]], 1 ]
                 esf_par <- split(esf_par, splitvec[[pp]] )
                 esf <- psychotools::elementary_symmetric_functions(par=esf_par,
@@ -127,7 +127,7 @@ immer_cml <- function( dat, weights=NULL, W=NULL, b_const=NULL,
 
     #-----------------
     # optim
-    opt <- stats::optim(par=par_init, fn=cloglik, gr=agrad, method="BFGS",
+    opt <- stats::optim(par=par_init, fn=cloglik, gr=agrad, method='BFGS',
                         hessian=TRUE, ... )
 
     #-----------------
@@ -138,10 +138,10 @@ immer_cml <- function( dat, weights=NULL, W=NULL, b_const=NULL,
 
     item <- matrix( NA, nrow=I, ncol=K )
     item[ cbind( pars_info$itemid, pars_info$cat ) ] <- b
-    colnames(item) <- paste0("Cat", 1:K)
+    colnames(item) <- paste0('Cat', 1L:K)
     item[ item==99 ] <- NA
     # compute item difficulty
-    itemdiff <- item[ cbind(1:I,maxK ) ] / maxK
+    itemdiff <- item[ cbind(1L:I,maxK ) ] / maxK
     M <- colSums( weights * dat, na.rm=TRUE ) /
                     colSums( weights * ( 1 - is.na(dat) ), na.rm=TRUE )
 
@@ -164,6 +164,6 @@ immer_cml <- function( dat, weights=NULL, W=NULL, b_const=NULL,
                 item_index=item_index, score=score, time=time, CALL=CALL,
                 use_rcpp=use_rcpp,
                 description='Conditional Maximum Likelihood Estimation' )
-    class(res) <- "immer_cml"
+    class(res) <- 'immer_cml'
     return(res)
 }

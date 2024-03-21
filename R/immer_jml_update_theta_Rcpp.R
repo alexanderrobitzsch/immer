@@ -1,8 +1,8 @@
 ## File Name: immer_jml_update_theta_Rcpp.R
-## File Version: 0.18
+## File Version: 0.192
 
-immer_jml_update_theta_Rcpp <- function(score_pers, I, K, N, theta, b, dat_resp, maxiter_update,
-    conv_update, center_theta, max_incr, shortcut_index )
+immer_jml_update_theta_Rcpp <- function(score_pers, I, K, N, theta, b, dat_resp,
+        maxiter_update, conv_update, center_theta, max_incr, shortcut_index )
 {
     KM <- matrix( 0:K, nrow=N, ncol=K+1, byrow=TRUE )
     iterate <- TRUE
@@ -11,8 +11,9 @@ immer_jml_update_theta_Rcpp <- function(score_pers, I, K, N, theta, b, dat_resp,
     update <- as.vector(shortcut_index$update)
     while(iterate){
         theta0 <- theta
-        res <- immer_jml_update_theta_derivatives( theta=theta, score_pers=score_pers, N=N, K=K, I=I,
-                        b=b, max_incr=max_incr, dat_resp=dat_resp, update=update)
+        res <- immer_jml_update_theta_derivatives( theta=theta, score_pers=score_pers,
+                        N=N, K=K, I=I, b=b, max_incr=max_incr, dat_resp=dat_resp,
+                        update=update)
         theta <- res$theta
         der2 <- res$der2
         probs <- res$probs

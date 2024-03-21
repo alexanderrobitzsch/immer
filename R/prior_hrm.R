@@ -1,5 +1,5 @@
 ## File Name: prior_hrm.R
-## File Version: 0.20
+## File Version: 0.212
 
 ##########################################################
 # prior distributions for HRM
@@ -30,7 +30,7 @@ prior_hrm <- function( prior, b, a, phi,est_settings, sd_init=1 )
     prior$psi$M <- .4 + 0*psi
     prior$phi$SD <- 10 + 0*phi
     prior$psi$SD <- 10 + 0*psi
-    if ( est.psi=="n" ){
+    if ( est.psi=='n' ){
         prior$psi$M <- 1E-10+ 0*psi
         prior$psi$SD <- 1E-30 +0*psi
     }
@@ -53,12 +53,12 @@ prior_hrm <- function( prior, b, a, phi,est_settings, sd_init=1 )
     # defaults from prior
     if ( ! is.null( prior0 )){
         L1 <- length(prior0)
-        for (vv in 1:L1){
+        for (vv in 1L:L1){
             # vv <- 1
             vv_label <- names(prior0)[vv]
             prior0.vv <- prior0[[vv]]
             L2 <- length( prior0[[vv]])
-            for (zz in 1:L2){
+            for (zz in 1L:L2){
                 zz_label <- names(prior0.vv)[[zz]]
                 prior[[ vv_label ]][[ zz_label ]] <- prior0.vv[[zz]]
             }

@@ -1,5 +1,5 @@
 ## File Name: summary.lc2_agreement.R
-## File Version: 0.11
+## File Version: 0.121
 
 
 #*******************************************************
@@ -78,7 +78,7 @@ summary.lc2_agreement <- function( object, digits=3,... )
 
     obji <- object$parmsummary
     V <- ncol(obji)
-    for (vv in 2:V ){ obji[,vv] <- round( obji[,vv], digits ) }
+    for (vv in 2L:V ){ obji[,vv] <- round( obji[,vv], digits ) }
     rownames(obji) <- NULL
     print(obji)
 }

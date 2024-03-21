@@ -1,5 +1,5 @@
 ## File Name: immer_jml_update_item_R.R
-## File Version: 0.801
+## File Version: 0.803
 
 
 immer_jml_update_item_R <- function( score_items, ItemScore, I, K, b, A, xsi, theta,
@@ -18,15 +18,16 @@ immer_jml_update_item_R <- function( score_items, ItemScore, I, K, b, A, xsi, th
 
     while(iterate){
         b0 <- b
-        for (ii in 1:I){
+        for (ii in 1L:I){
             sc_ii <- score_items[ii,]
             b_ii <- c(0, b[ii,] )
             probs_ii <- probs_pcm_one_item(theta=theta, b_ii=b_ii)
             probs[,ii,] <- probs_ii
             r[ii,] <- colSums( weights * probs_ii * dat_resp[,ii] )[-1]
-            for (kk1 in 1:K){
-                for (kk2 in kk1:K){
-                    rr[ii,kk1,kk2] <- sum( weights * probs_ii[,kk1+1] * probs_ii[,kk2+1] * dat_resp[,ii] )
+            for (kk1 in 1L:K){
+                for (kk2 in kk1L:K){
+                    rr[ii,kk1,kk2] <- sum( weights * probs_ii[,kk1+1] *
+                                            probs_ii[,kk2+1] * dat_resp[,ii] )
                     if (kk1 < kk2){
                         rr[ii,kk2,kk1] <- rr[ii,kk1,kk2]
                     }
@@ -35,12 +36,12 @@ immer_jml_update_item_R <- function( score_items, ItemScore, I, K, b, A, xsi, th
 
         }  # end ii
         A_Sq <- AA_bari <- A_bari <- matrix( 0, nrow=NX, ncol=I )
-        for (kk in 1:K){
+        for (kk in 1L:K){
             A_bari <- A_bari + t( A[, kk, ] * r[, kk ] )
             AA_bari <- AA_bari + t( A[, kk, ]^2 * r[, kk ] )
         }
-        for (kk1 in 1:K){
-            for (kk2 in 1:K){
+        for (kk1 in 1L:K){
+            for (kk2 in 1L:K){
                 A_Sq <- A_Sq + t( A[,kk1,] * A[,kk2,] * rr[, kk1, kk2 ] )
             }
         }

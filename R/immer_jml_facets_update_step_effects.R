@@ -1,28 +1,30 @@
 ## File Name: immer_jml_facets_update_step_effects.R
-## File Version: 0.11
+## File Version: 0.125
 
 immer_jml_facets_update_step_effects <- function(parm, des_names1, parm_sign,
     suff_stat, design, N, K, maxcat, weights, max_incr, center, max_step,
     se, parm_change)
 {
     parm0 <- parm
-    dd <- "step"
+    dd <- 'step'
     parm0_dd <- parm[[dd]]
     parm_sign_dd <- parm_sign[[dd]]
     score_dd <- suff_stat[[dd]]
     design_dd <- design[,dd]
-    for (mm in 1:maxcat){
+    for (mm in 1L:maxcat){
         parm_dd <- parm[[dd]]
-        res <- immer_jml_facets_calc_probs( maxcat=maxcat, N=N, K=K, design=design,
-                        des_names1=des_names1, parm=parm, parm_sign=parm_sign, is_step=TRUE )
+        res <- immer_jml_facets_calc_probs( maxcat=maxcat, N=N, K=K,
+                        design=design, des_names1=des_names1, parm=parm,
+                        parm_sign=parm_sign, is_step=TRUE )
         probs <- res$probs
         M <- res$M
         Var <- res$Var
         se_step <- 0*parm0_dd
         parm_dd <- parm[[dd]]
         p_mm <- probs[,seq(mm+1,maxcat+1),drop=FALSE]
-        d1 <- parm_sign_dd * ( score_dd[,mm] - rowsum( weights * rowSums(p_mm), design_dd )[,1] )
-        d2 <- abs( rowsum( weights * rowSums(p_mm - ( rowSums(p_mm)^2 ) ), design_dd )[,1] )
+        h1 <- rowsum( weights * rowSums(p_mm), design_dd )[,1]
+        d1 <- parm_sign_dd * ( score_dd[,mm] - h1 )
+        d2 <- abs( rowsum( weights * rowSums(p_mm - (rowSums(p_mm)^2)), design_dd )[,1])
         incr <- d1 / d2
         incr <- immer_trim_increment(incr=incr, max_incr=max_incr)
         parm_dd[,mm] <- parm_dd[,mm] + incr

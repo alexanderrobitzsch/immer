@@ -1,9 +1,9 @@
 ## File Name: summary.immer_latent_regression.R
-## File Version: 0.09
+## File Version: 0.102
 
 
 #*******************************************************
-# Summary for immer object
+# summary for immer object
 summary.immer_latent_regression <- function( object, digits=3, file=NULL, ... )
 {
     #-- open sink
@@ -37,11 +37,13 @@ summary.immer_latent_regression <- function( object, digits=3, file=NULL, ... )
 
     cat("-----------------------------------------------------------------\n")
     cat( "Regression coefficients\n" )
-    immer_summary_print_objects(obji=object$beta_stat, from=2, digits=digits, rownames_null=TRUE)
+    immer_summary_print_objects(obji=object$beta_stat, from=2, digits=digits,
+                rownames_null=TRUE)
 
     cat("-----------------------------------------------------------------\n")
     cat( "Standard deviations\n" )
-    immer_summary_print_objects(obji=object$gamma_stat, from=2, digits=digits, rownames_null=TRUE)
+    immer_summary_print_objects(obji=object$gamma_stat, from=2, digits=digits,
+                rownames_null=TRUE)
 
     #-- close sink
     immer_csink( file=file )

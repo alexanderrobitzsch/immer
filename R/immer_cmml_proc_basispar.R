@@ -1,5 +1,5 @@
 ## File Name: immer_cmml_proc_basispar.R
-## File Version: 0.13
+## File Version: 0.142
 
 
 immer_cmml_proc_basispar <- function(LAM_basispar, GAM_basispar, PHI_basispar,
@@ -8,14 +8,14 @@ immer_cmml_proc_basispar <- function(LAM_basispar, GAM_basispar, PHI_basispar,
     basispar <- c(LAM_basispar, GAM_basispar, PHI_basispar, PSI_basispar )
     NB <- length(basispar)
     basispar_design <- matrix( 0, nrow=NB, ncol=4)
-    colnames(basispar_design) <- c("LAM", "GAM", "PHI", "PSI")
+    colnames(basispar_design) <- c('LAM', 'GAM', 'PHI', 'PSI')
     Ntemp <- 0
     vv <- 1
 
     #- LAM
     N_LAM <- length(LAM_basispar)
     if (N_LAM>0){
-        ind <- Ntemp + 1:N_LAM
+        ind <- Ntemp + 1L:N_LAM
         basispar_design[ ind,vv] <- ind
         Ntemp <- Ntemp + N_LAM
     }
@@ -24,7 +24,7 @@ immer_cmml_proc_basispar <- function(LAM_basispar, GAM_basispar, PHI_basispar,
     #- GAM
     N_GAM <-  length(GAM_basispar)
     if (N_GAM>0){
-        ind <- Ntemp + 1:N_GAM
+        ind <- Ntemp + 1L:N_GAM
         basispar_design[ ind,vv] <- ind
         Ntemp <- Ntemp + N_GAM
     }
@@ -33,7 +33,7 @@ immer_cmml_proc_basispar <- function(LAM_basispar, GAM_basispar, PHI_basispar,
     #- PHI
     N_PHI <- length(PHI_basispar)
     if (N_PHI>0){
-        ind <- Ntemp + 1:N_PHI
+        ind <- Ntemp + 1L:N_PHI
         basispar_design[ ind,vv] <- ind
         Ntemp <- Ntemp + N_PHI
     }
@@ -42,7 +42,7 @@ immer_cmml_proc_basispar <- function(LAM_basispar, GAM_basispar, PHI_basispar,
     #- PSI
     N_PSI <- length(PSI_basispar)
     if (N_PSI>0){
-        ind <- Ntemp + 1:N_PSI
+        ind <- Ntemp + 1L:N_PSI
         basispar_design[ ind,vv] <- ind
         Ntemp <- Ntemp + N_PSI
     }

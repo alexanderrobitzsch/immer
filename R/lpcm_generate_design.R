@@ -1,5 +1,5 @@
 ## File Name: lpcm_generate_design.R
-## File Version: 0.19
+## File Version: 0.202
 
 ################################################
 # design matrix LPCM
@@ -12,76 +12,76 @@ lpcm_generate_design <- function( pars_info, irtmodel, W,
     n1 <- nrow(pars_info)
 
     if ( is.null(irtmodel) ){
-        irtmodel <- "PCM"
+        irtmodel <- 'PCM'
     }
     if ( is.null( b_const ) ){
         b_const <- rep( 0, n1 )
     }
 
     pars_info$estpar <- 1
-    if ( nullcats=="zeroprob" ){
+    if ( nullcats=='zeroprob' ){
         pars_info$estpar <- 1*(pars_info$Freq > 0    )
         b_const[ pars_info$estpar==0 ] <- 99
     }
 
     #*********************
-    if ( nullcats !="zeroprob" ){
+    if ( nullcats !='zeroprob' ){
         n2 <- n1
         W <- matrix( 0, nrow=n1, ncol=n2-1)
-        rownames(W) <- paste0( pars_info$item, "_Cat", pars_info$cat )
+        rownames(W) <- paste0( pars_info$item, '_Cat', pars_info$cat )
     }
 
-    if ( nullcats=="zeroprob" ){
+    if ( nullcats=='zeroprob' ){
         n2 <- sum(pars_info$estpar)
         W <- matrix( 0, nrow=n1, ncol=n2-1)
-        rownames(W) <- paste0( pars_info$item, "_Cat", pars_info$cat )
+        rownames(W) <- paste0( pars_info$item, '_Cat', pars_info$cat )
         if ( is.null( b_const ) ){
             b_const[ pars_info$estpar==0 ] <- 99
         }
-        irtmodel <- "PCM"
+        irtmodel <- 'PCM'
     }
 
     #------------------------
-    if (irtmodel=="PCM"){
+    if (irtmodel=='PCM'){
         pinfo2 <- pars_info[ pars_info$estpar==1, ]
         n1 <- nrow(pinfo2)
         n2 <- n1
         index <- pinfo2$index
-        # PCM: normalization="first"
-        if ( normalization=="first" ){
-            W[ cbind( index[2:n1], 1:(n2-1) ) ] <- 1
+        # PCM: normalization='first'
+        if ( normalization=='first' ){
+            W[ cbind( index[2:n1], 1L:(n2-1) ) ] <- 1
             colnames(W) <- rownames(W)[index[-1]    ]
         }
-        # PCM: normalization="sum"
-        if ( normalization=="sum" ){
-            W[ cbind( index[1:(n1-1)], 1:(n1-1) ) ] <- 1
+        # PCM: normalization='sum'
+        if ( normalization=='sum' ){
+            W[ cbind( index[1L:(n1-1)], 1L:(n1-1) ) ] <- 1
             W[ index[n1], ] <- -1
             colnames(W) <- rownames(W)[index[-n1]]
         }
     }
 
     #--------------------------
-    # irtmodel=="PCM2"
-    if (irtmodel=="PCM2" ){
+    # irtmodel=='PCM2'
+    if (irtmodel=='PCM2' ){
         items <- unique( paste(pars_info$item))
         I <- max( pars_info$itemid )
-        colnames(W) <- paste0("w",1:(n1-1))
-        #--- normalization=="first"
-        if ( normalization=="first"){
+        colnames(W) <- paste0('w',1L:(n1-1))
+        #--- normalization=='first'
+        if ( normalization=='first'){
             # items
             p1 <- pars_info[ pars_info$itemid > 1    , ]
             W[ cbind( p1$index, p1$itemid - 1 ) ] <- p1$cat
             colnames(W)[ seq(1, I-1 ) ] <- items[-1]
         }
-        #--- normalization=="sum"
-        if ( normalization=="sum"){
+        #--- normalization=='sum'
+        if ( normalization=='sum'){
             # items
             p1 <- pars_info[ pars_info$itemid < I    , ]
             W[ cbind( p1$index, p1$itemid  ) ] <- p1$cat
             colnames(W)[ seq(1, I-1 ) ] <- items[-I]
             p1b <- pars_info[ pars_info$itemid==I,, drop=FALSE ]
             for ( kk in seq(1,nrow(p1b) ) ){
-                W[ p1b$index[kk], 1:(I-1) ] <- - p1b$cat[kk]
+                W[ p1b$index[kk], 1L:(I-1) ] <- - p1b$cat[kk]
             }
         }
         vv <- I
@@ -91,7 +91,7 @@ lpcm_generate_design <- function( pars_info, irtmodel, W,
         p2$param <- ( p2$param > 0 ) * ( cumsum( p2$param ) + ( vv - 1 ) )
         W[ cbind( p2$index, p2$param ) ] <- 1
         p2a <- p2[ p2$param > 0, ]
-        colnames(W)[ p2a$param ] <- paste0( p2a$item, "_Step", p2a$cat )
+        colnames(W)[ p2a$param ] <- paste0( p2a$item, '_Step', p2a$cat )
     }
 
     if ( ! is.null(W0) ){
@@ -102,7 +102,7 @@ lpcm_generate_design <- function( pars_info, irtmodel, W,
     }
 
     if ( is.null( colnames(W) ) ){
-        colnames(W) <- paste0("par", seq(1,ncol(W)) )
+        colnames(W) <- paste0('par', seq(1,ncol(W)) )
     }
 
     #*********************

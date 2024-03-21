@@ -1,5 +1,5 @@
 ## File Name: immer_jml_update_item_Rcpp.R
-## File Version: 0.463
+## File Version: 0.465
 
 
 immer_jml_update_item_Rcpp <- function( score_items, ItemScore, I, K, b, A, xsi, theta,
@@ -26,9 +26,10 @@ immer_jml_update_item_Rcpp <- function( score_items, ItemScore, I, K, b, A, xsi,
         xsi0 <- xsi
 
         #-- derivatives with respect to b and xsi
-        res <- immer_jml_update_item_derivatives( theta=theta, score_items=score_items, N=N,
-                    K=K, I=I, dat_resp=dat_resp, b=b, A_=A_, xsi=xsi, max_incr=max_incr, b_fixed=b_fixed,
-                    ItemScore=ItemScore, update=update, update_weights=update_weights )
+        res <- immer_jml_update_item_derivatives( theta=theta, score_items=score_items,
+                    N=N, K=K, I=I, dat_resp=dat_resp, b=b, A_=A_, xsi=xsi,
+                    max_incr=max_incr, b_fixed=b_fixed, ItemScore=ItemScore,
+                    update=update, update_weights=update_weights )
         der2_xsi <- res$der2_xsi
         b <- res$b
         xsi <- res$xsi

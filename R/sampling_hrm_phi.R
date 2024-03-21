@@ -1,5 +1,5 @@
 ## File Name: sampling_hrm_phi.R
-## File Version: 0.24
+## File Version: 0.252
 
 ###########################################################
 # sampling phi parameters
@@ -9,28 +9,28 @@ sampling_hrm_phi <- function( dat, dat_ind, maxK, R, rater, pid, phi, psi,
     eps <- 1E-20
     MHprop$refresh_count$phi <- MHprop$refresh_count$phi + 1
     est.phi <- est_settings$est.phi
-    if ( est.phi=="r")
+    if ( est.phi=='r')
     {
         ratio1 <- log( rep(1,R) )
     }
-    if ( est.phi !="n" )
+    if ( est.phi !='n' )
     {
-        for (ii in 1:I)
+        for (ii in 1L:I)
         {
-            if ( est.phi=="a")
+            if ( est.phi=='a')
             {
                 phi_new <- phi_old <- phi
                 phi_new[ii,] <- stats::rnorm( R, mean=phi[ii,],
                                             sd=MHprop$SD$phi[ii,] )
             }
-            if ( ( est.phi=="r" ) & ( ii==1 ) )
+            if ( ( est.phi=='r' ) & ( ii==1 ) )
             {
                 phi_new <- phi_old <- phi
-                phi_new[1:I,] <- matrix( stats::rnorm( R, mean=phi[1,],
+                phi_new[1L:I,] <- matrix( stats::rnorm( R, mean=phi[1,],
                                             sd=MHprop$SD$phi[1,] ),
                                             nrow=I, ncol=R, byrow=TRUE )
             }
-            if ( ( est.phi=="a" ) | ( ii==1 ) )
+            if ( ( est.phi=='a' ) | ( ii==1 ) )
             {
                 p_new <- stats::dnorm( phi_new[ii,], mean=prior$phi$M[ii,],
                                         sd=prior$phi$SD[ii,] )
@@ -54,35 +54,35 @@ sampling_hrm_phi <- function( dat, dat_ind, maxK, R, rater, pid, phi, psi,
             ratio <- immer_sampling_calc_ratio( ll_old=ll_old, ll_new=ll_new,
                             p_old=p_old, p_new=p_new, eps=eps )
 
-            if ( est.phi=="r")
+            if ( est.phi=='r')
             {
                 ratio1 <- log( ratio ) + ratio1
             }
 
             # estimate phi[i,r]
-            if ( est.phi=="a" ){
-                for (rr in 1:R){
+            if ( est.phi=='a' ){
+                for (rr in 1L:R){
                     if( is.na(ratio[rr] ) ){ ratio[rr] <- 0 }
                         if ( ratio[rr] > stats::runif(1) ){
                             MHprop$accept$phi[ii,rr] <- MHprop$accept$phi[ii,rr] + 1
                                     phi[ii,rr] <- phi_new[ii,rr]
                     }
                 }  # end rr
-            }  # end est.phi=="a"
+            }  # end est.phi=='a'
         }  # end ii
         ####****
-        if ( est.phi=="r" ){
-            for (rr in 1:R){
+        if ( est.phi=='r' ){
+            for (rr in 1L:R){
                 ratio[rr] <- exp(ratio1[rr])
                 if( is.na(ratio[rr] ) ){
                     ratio[rr] <- 0
                 }
                 if ( ratio[rr] > stats::runif(1) ){
-                    MHprop$accept$phi[1:I,rr] <- MHprop$accept$phi[1:I,rr] + 1
-                    phi[1:I,rr] <- phi_new[1:I,rr]
+                    MHprop$accept$phi[1L:I,rr] <- MHprop$accept$phi[1L:I,rr] + 1
+                    phi[1L:I,rr] <- phi_new[1L:I,rr]
                 }
             }  # end rr
-        }  # end est.phi=="r"
+        }  # end est.phi=='r'
     }
     res <- list( phi=phi, MHprop=MHprop )
     return(res)
