@@ -58,16 +58,25 @@ https://sites.google.com/site/alexanderrobitzsch/software
 
 
 ------------------------------------------------------------
-VERSIONS immer 1.5  |  2024-03-21  |  Last: immer 1.5-10
+VERSIONS immer 1.6  |  2024-03-21  |  Last: immer 1.6-1
 ------------------------------------------------------------
 
-NOTE  * fixed issue detected by CRAN checks
+XXX   * ---
 
 
 DATA  * included/modified datasets: ---
 EXAMP * included/modified examples: ---
 
 
+
+------------------------------------------------------------
+VERSIONS immer 1.5  |  2024-03-21  |  Last: immer 1.5-13
+------------------------------------------------------------
+
+NOTE  * fixed issue detected by CRAN checks
+
+DATA  * included/modified datasets: ---
+EXAMP * included/modified examples: ---
 
 ------------------------------------------------------------
 VERSIONS immer 1.4  |  2022-08-22  |  Last: immer 1.4-15

@@ -27,7 +27,7 @@ estimation methods, and implementation in R.",
 
 bibentry(bibtype="Manual",
          title = "immer: Item response models for multiple ratings",
-         author = personList(as.person("Alexander Robitzsch"),
+         author = c(as.person("Alexander Robitzsch"),
 			      as.person("Jan Steinfeld")	),
          year = year,
          note = vers,

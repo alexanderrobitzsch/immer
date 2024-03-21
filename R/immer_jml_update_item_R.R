@@ -1,5 +1,5 @@
 ## File Name: immer_jml_update_item_R.R
-## File Version: 0.803
+## File Version: 0.804
 
 
 immer_jml_update_item_R <- function( score_items, ItemScore, I, K, b, A, xsi, theta,
@@ -25,7 +25,7 @@ immer_jml_update_item_R <- function( score_items, ItemScore, I, K, b, A, xsi, th
             probs[,ii,] <- probs_ii
             r[ii,] <- colSums( weights * probs_ii * dat_resp[,ii] )[-1]
             for (kk1 in 1L:K){
-                for (kk2 in kk1L:K){
+                for (kk2 in kk1:K){
                     rr[ii,kk1,kk2] <- sum( weights * probs_ii[,kk1+1] *
                                             probs_ii[,kk2+1] * dat_resp[,ii] )
                     if (kk1 < kk2){
